@@ -13,9 +13,6 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 public class MainActivity extends Activity {
-
-
-
     CarouselView carouselView;
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
 
@@ -23,7 +20,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         carouselView = findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -38,6 +34,4 @@ public class MainActivity extends Activity {
             Toast.makeText(MainActivity.this,"Ảnh thứ "+position,Toast.LENGTH_SHORT).show();
         }
     };
-
-
 }

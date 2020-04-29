@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="3"
+            android:src="@drawable/logo" />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:layoutDirection="rtl" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/category" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mangaTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/mangaThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        app:srcCompat="@drawable/manga2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/authorThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:src="@drawable/author" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Tác giả" />
+
+        <TextView
+            android:id="@+id/authorName"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Đang cập nhật" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/stateThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:src="@drawable/status" />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Tình trạng" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Đang tiến hành" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/genreThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/tag" />
+
+        <TextView
+            android:id="@+id/genre"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Thể loại" />
+
+        <TextView
+            android:id="@+id/genres"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Genre 1 - Genre 2 - Genre 3 - Genre 4 - Genre 5 - Genre 6" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/viewThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/view" />
+
+        <TextView
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="Lượt xem" />
+
+        <TextView
+            android:id="@+id/views"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:text="00.000.000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnFollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Theo dõi" />
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Xem từ đầu" />
+
+        <Button
+            android:id="@+id/btnEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Xem mới nhất" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/contentThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/note" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:paddingTop="5dp"
+            android:layout_weight="2"
+            android:text="NỘI DUNG" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textviewContent"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="TextView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/chapterThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:src="@drawable/list" />
+
+        <TextView
+            android:id="@+id/chapter"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:text="DANH SÁCH CHƯƠNG" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
