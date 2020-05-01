@@ -189,7 +189,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button"
             android:layout_weight="1"
-            android:text="Xem từ đầu" />
+            android:text="Xem từ đầu" 
+            android:onClick="readFromStart"/>
 
         <Button
             android:id="@+id/btnEnd"

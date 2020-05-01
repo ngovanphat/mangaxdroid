@@ -103,7 +103,8 @@
             android:layout_width="50dp"
             android:layout_height="150dp"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:onClick="toInfo">
             <ImageView
                 android:layout_weight="9"
                 android:layout_width="match_parent"

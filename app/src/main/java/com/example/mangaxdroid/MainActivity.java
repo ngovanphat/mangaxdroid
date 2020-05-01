@@ -53,4 +53,8 @@ public class MainActivity extends Activity {
             Toast.makeText(MainActivity.this,"Ảnh thứ "+position,Toast.LENGTH_SHORT).show();
         }
     };
+    public void toInfo(View v){
+        Intent intent = new Intent(MainActivity.this, MangaInfoActivity.class);
+        startActivity(intent);
+    }
 }
