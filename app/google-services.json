@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "543860382039",
+    "firebase_url": "https://mangaxdroid.firebaseio.com",
+    "project_id": "mangaxdroid",
+    "storage_bucket": "mangaxdroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543860382039:android:a9078218020799b8840612",
+        "android_client_info": {
+          "package_name": "com.example.mangaxdroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543860382039-igmv1osmtjplu76kjfi8p6m6mjpknds1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDJqjl-SQE64frqqIVPHsCcCKSKaNFEb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543860382039-igmv1osmtjplu76kjfi8p6m6mjpknds1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
