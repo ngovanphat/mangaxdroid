@@ -3,15 +3,15 @@ package com.example.mangaxdroid;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.Toolbar;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,16 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
-
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends Activity {
+public class MainActivity<DatabaseReference> extends Activity {
     CarouselView carouselView;
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
     ImageView btnViewCategory;
-
-    DatabaseReference databaseReference;
+//    LinearLayout hot;
+    com.google.firebase.database.DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class MainActivity extends Activity {
         String[] categories = getResources().getStringArray(R.array.categories);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-       databaseReference.child("message").addValueEventListener(new ValueEventListener() {
-           @Override
+        databaseReference.child("message").addValueEventListener(new ValueEventListener() {
+            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                Toast.makeText(MainActivity.this,dataSnapshot.toString(),Toast.LENGTH_LONG).show();
            }
@@ -47,28 +47,31 @@ public class MainActivity extends Activity {
            public void onCancelled(@NonNull DatabaseError databaseError) {
 
            }
-       });
-
-
-
+        });
         connectContent();
+
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
 
         btnViewCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CategoriesActivity.class));
+                startActivity(new Intent(MainActivity.this, CategoriesActivity.class));
             }
         });
 
-
+//        hot.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this, MangaInfoActivity.class));
+//            }
+//        });
     }
 
     private void connectContent(){
         carouselView = findViewById(R.id.carouselView);
         btnViewCategory = (ImageView) findViewById(R.id.buttonMenuCategory);
-
+//        hot = (LinearLayout) findViewById(R.id.hot);
     }
 
     ImageListener imageListener = new ImageListener() {
@@ -77,6 +80,7 @@ public class MainActivity extends Activity {
             imageView.setImageResource(sampleImages[position]);
         }
     };
+
     public void toInfo(View v){
         Intent intent = new Intent(MainActivity.this, MangaInfoActivity.class);
         startActivity(intent);

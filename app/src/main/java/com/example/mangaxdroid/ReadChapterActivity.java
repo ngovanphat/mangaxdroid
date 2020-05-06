@@ -1,7 +1,6 @@
 package com.example.mangaxdroid;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,9 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
 
 public class ReadChapterActivity extends Activity {
@@ -64,25 +61,25 @@ public class ReadChapterActivity extends Activity {
             }
         });
     }
+
     public void fetchChapter(String id){
     //TODO fetch from server
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {//TODO finish hiding bottom navigation bar
         super.onTouchEvent(event);
         long startClickTime=0;
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             startClickTime = System.currentTimeMillis();
-
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-
+        }
+        else if (event.getAction() == MotionEvent.ACTION_UP) {
             if (System.currentTimeMillis() - startClickTime < ViewConfiguration.getTapTimeout()) {
-            }else{
+            }
+            else {
                 bottomNav.setVisibility(View.GONE);
             }
-
         }
-
         return true;
     }
 }

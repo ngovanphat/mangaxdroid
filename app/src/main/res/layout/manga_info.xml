@@ -12,6 +12,7 @@
         android:weightSum="10">
 
         <ImageView
+            android:id="@+id/managaInfoMainLogo"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
@@ -25,6 +26,7 @@
             android:layoutDirection="rtl" />
 
         <ImageView
+            android:id="@+id/mangaInfoCategoryLogo"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"

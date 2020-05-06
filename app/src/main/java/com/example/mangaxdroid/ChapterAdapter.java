@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
 
 public class ChapterAdapter extends BaseAdapter {
@@ -33,6 +32,7 @@ public class ChapterAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

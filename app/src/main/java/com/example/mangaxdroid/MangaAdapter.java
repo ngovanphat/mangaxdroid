@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class MangaAdapter extends BaseAdapter {
-
     private Context context;
     private int layout;
     private ArrayList<Manga> listManga;
@@ -44,17 +42,19 @@ public class MangaAdapter extends BaseAdapter {
         ImageView imgManga;
         TextView nameManga;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(layout,null);
             holder.imgManga = (ImageView) convertView.findViewById(R.id.imageviewMangaAvatar);
             holder.nameManga = (TextView) convertView.findViewById(R.id.textviewMangaAvatar);
             convertView.setTag(holder);
-        }else{
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
         Manga manga = listManga.get(position);

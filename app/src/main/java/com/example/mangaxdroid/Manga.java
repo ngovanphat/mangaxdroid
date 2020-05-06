@@ -25,15 +25,7 @@ public class Manga {
         this.chapters = chapters;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Manga(int image, String name){
+    public Manga(int image, String name) {
         this.image=image;
         this.name=name;
         this.author= this.description="";
@@ -42,6 +34,15 @@ public class Manga {
         this.chapters=null;
         this.id=this.viewCount=0;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getImage() {
         return image;
     }
@@ -54,16 +55,16 @@ public class Manga {
         return author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public int getViewCount() {
