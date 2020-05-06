@@ -4,19 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <item
-        android:id="@+id/action_setting"
+        android:id="@+id/action_recents"
         android:enabled="true"
         android:icon="@drawable/setting"
         android:title="Settings"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_chapterList"
+        android:id="@+id/action_favorites"
         android:enabled="true"
         android:icon="@drawable/list_solid"
         android:title="Chapter List"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_bookmark"
+        android:id="@+id/action_nearby"
         android:enabled="true"
         android:icon="@drawable/bookmark_regular"
         android:title="Bookmark"
