@@ -27,7 +27,9 @@ public class ChapterAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return images.length;
+        if(imgURLs.size()<1)
+            return 0;
+        else return imgURLs.size();
     }
 
     @Override
@@ -45,8 +47,8 @@ public class ChapterAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(layout,null);
         ImageView imgv = (ImageView) convertView.findViewById(R.id.mangaPage);
-        imgv.setImageResource(images[position]);
-        //Picasso.get().load(imgURLs.get(position)).into(imgv);
+        //imgv.setImageResource(images[position]);
+        Picasso.get().load(imgURLs.get(position)).into(imgv);
         return convertView;
     }
 }
