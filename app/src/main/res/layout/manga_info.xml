@@ -40,13 +40,14 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:text="TextView" />
+        android:textColor="#ff00ffff"
+        android:text="Võ luyện đỉnh phong" />
 
     <ImageView
         android:id="@+id/mangaThumbnail"
         android:layout_width="match_parent"
-        android:layout_height="181dp"
-        app:srcCompat="@drawable/manga2" />
+        android:layout_height="180dp"
+        android:src="@drawable/manga2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -191,7 +192,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button"
             android:layout_weight="1"
-            android:text="Xem từ đầu" 
+            android:text="Xem từ đầu"
             android:onClick="readFromStart"/>
 
         <Button
@@ -229,7 +230,7 @@
     <TextView
         android:id="@+id/textviewContent"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="30dp"
         android:text="TextView" />
 
     <LinearLayout
@@ -261,7 +262,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/chapterNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -269,14 +269,12 @@
             android:text="Số chương" />
 
         <TextView
-            android:id="@+id/dateUpdate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cập nhật" />
 
         <TextView
-            android:id="@+id/viewCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -284,7 +282,7 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/listViewChapter"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </LinearLayout>
