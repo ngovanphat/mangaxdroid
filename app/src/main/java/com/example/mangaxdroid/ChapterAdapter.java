@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import com.squareup.picasso.Picasso;
 import android.widget.TextView;
 import java.util.List;
 
@@ -13,6 +14,12 @@ public class ChapterAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     int images[];
+    List<String> imgURLs;
+    public ChapterAdapter(Context context, int layout, List<String> imgURLs){
+        this.context = context;
+        this.layout = layout;
+        this.imgURLs=imgURLs;
+    }
     public ChapterAdapter(Context context, int layout, int[] imgs) {
         this.context = context;
         this.layout = layout;
@@ -39,6 +46,7 @@ public class ChapterAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(layout,null);
         ImageView imgv = (ImageView) convertView.findViewById(R.id.mangaPage);
         imgv.setImageResource(images[position]);
+        //Picasso.get().load(imgURLs.get(position)).into(imgv);
         return convertView;
     }
 }

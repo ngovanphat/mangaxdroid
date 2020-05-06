@@ -1,11 +1,13 @@
 package com.example.mangaxdroid;
 
+import java.util.List;
+
 public class Chapter {
     private String name;
     private String date;
     private String view;
     private int id;
-
+    private List<String> pagesURL;
     public Chapter(String name, String date, String view) {
         this.name = name;
         this.date = date;
@@ -42,5 +44,13 @@ public class Chapter {
 
     public void setView(String view) {
         this.view = view;
+    }
+
+    public List<String> getPagesURL() {
+        return pagesURL;
+    }
+
+    public void setPagesURL(List<String> pagesURL) {
+        this.pagesURL = pagesURL;
     }
 }
