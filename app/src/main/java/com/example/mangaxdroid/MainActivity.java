@@ -27,7 +27,6 @@ public class MainActivity<DatabaseReference> extends Activity {
     CarouselView carouselView;
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
     ImageView btnViewCategory;
-//    LinearLayout hot;
     com.google.firebase.database.DatabaseReference databaseReference;
 
     @Override
@@ -59,19 +58,11 @@ public class MainActivity<DatabaseReference> extends Activity {
                 startActivity(new Intent(MainActivity.this, CategoriesActivity.class));
             }
         });
-
-//        hot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, MangaInfoActivity.class));
-//            }
-//        });
     }
 
     private void connectContent(){
         carouselView = findViewById(R.id.carouselView);
         btnViewCategory = (ImageView) findViewById(R.id.buttonMenuCategory);
-//        hot = (LinearLayout) findViewById(R.id.hot);
     }
 
     ImageListener imageListener = new ImageListener() {
