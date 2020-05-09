@@ -34,11 +34,17 @@
 ### Tuần 6: Thiết kế UI
 |   MSSV     | Họ tên           |  Công việc                                                 | Hoàn thành |
 |:----------:|:----------------:|:----------------------------------------------------------:|:----------:|
-| 1753082    | Ngô Văn Phát     | Thiết kế UI Trang chủ, xem danh sách, báo cáo và phân công |  $100%$    |
-| 1753073    | Trương Thuận Nam | Thiết kế UI đọc truyện                                     |  $100%$    |
-| 1753137    | Lê Minh Quân     |  Thiết kế UI xem chi tiết truyện                           |  $100%$    |  
-
+| 1753082    | Ngô Văn Phát     | Thiết kế UI Trang chủ, xem danh sách, báo cáo và phân công |  $ 100% $  |
+| 1753073    | Trương Thuận Nam | Thiết kế UI đọc truyện                                     |  $ 100% $  |
+| 1753137    | Lê Minh Quân     |  Thiết kế UI xem chi tiết truyện                           |  $ 100% $  |  
+### Tuần 7: Tính năng đọc truyện, nghiên cứu Firebase, Storage
+|   MSSV     | Họ tên           |  Công việc                                                 | Hoàn thành |
+|:----------:|:----------------:|:----------------------------------------------------------:|:----------:|
+| 1753082    | Ngô Văn Phát     | Tính năng xem danh sách truyện, báo cáo và phân công       |  $ 100% $  |
+| 1753073    | Trương Thuận Nam | Tính năng đọc truyện, đọc từ đầu và đọc theo chương        |  $ 100% $  |
+| 1753137    | Lê Minh Quân     |  UI Trang đăng ký, Tính năng xem chi tiết truyện           |  $ 100% $  |  
 ## References: 
- 
+https://medium.com/@lobothijau/create-carousel-easily-in-android-app-with-carouselview-6cbf5ef500a9
+
 
 
