@@ -52,17 +52,11 @@ public class MainActivity<DatabaseReference> extends Activity {
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
 
-        btnViewCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CategoriesActivity.class));
-            }
-        });
+
     }
 
     private void connectContent(){
         carouselView = findViewById(R.id.carouselView);
-        btnViewCategory = (ImageView) findViewById(R.id.buttonMenuCategory);
     }
 
     ImageListener imageListener = new ImageListener() {
