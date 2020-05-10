@@ -27,8 +27,7 @@ public class CategoriesActivity extends Activity {
         setContentView(R.layout.activity_categories);
         connectContent();
 
-        mangaAdapter = new MangaAdapter(this,R.layout.manga_avatar,mangaArrayList);
-        gridViewManga.setAdapter(mangaAdapter);
+
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

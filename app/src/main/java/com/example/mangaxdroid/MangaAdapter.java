@@ -5,10 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -17,7 +14,7 @@ public class MangaAdapter extends BaseAdapter {
     private int layout;
     private ArrayList<Manga> listManga;
 
-    public MangaAdapter(Context context,int layout, ArrayList<Manga> listManga) {
+    public MangaAdapter(Context context, int layout, ArrayList<Manga> listManga) {
         this.context = context;
         this.layout=layout;
         this.listManga = listManga;
@@ -41,6 +38,9 @@ public class MangaAdapter extends BaseAdapter {
     private class ViewHolder{
         ImageView imgManga;
         TextView nameManga;
+        TextView categoryManga;
+        TextView seenCount;
+        TextView chapters;
     }
 
     @Override
@@ -51,7 +51,10 @@ public class MangaAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(layout,null);
             holder.imgManga = (ImageView) convertView.findViewById(R.id.imageviewMangaAvatar);
-            holder.nameManga = (TextView) convertView.findViewById(R.id.textviewMangaAvatar);
+            holder.nameManga = (TextView) convertView.findViewById(R.id.textviewMangaNameAvatar);
+            holder.categoryManga = (TextView) convertView.findViewById(R.id.textviewCategoryMangaAvatar);
+            holder.seenCount = (TextView) convertView.findViewById(R.id.textviewCountMangaAvatar);
+            holder.chapters = (TextView) convertView.findViewById(R.id.textviewChapterMangaAvatar);
             convertView.setTag(holder);
         }
         else {
@@ -60,6 +63,8 @@ public class MangaAdapter extends BaseAdapter {
         Manga manga = listManga.get(position);
         holder.imgManga.setImageResource(manga.getImage());
         holder.nameManga.setText(manga.getName());
+        //holder.seenCount.setText(manga.getViewCount());
+//        holder.chapters.setText(manga.getChaptersCount());
         return convertView;
     }
 }

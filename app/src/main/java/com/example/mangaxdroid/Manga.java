@@ -32,7 +32,8 @@ public class Manga {
         this.status=false;
         this.category=null;
         this.chapters=null;
-        this.id=this.viewCount=0;
+        this.id=0;
+        this.viewCount=0;
     }
 
     public String getName() {
@@ -101,6 +102,9 @@ public class Manga {
 
     public ArrayList<Chapter> getChapters() {
         return chapters;
+    }
+    public int getChaptersCount(){
+        return chapters.size();
     }
 
     public void setChapters(ArrayList<Chapter> chapters) {
