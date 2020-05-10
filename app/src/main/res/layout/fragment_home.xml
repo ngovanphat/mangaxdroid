@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="9">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/search" />
+            </com.synnapps.carouselview.CarouselView>
+            <TextView
+                android:textSize="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Hi! Bão cập nhật"
+                android:textColor="@color/black" />
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:scrollbars="none">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </HorizontalScrollView>
+            <TextView
+                android:textSize="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Đề Xuất"
+                android:textColor="@color/black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="2">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+                    <ImageView
+                        android:src="@drawable/image_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+                    <TextView
+                        android:textColor="#343839"
+                        android:textSize="10sp"
+                        android:text="Đấu trường chân lý"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+                    <ImageView
+                        android:src="@drawable/image_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+                    <TextView
+                        android:textColor="#343839"
+                        android:textSize="10sp"
+                        android:text="Đấu trường chân lý"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="2">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+                    <ImageView
+                        android:src="@drawable/image_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+                    <TextView
+                        android:textColor="#343839"
+                        android:textSize="10sp"
+                        android:text="Đấu trường chân lý"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+                    <ImageView
+                        android:src="@drawable/image_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+                    <TextView
+                        android:textColor="#343839"
+                        android:textSize="10sp"
+                        android:text="Đấu trường chân lý"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:weightSum="5"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="24dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Truyện mới"
+                    android:textColor="@color/black" />
+                <TextView
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="4"
+                    android:text="Xem thêm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:scrollbars="none">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:weightSum="5"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="24dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Truyện Hot"
+                    android:textColor="@color/black" />
+                <TextView
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="4"
+                    android:text="Xem thêm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:scrollbars="none">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:src="@drawable/manga1"
+                            android:layout_width="200dp"
+                            android:layout_height="180dp"/>
+
+                        <TextView
+                            android:textColor="#343839"
+                            android:textSize="16dp"
+                            android:text="Đấu trường chân lý"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:paddingHorizontal="30dp"
+                    android:padding="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Xem thêm truyện tranh"
+                    android:background="@drawable/btn_custom_main_page"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+</LinearLayout>

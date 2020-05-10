@@ -3,15 +3,23 @@ package com.example.mangaxdroid;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+
+
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,48 +31,46 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity<DatabaseReference> extends Activity {
-    CarouselView carouselView;
-    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
-    ImageView btnViewCategory;
-    com.google.firebase.database.DatabaseReference databaseReference;
+public class MainActivity<DatabaseReference> extends FragmentActivity {
 
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String[] categories = getResources().getStringArray(R.array.categories);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("message").addValueEventListener(new ValueEventListener() {
-            @Override
-           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               Toast.makeText(MainActivity.this,dataSnapshot.toString(),Toast.LENGTH_LONG).show();
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-
-           }
-        });
         connectContent();
-
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(imageListener);
-
-
+        bottomNavigationView.setOnNavigationItemSelectedListener
+                (new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.page_1:
+                                selectedFragment = HomeFragment.newInstance();
+                                break;
+                            case R.id.page_2:
+                                selectedFragment= CategoriesFragment.newInstance();
+                                break;
+                        }
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameMain, selectedFragment);
+                        transaction.commit();
+                        return true;
+                    }
+                });
+        //Manually displaying the first fragment - one time only
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameMain,HomeFragment.newInstance());
+        transaction.commit();
     }
 
     private void connectContent(){
-        carouselView = findViewById(R.id.carouselView);
+     bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.navigationBarMain);
     }
 
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
-        }
-    };
+
 
     public void toInfo(View v){
         Intent intent = new Intent(MainActivity.this, MangaInfoActivity.class);
