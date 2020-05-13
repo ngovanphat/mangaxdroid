@@ -1,10 +1,9 @@
 package com.example.mangaxdroid.object;
 
-import com.example.mangaxdroid.object.Chapter;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Manga {
+public class Manga implements Serializable {
     private int id;
     private String Name;
     private String Author;
@@ -13,10 +12,10 @@ public class Manga {
     private String category;
     private String description;
     private ArrayList<Chapter> chapters;
-    private int image;
+    private String image;
 
     public Manga(){}
-    public Manga(int id,int image,String name,String author, int viewCount, int status, String category, String description) {
+    public Manga(int id, String image, String name, String author, int viewCount, int status, String category, String description) {
         this.id=id;
         this.Name = name;
         this.image=image;
@@ -28,7 +27,7 @@ public class Manga {
         this.chapters = null;
     }
 
-    public Manga(int image, String name) {
+    public Manga(String image, String name) {
         this.image=image;
         this.Name=name;
         this.Author= this.description="";
@@ -47,11 +46,11 @@ public class Manga {
         this.Name = name;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

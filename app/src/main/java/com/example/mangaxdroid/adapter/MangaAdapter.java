@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.object.Manga;
 
@@ -65,7 +66,10 @@ public class MangaAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Manga manga = listManga.get(position);
-        holder.imgManga.setImageResource(manga.getImage());
+        Glide.with(convertView)
+                .load(manga.getImage())
+                .centerCrop()
+                .into(holder.imgManga);
         holder.nameManga.setText(manga.getName());
         holder.categoryManga.setText(manga.getCategory());
         holder.viewCount.setText(String.valueOf(manga.getViewCount()));

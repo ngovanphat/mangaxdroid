@@ -1,6 +1,7 @@
 package com.example.mangaxdroid.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,15 @@ import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class NewCategoryFragment extends Fragment {
     ListView listView;
@@ -24,13 +32,27 @@ public class NewCategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         listView = (ListView) view.findViewById(R.id.listManga);
         mangaArrayList = new ArrayList<>();
-        mangaArrayList.add(new Manga(R.drawable.image_1,"Truyen 1"));
-        mangaArrayList.add(new Manga(R.drawable.image_2,"Truyen 2"));
-        mangaArrayList.add(new Manga(R.drawable.image_3,"Truyen 3"));
-        mangaArrayList.add(new Manga(R.drawable.image_4,"Truyen 4"));
-        mangaArrayList.add(new Manga(R.drawable.image_5,"Truyen 5"));
         adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, mangaArrayList);
         listView.setAdapter(adapter);
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/NewCategory");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mangaArrayList.clear();
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Manga manga = children.getValue(Manga.class);
+                    Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
+                    mangaArrayList.add(manga);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
         return view;
     }
 }
