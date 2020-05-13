@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.object.Chapter;
-
 import java.util.ArrayList;
 
 public class CustomChapterListAdapter extends BaseAdapter {

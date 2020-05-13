@@ -1,48 +1,25 @@
 package com.example.mangaxdroid.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.android.volley.Request;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.RequestBuilder;
-import com.example.mangaxdroid.activity.MainActivity;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.R;
-import com.google.android.gms.auth.api.signin.internal.Storage;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
 import static com.android.volley.VolleyLog.TAG;
 
 public class HotCategoryFragment extends Fragment {
@@ -52,15 +29,10 @@ public class HotCategoryFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       final View view = inflater.inflate(R.layout.fragment_category, container, false);
-       listView = (ListView) view.findViewById(R.id.listManga);
-
-
-
-
-       adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, mangaArrayList);
-       listView.setAdapter(adapter);
-
+        final View view = inflater.inflate(R.layout.fragment_category, container, false);
+        listView = (ListView) view.findViewById(R.id.listManga);
+        adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, mangaArrayList);
+        listView.setAdapter(adapter);
 
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -83,15 +55,14 @@ public class HotCategoryFragment extends Fragment {
             }
         });
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
-               Bundle bundle= new Bundle();
-               Manga manga= mangaArrayList.get(position);
-               bundle.putSerializable("manga",manga);
-               intent.putExtras(bundle);
+                Bundle bundle= new Bundle();
+                Manga manga = mangaArrayList.get(position);
+                bundle.putSerializable("manga",manga);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

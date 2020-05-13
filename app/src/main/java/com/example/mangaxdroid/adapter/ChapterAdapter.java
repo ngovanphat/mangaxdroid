@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
 import com.example.mangaxdroid.R;
 import com.squareup.picasso.Picasso;
 import android.widget.TextView;

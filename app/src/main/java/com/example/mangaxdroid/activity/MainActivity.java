@@ -2,14 +2,12 @@ package com.example.mangaxdroid.activity;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.fragment.CategoriesFragment;
 import com.example.mangaxdroid.fragment.HomeFragment;
@@ -32,7 +30,7 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
                                 selectedFragment = HomeFragment.newInstance();
                                 break;
                             case R.id.page_2:
-                                selectedFragment= CategoriesFragment.newInstance();
+                                selectedFragment = CategoriesFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -48,11 +46,6 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
     }
 
     private void connectContent() {
-     bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigationBarMain);
-    }
-
-    public void toInfo(View v) {
-        Intent intent = new Intent(MainActivity.this, MangaInfoActivity.class);
-        startActivity(intent);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationBarMain);
     }
 }
