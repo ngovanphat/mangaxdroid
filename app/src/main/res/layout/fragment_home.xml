@@ -31,6 +31,7 @@
                     android:layout_marginRight="10dp"
                     android:src="@drawable/search" />
             </com.synnapps.carouselview.CarouselView>
+
             <TextView
                 android:textSize="24dp"
                 android:layout_marginTop="20dp"
@@ -43,28 +44,26 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:scrollbars="none">
-
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:onClick="toInfo">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginLeft="10dp">
                         <ImageView
-                            android:src="@drawable/manga1"
+                            android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp"/>
 
                         <TextView
                             android:textColor="#343839"
                             android:textSize="16dp"
-                            android:text="Đấu trường chân lý"
+                            android:text="Võ luyện đỉnh phong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -154,8 +153,8 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
-
             </HorizontalScrollView>
+
             <TextView
                 android:textSize="24dp"
                 android:layout_marginTop="20dp"
@@ -250,7 +249,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -273,13 +271,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:scrollbars="none">
-
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -370,10 +366,7 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
-
             </HorizontalScrollView>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -397,13 +390,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:scrollbars="none">
-
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -494,17 +485,13 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
-
             </HorizontalScrollView>
-
 
             <RelativeLayout
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
+                android:layout_height="wrap_content">
                 <Button
                     android:paddingHorizontal="30dp"
                     android:padding="20dp"
@@ -514,11 +501,6 @@
                     android:text="Xem thêm truyện tranh"
                     android:background="@drawable/btn_custom_main_page"/>
             </RelativeLayout>
-
         </LinearLayout>
-
-
-
-
     </ScrollView>
 </LinearLayout>

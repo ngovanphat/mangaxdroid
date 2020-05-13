@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -18,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.Toolbar;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity<DatabaseReference> extends FragmentActivity {
-
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +36,7 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         connectContent();
-        bottomNavigationView.setOnNavigationItemSelectedListener
-                (new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         Fragment selectedFragment = null;
@@ -61,18 +56,15 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
                 });
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameMain,HomeFragment.newInstance());
+        transaction.replace(R.id.frameMain, HomeFragment.newInstance());
         transaction.commit();
     }
 
-    private void connectContent(){
-     bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.navigationBarMain);
+    private void connectContent() {
+     bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigationBarMain);
     }
 
-
-
-    public void toInfo(View v){
+    public void toInfo(View v) {
         Intent intent = new Intent(MainActivity.this, MangaInfoActivity.class);
         startActivity(intent);
     }

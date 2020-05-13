@@ -35,7 +35,7 @@ public class MangaAdapter extends BaseAdapter {
         return listManga.get(position).getId();
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         ImageView imgManga;
         TextView nameManga;
         TextView categoryManga;
@@ -64,7 +64,7 @@ public class MangaAdapter extends BaseAdapter {
         holder.imgManga.setImageResource(manga.getImage());
         holder.nameManga.setText(manga.getName());
         //holder.seenCount.setText(manga.getViewCount());
-//        holder.chapters.setText(manga.getChaptersCount());
+        //holder.chapters.setText(manga.getChaptersCount());
         return convertView;
     }
 }

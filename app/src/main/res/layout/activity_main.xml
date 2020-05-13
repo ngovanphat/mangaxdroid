@@ -8,8 +8,6 @@
     tools:context=".MainActivity"
     android:weightSum="10">
 
-
-
   <FrameLayout
       android:id="@+id/frameMain"
       android:layout_weight="9"

@@ -103,6 +103,7 @@ public class Manga {
     public ArrayList<Chapter> getChapters() {
         return chapters;
     }
+
     public int getChaptersCount(){
         return chapters.size();
     }

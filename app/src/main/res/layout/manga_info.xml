@@ -13,25 +13,11 @@
 
         <ImageView
             android:id="@+id/managaInfoMainLogo"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="3"
-            android:src="@drawable/logo" />
-
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:layoutDirection="rtl" />
-
-        <ImageView
-            android:id="@+id/mangaInfoCategoryLogo"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
+            android:layout_width="10dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:src="@drawable/category" />
+            android:src="@drawable/backlogo" />
     </LinearLayout>
 
     <TextView

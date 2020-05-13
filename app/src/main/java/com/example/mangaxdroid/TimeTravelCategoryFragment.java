@@ -8,7 +8,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
-public class ActionCategoryFragment extends Fragment {
+public class TimeTravelCategoryFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> mangaArrayList;
     MangaAdapter adapter;

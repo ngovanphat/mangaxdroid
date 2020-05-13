@@ -8,6 +8,7 @@ public class Chapter {
     private String view;
     private int id;
     private List<String> pagesURL;
+
     public Chapter(String name, String date, String view) {
         this.name = name;
         this.date = date;

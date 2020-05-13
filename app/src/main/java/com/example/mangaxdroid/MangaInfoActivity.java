@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 
 public class MangaInfoActivity extends Activity {
     ImageView managaInfoMainLogo;
-    ImageView mangaInfoCategoryLogo;
     ListView listViewChapter;
     ArrayList<Chapter> listChapter;
     @Override
@@ -37,13 +35,6 @@ public class MangaInfoActivity extends Activity {
                 startActivity(new Intent(MangaInfoActivity.this, MainActivity.class));
             }
         });
-
-        mangaInfoCategoryLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MangaInfoActivity.this, CategoriesActivity.class));
-            }
-        });
     }
 
     public void readFromStart(View view) {
@@ -53,7 +44,6 @@ public class MangaInfoActivity extends Activity {
 
     private void connectContent(){
         managaInfoMainLogo = (ImageView) findViewById(R.id.managaInfoMainLogo);
-        mangaInfoCategoryLogo = (ImageView) findViewById(R.id.mangaInfoCategoryLogo);
 
         listChapter = new ArrayList<>();
         listChapter.add(new Chapter("Chapter 1", "01/01/2020", "123456"));

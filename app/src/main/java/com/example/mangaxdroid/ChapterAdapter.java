@@ -15,16 +15,19 @@ public class ChapterAdapter extends BaseAdapter {
     private int layout;
     int images[];
     List<String> imgURLs;
+
     public ChapterAdapter(Context context, int layout, List<String> imgURLs){
         this.context = context;
         this.layout = layout;
         this.imgURLs=imgURLs;
     }
+
     public ChapterAdapter(Context context, int layout, int[] imgs) {
         this.context = context;
         this.layout = layout;
         this.images = imgs;
     }
+
     @Override
     public int getCount() {
         if(imgURLs.size()<1)

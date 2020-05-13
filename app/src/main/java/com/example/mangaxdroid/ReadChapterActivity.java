@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +68,7 @@ public class ReadChapterActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (lastFirstVisibleItem < firstVisibleItem) {
@@ -84,19 +82,21 @@ public class ReadChapterActivity extends AppCompatActivity {
                 lastFirstVisibleItem = firstVisibleItem;
             }
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if(bottomNav.getVisibility()==View.GONE)
-                {
+                if (bottomNav.getVisibility()==View.GONE) {
                     bottomNav.setVisibility(View.VISIBLE);
                     getSupportActionBar().show();
-                }else {
+                }
+                else {
                     bottomNav.setVisibility(View.GONE);
                     getSupportActionBar().hide();
                 }
             }
         });
+
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -123,6 +123,7 @@ public class ReadChapterActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     public int fetchChapter(String mangaId, final String chapterId){
         //TODO try running
         //dbRef= FirebaseDatabase.getInstance().getReference("temp/chapters/"+chapterId);
@@ -163,7 +164,7 @@ public class ReadChapterActivity extends AppCompatActivity {
         imgURLs.add("https://firebasestorage.googleapis.com/v0/b/mangaxdroid.appspot.com/o/temp%2Fchapters%2Fauto_generated_id%2F1.jpg?alt=media");
         imgURLs.add("https://firebasestorage.googleapis.com/v0/b/mangaxdroid.appspot.com/o/temp%2Fchapters%2Fauto_generated_id%2F2.jpg?alt=media");
         imgURLs.add("https://firebasestorage.googleapis.com/v0/b/mangaxdroid.appspot.com/o/temp%2Fchapters%2Fauto_generated_id%2F3.jpg?alt=media");
-        if(imgURLs==null)
+        if (imgURLs==null)
             return 1;
         else return 0;
     }
