@@ -1,18 +1,25 @@
 package com.example.mangaxdroid.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.example.mangaxdroid.adapter.ChapterAdapter;
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.adapter.ChapterAdapter;
+import com.example.mangaxdroid.fragment.ReadVerticalFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -20,70 +27,47 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadChapterActivity extends AppCompatActivity {
-    ListView listView;
+public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener{
+    FragmentTransaction ft;
+    ReadVerticalFragment readVertical;
     ChapterAdapter chapterAdapter;
     BottomNavigationView bottomNav;
     RelativeLayout layout;
     Toolbar toolbar;
     ActionBar actionBar;
-    List<String> imgURLs=new ArrayList<String>();;
+    List<String> imgURLs=new ArrayList<String>();
+    String chapterName;
+    FrameLayout readerFrame;
     private DatabaseReference dbRef;
-    int[] images= {R.drawable.pg1, R.drawable.pg2, R.drawable.pg3};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_read_chapter);
-        int fl=fetchChapter("abc","auto_generated_id");
-        listView=findViewById(R.id.imgList);
-        if(fl==0)
-            listView.setAdapter(new ChapterAdapter(this,R.layout.chapter_item, imgURLs));
+        readerFrame=findViewById(R.id.readerFrame);
+        //lấy tên & số chap
+        Bundle extras = getIntent().getExtras();
+        if(extras !=null) {
+            chapterName = extras.getString("id")+":"+extras.getString("Name");
+        }
+        ft=getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("mangaID","auto_generated_id");
+        bundle.putString("chapterID","auto_generated_id");
+        readVertical= ReadVerticalFragment.newInstance(bundle);
+        ft.replace(R.id.readerFrame,readVertical);
+        ft.commit();
+
 
         bottomNav=findViewById(R.id.navBar);
-        layout = (RelativeLayout) findViewById(R.id.baseLayout);
+        layout = findViewById(R.id.baseLayout);
 
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         actionBar=getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Chapter x: abc");
-
-        listView.setOnScrollListener(new AbsListView.OnScrollListener(){
-            private int lastFirstVisibleItem;
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (lastFirstVisibleItem < firstVisibleItem) {
-                    bottomNav.setVisibility(View.GONE);
-                    getSupportActionBar().hide();
-                }
-                if (lastFirstVisibleItem > firstVisibleItem) {
-                    bottomNav.setVisibility(View.GONE);
-                    getSupportActionBar().hide();
-                }
-                lastFirstVisibleItem = firstVisibleItem;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if (bottomNav.getVisibility()==View.GONE) {
-                    bottomNav.setVisibility(View.VISIBLE);
-                    getSupportActionBar().show();
-                }
-                else {
-                    bottomNav.setVisibility(View.GONE);
-                    getSupportActionBar().hide();
-                }
-            }
-        });
-
+        bottomNav.setItemIconTintList(null);
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -110,7 +94,6 @@ public class ReadChapterActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     public int fetchChapter(String mangaId, final String chapterId){
         //TODO try running
         //dbRef= FirebaseDatabase.getInstance().getReference("temp/chapters/"+chapterId);
@@ -151,7 +134,7 @@ public class ReadChapterActivity extends AppCompatActivity {
         imgURLs.add("https://firebasestorage.googleapis.com/v0/b/mangaxdroid.appspot.com/o/temp%2Fchapters%2Fauto_generated_id%2F1.jpg?alt=media");
         imgURLs.add("https://firebasestorage.googleapis.com/v0/b/mangaxdroid.appspot.com/o/temp%2Fchapters%2Fauto_generated_id%2F2.jpg?alt=media");
         imgURLs.add("https://firebasestorage.googleapis.com/v0/b/mangaxdroid.appspot.com/o/temp%2Fchapters%2Fauto_generated_id%2F3.jpg?alt=media");
-        if (imgURLs==null)
+        if(imgURLs==null)
             return 1;
         else return 0;
     }
@@ -160,6 +143,34 @@ public class ReadChapterActivity extends AppCompatActivity {
         //TODO upload from res to create storage folders
         //upload drawables for now
         //set urls of images to each chapter
-        //
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageRef.child("images/"+System.currentTimeMillis()+".jpg");
+        //fileRef.putFile();
+
+    }
+
+    @Override
+    public void onListviewScroll(int flag) {
+        if (flag==1) {
+            bottomNav.setVisibility(View.GONE);
+            getSupportActionBar().hide();
+        }
+        if (flag==2) {
+            bottomNav.setVisibility(View.GONE);
+            getSupportActionBar().hide();
+        }
+    }
+
+    @Override
+    public void onListviewClick() {
+        if(bottomNav.getVisibility()==View.GONE)
+        {
+            bottomNav.setVisibility(View.VISIBLE);
+            getSupportActionBar().show();
+        }else {
+            bottomNav.setVisibility(View.GONE);
+            getSupportActionBar().hide();
+        }
     }
 }

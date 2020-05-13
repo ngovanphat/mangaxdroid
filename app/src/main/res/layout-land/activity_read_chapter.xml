@@ -7,19 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".activity.ReadChapterActivity"
     android:clickable="true"
-    android:animateLayoutChanges="true"
-    android:background="@drawable/background_read_chapter"
-    android:tileMode="repeat"
-    android:gravity="clip_horizontal"
-    android:configChanges="orientation|screenSize">
+    android:animateLayoutChanges="true">
 
-    <FrameLayout
-        android:id="@+id/readerFrame"
+    <ListView
+        android:id="@+id/imgList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </FrameLayout>
+        android:layout_height="match_parent">
+    </ListView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBar"
