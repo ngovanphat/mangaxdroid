@@ -1,4 +1,4 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.object.Manga;
+
 import java.util.ArrayList;
 
 public class MangaAdapter extends BaseAdapter {
@@ -39,7 +43,7 @@ public class MangaAdapter extends BaseAdapter {
         ImageView imgManga;
         TextView nameManga;
         TextView categoryManga;
-        TextView seenCount;
+        TextView viewCount;
         TextView chapters;
     }
 
@@ -53,7 +57,7 @@ public class MangaAdapter extends BaseAdapter {
             holder.imgManga = (ImageView) convertView.findViewById(R.id.imageviewMangaAvatar);
             holder.nameManga = (TextView) convertView.findViewById(R.id.textviewMangaNameAvatar);
             holder.categoryManga = (TextView) convertView.findViewById(R.id.textviewCategoryMangaAvatar);
-            holder.seenCount = (TextView) convertView.findViewById(R.id.textviewCountMangaAvatar);
+            holder.viewCount = (TextView) convertView.findViewById(R.id.textviewViewCount);
             holder.chapters = (TextView) convertView.findViewById(R.id.textviewChapterMangaAvatar);
             convertView.setTag(holder);
         }
@@ -63,8 +67,9 @@ public class MangaAdapter extends BaseAdapter {
         Manga manga = listManga.get(position);
         holder.imgManga.setImageResource(manga.getImage());
         holder.nameManga.setText(manga.getName());
-        //holder.seenCount.setText(manga.getViewCount());
-        //holder.chapters.setText(manga.getChaptersCount());
+        holder.categoryManga.setText(manga.getCategory());
+        holder.viewCount.setText(String.valueOf(manga.getViewCount()));
+   //     holder.chapters.setText(manga.getChaptersCount());
         return convertView;
     }
 }

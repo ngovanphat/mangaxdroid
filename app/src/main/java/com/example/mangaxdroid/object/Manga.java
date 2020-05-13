@@ -1,47 +1,50 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.object;
+
+import com.example.mangaxdroid.object.Chapter;
 
 import java.util.ArrayList;
 
 public class Manga {
     private int id;
-    private String author;
+    private String Name;
+    private String Author;
     private int viewCount;
-    private boolean status;
-    private String[] category;
+    private int status;
+    private String category;
     private String description;
     private ArrayList<Chapter> chapters;
     private int image;
-    private String name;
 
-    public Manga(int id,int image,String name,String author, int viewCount, boolean status, String[] category, String description, ArrayList<Chapter> chapters) {
+    public Manga(){}
+    public Manga(int id,int image,String name,String author, int viewCount, int status, String category, String description) {
         this.id=id;
-        this.name = name;
+        this.Name = name;
         this.image=image;
-        this.author = author;
+        this.Author = author;
         this.viewCount = viewCount;
         this.status = status;
         this.category = category;
         this.description = description;
-        this.chapters = chapters;
+        this.chapters = null;
     }
 
     public Manga(int image, String name) {
         this.image=image;
-        this.name=name;
-        this.author= this.description="";
-        this.status=false;
-        this.category=null;
+        this.Name=name;
+        this.Author= this.description="";
+        this.status=0;
+        this.category="";
         this.chapters=null;
         this.id=0;
         this.viewCount=0;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public int getImage() {
@@ -53,11 +56,11 @@ public class Manga {
     }
 
     public String getAuthor() {
-        return author;
+        return Author;
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.Author = author;
     }
 
     public int getId() {
@@ -76,19 +79,19 @@ public class Manga {
         this.viewCount = viewCount;
     }
 
-    public boolean isStatus() {
+    public int isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String[] getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(String[] category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

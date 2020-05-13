@@ -1,4 +1,4 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.object;
 
 import java.util.List;
 

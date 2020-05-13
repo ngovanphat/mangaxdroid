@@ -1,17 +1,20 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.mangaxdroid.object.Manga;
+import com.example.mangaxdroid.adapter.MangaAdapter;
+import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.adapter.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 

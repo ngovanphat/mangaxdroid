@@ -1,4 +1,4 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.example.mangaxdroid.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

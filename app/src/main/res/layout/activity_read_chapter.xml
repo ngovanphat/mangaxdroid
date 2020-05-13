@@ -5,7 +5,7 @@
     android:id="@+id/baseLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReadChapterActivity"
+    tools:context=".activity.ReadChapterActivity"
     android:clickable="true"
     android:animateLayoutChanges="true">
 

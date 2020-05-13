@@ -1,4 +1,4 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import androidx.fragment.app.Fragment;
+
+import com.example.mangaxdroid.object.Manga;
+import com.example.mangaxdroid.adapter.MangaAdapter;
+import com.example.mangaxdroid.R;
+
 import java.util.ArrayList;
 
 public class MythCategoryFragment extends Fragment {

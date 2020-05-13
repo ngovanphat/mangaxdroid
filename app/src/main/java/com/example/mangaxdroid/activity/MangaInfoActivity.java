@@ -1,4 +1,4 @@
-package com.example.mangaxdroid;
+package com.example.mangaxdroid.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.example.mangaxdroid.object.Chapter;
+import com.example.mangaxdroid.adapter.CustomChapterListAdapter;
+import com.example.mangaxdroid.R;
+
 import java.util.ArrayList;
 
 public class MangaInfoActivity extends Activity {
