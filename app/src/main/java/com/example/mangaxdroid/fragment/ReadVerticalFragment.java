@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,33 +34,29 @@ public class ReadVerticalFragment extends Fragment {
     private DatabaseReference dbRef;
     private static String mangaID;
     ListView listView;
-    List<String> imgURLs=new ArrayList<String>();;
+    ArrayList<String> imgURLs=new ArrayList<String>();;
     Activity activity;
     Context context=null;
     private static String chapterID="";
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
-        mangaID=bundle.getString("mangaID");
+        mangaID=bundle.getString("mangaID");//truyen ten manga với chapter id ở đây
         chapterID=bundle.getString("chapterID");
         return fragment;
     }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context=context;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_vertical, container, false);
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
-        int fl=fetchChapter("TRƯỜNG HỌC SIÊU ANH HÙNG","10");
+        imgURLs=fetchChapter("KHI TRÒ CHƠI ÁC MA BẮT ĐẦU","112");
         listView=layout.findViewById(R.id.imgList);
-        if(fl==0)
-            listView.setAdapter(new ChapterAdapter(getActivity(),R.layout.chapter_item, imgURLs));
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             private int lastFirstVisibleItem;
             @Override
@@ -83,17 +81,18 @@ public class ReadVerticalFragment extends Fragment {
         });
         return layout;
     }
-    public int fetchChapter(String mangaName, final String chapterId){
-        Log.d("Fetch chapter","fetching...");
-        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child("TRƯỜNG HỌC SIÊU ANH HÙNG").child(chapterId).child("imageURL");
+    //TODO Loading effect
+    //TODO Error shown by an image(or a button for retry image)
+    public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
+        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId).child("imageURL");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("Fetch chapter",dataSnapshot.getChildrenCount()+" pages found.");
+                ArrayList<String> temp=new ArrayList<String>();
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
-                    Log.d("Fetch chapter","fetching page "+i);
-                    imgURLs.add(dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
-                    Log.d("Fetch chapter","URL: "+dataSnapshot.child(String.valueOf(i)).getValue().toString());
+                    temp.add(i,dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
+                    imgURLs=temp;
+                    listView.setAdapter(new ChapterAdapter(getActivity(),R.layout.chapter_item, imgURLs));
                 }
             }
             @Override
@@ -101,9 +100,7 @@ public class ReadVerticalFragment extends Fragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        if(imgURLs==null)
-            return 1;
-        else return 0;
+        return imgURLs;
     }
     public interface OnListviewListener{
         void onListviewScroll(int flag);
