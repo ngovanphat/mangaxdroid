@@ -1,12 +1,9 @@
 package com.example.mangaxdroid.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,28 +13,21 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
-import com.example.mangaxdroid.object.Chapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ReadVerticalFragment extends Fragment {
+    private static String chapterID;
     private DatabaseReference dbRef;
     private static String mangaID;
     ListView listView;
     ArrayList<String> imgURLs=new ArrayList<String>();;
-    Activity activity;
     Context context=null;
-    private static String chapterID="";
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
         mangaID=bundle.getString("mangaID");//truyen ten manga với chapter id ở đây

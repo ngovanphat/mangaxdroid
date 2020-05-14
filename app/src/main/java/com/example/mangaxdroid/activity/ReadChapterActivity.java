@@ -6,31 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
+import com.example.mangaxdroid.fragment.ReadHorizontalFragment;
 import com.example.mangaxdroid.fragment.ReadVerticalFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener{
+public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener {
     FragmentTransaction ft;
     ReadVerticalFragment readVertical;
-    ChapterAdapter chapterAdapter;
+    ReadHorizontalFragment readHorizontal;
     BottomNavigationView bottomNav;
     RelativeLayout layout;
     Toolbar toolbar;
@@ -49,13 +41,14 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             chapterName = extras.getString("id")+":"+extras.getString("Name");
         }
 
-
         ft=getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putString("mangaID","auto_generated_id");
         bundle.putString("chapterID","auto_generated_id");
         readVertical= ReadVerticalFragment.newInstance(bundle);
-        ft.replace(R.id.readerFrame,readVertical);
+        readHorizontal=ReadHorizontalFragment.newInstance(bundle);
+        //ft.replace(R.id.readerFrame,readVertical);
+        ft.replace(R.id.readerFrame,readHorizontal);
         ft.commit();
 
         bottomNav=findViewById(R.id.navBar);
@@ -108,6 +101,18 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
 
     @Override
     public void onListviewClick() {
+        if(bottomNav.getVisibility()==View.GONE)
+        {
+            bottomNav.setVisibility(View.VISIBLE);
+            getSupportActionBar().show();
+        }else {
+            bottomNav.setVisibility(View.GONE);
+            getSupportActionBar().hide();
+        }
+    }
+
+    @Override
+    public void onViewPagerClick() {
         if(bottomNav.getVisibility()==View.GONE)
         {
             bottomNav.setVisibility(View.VISIBLE);
