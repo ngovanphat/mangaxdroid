@@ -42,8 +42,10 @@ public class CustomChapterListAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(layout,null);
         TextView chapterNo = (TextView) convertView.findViewById(R.id.chapterNo);
         TextView dateUpdate = (TextView) convertView.findViewById(R.id.dateUpdate);
+        TextView viewCount = (TextView) convertView.findViewById(R.id.viewCount);
         chapterNo.setText(listChapter.get(position).getName());
         dateUpdate.setText(listChapter.get(position).getDate());
+        viewCount.setText(listChapter.get(position).getView());
         return convertView;
     }
 }

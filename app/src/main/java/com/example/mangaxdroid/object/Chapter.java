@@ -9,11 +9,6 @@ public class Chapter {
     private int id;
     private List<String> pagesURL;
 
-    public Chapter(String name, String date) {
-        this.name = name;
-        this.date = date;
-    }
-
     public Chapter(String name, String date, String view) {
         this.name = name;
         this.date = date;

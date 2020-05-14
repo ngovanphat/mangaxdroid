@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="vertical">
+    android:layout_height="30dp">
 
     <TextView
         android:id="@+id/chapterNo"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:paddingLeft="10dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
+        android:paddingLeft="5dp"
         android:text="Số chương" />
 
     <TextView
         android:id="@+id/dateUpdate"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:textSize="14sp"
-        android:textColor="@color/gray"
         android:text="Cập nhật" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black"
-        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/viewCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Lượt xem" />
 </LinearLayout>

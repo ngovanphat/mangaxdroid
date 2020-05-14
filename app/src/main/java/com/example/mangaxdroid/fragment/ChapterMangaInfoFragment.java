@@ -43,10 +43,10 @@ public class ChapterMangaInfoFragment extends Fragment {
 
     private void connectContent() {
         listChapter = new ArrayList<>();
-        listChapter.add(new Chapter("1. Chapter 1", "01/01/2020"));
-        listChapter.add(new Chapter("2. Chapter 2", "01/01/2020"));
-        listChapter.add(new Chapter("3. Chapter 3", "01/01/2020"));
-        listChapter.add(new Chapter("4. Chapter 4", "01/01/2020"));
-        listChapter.add(new Chapter("5. Chapter 5", "01/01/2020"));
+        listChapter.add(new Chapter("Chapter 1", "01/01/2020", "123456"));
+        listChapter.add(new Chapter("Chapter 2", "01/01/2020", "123456"));
+        listChapter.add(new Chapter("Chapter 3", "01/01/2020", "123456"));
+        listChapter.add(new Chapter("Chapter 4", "01/01/2020", "123456"));
+        listChapter.add(new Chapter("Chapter 5", "01/01/2020", "123456"));
     }
 }
