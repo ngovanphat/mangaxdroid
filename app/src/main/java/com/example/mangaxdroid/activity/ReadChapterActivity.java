@@ -38,7 +38,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     List<String> imgURLs=new ArrayList<String>();
     String chapterName;
     FrameLayout readerFrame;
-    private DatabaseReference dbRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
