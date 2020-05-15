@@ -1,13 +1,13 @@
 package com.example.mangaxdroid.fragment;
 
 import android.content.Context;
+import android.graphics.RectF;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
+import com.github.chrisbanes.photoview.OnScaleChangedListener;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
+import com.github.chrisbanes.photoview.OnMatrixChangedListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +67,6 @@ public class ReadHorizontalFragment extends Fragment {
     //TODO Loading effect
     //TODO Error shown by an image(or a button for retry image)
     public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
-
         dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId).child("imageURL");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -72,7 +74,6 @@ public class ReadHorizontalFragment extends Fragment {
                 ArrayList<String> temp=new ArrayList<String>();
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                     temp.add(i,dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
-                    Log.d("nameManga",dataSnapshot.child(String.valueOf(i)).getValue().toString());
                     imgURLs=temp;
                     ChapterPagerAdapter pagerAdapter=new ChapterPagerAdapter(getActivity(),imgURLs);
                     viewPager.setAdapter(pagerAdapter);
@@ -112,9 +113,16 @@ public class ReadHorizontalFragment extends Fragment {
 
             View ve = layoutinflater.inflate(R.layout.chapter_item_resizable, null);
 
-            PhotoView photoView =new PhotoView(context);
+            final PhotoView photoView =new PhotoView(context);
             //Picasso.get().load(imgURLs.get(position)).fit().centerCrop().into(photoView);
             Picasso.get().load(imgURLs.get(position)).into(photoView);
+            photoView.setMinimumScale(1);
+            photoView.setOnMatrixChangeListener(new OnMatrixChangedListener() {
+                @Override
+                public void onMatrixChanged(RectF rect) {
+                    photoView.setAllowParentInterceptOnEdge(photoView.getScale() == 1);
+                }
+            });
             photoView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -129,6 +137,7 @@ public class ReadHorizontalFragment extends Fragment {
 
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
+                    photoView.setScale(1);
                     return false;
                 }
             });
