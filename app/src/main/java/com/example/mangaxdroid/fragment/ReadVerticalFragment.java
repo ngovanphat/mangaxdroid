@@ -34,6 +34,7 @@ public class ReadVerticalFragment extends Fragment {
     ListView listView;
     List<String> imgURLs=new ArrayList<String>();;
     Activity activity;
+    ChapterAdapter adapter;
     Context context=null;
     private static String chapterID="";
     public static ReadVerticalFragment newInstance(Bundle bundle) {
@@ -55,10 +56,11 @@ public class ReadVerticalFragment extends Fragment {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_vertical, container, false);
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
-        int fl=fetchChapter("TRƯỜNG HỌC SIÊU ANH HÙNG","10");
+
         listView=layout.findViewById(R.id.imgList);
-        if(fl==0)
-            listView.setAdapter(new ChapterAdapter(getActivity(),R.layout.chapter_item, imgURLs));
+        adapter= new ChapterAdapter(getActivity(),R.layout.chapter_item, imgURLs);
+        listView.setAdapter(adapter);
+        int fl=fetchChapter("KHI TRÒ CHƠI ÁC MA BẮT ĐẦU","116");
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             private int lastFirstVisibleItem;
             @Override
@@ -85,7 +87,7 @@ public class ReadVerticalFragment extends Fragment {
     }
     public int fetchChapter(String mangaName, final String chapterId){
         Log.d("Fetch chapter","fetching...");
-        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child("TRƯỜNG HỌC SIÊU ANH HÙNG").child(chapterId).child("imageURL");
+        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId).child("imageURL");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,8 +95,9 @@ public class ReadVerticalFragment extends Fragment {
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                     Log.d("Fetch chapter","fetching page "+i);
                     imgURLs.add(dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
-                    Log.d("Fetch chapter","URL: "+dataSnapshot.child(String.valueOf(i)).getValue().toString());
+                    Log.d("Fetch chapter","imglen: "+imgURLs.get(i));
                 }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -1,4 +1,4 @@
-package com.example.mangaxdroid.fragment;
+package com.example.mangaxdroid.fragment.categorytab;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import androidx.fragment.app.Fragment;
+
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.R;
@@ -15,10 +16,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+
 import static com.android.volley.VolleyLog.TAG;
 
-public class ActionCategoryFragment extends Fragment {
+public class HorrorCategoryFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> mangaArrayList;
     MangaAdapter adapter;
@@ -37,7 +40,7 @@ public class ActionCategoryFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
-                    Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
+                  //  Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
                     mangaArrayList.add(manga);
                     adapter.notifyDataSetChanged();
                 }

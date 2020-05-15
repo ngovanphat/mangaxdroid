@@ -1,4 +1,4 @@
-package com.example.mangaxdroid.fragment;
+package com.example.mangaxdroid.fragment.categorytab;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import static com.android.volley.VolleyLog.TAG;
 
-public class MythCategoryFragment extends Fragment {
+public class TimeTravelCategoryFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> mangaArrayList;
     MangaAdapter adapter;
@@ -40,7 +40,7 @@ public class MythCategoryFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
-                    Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
+                //    Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
                     mangaArrayList.add(manga);
                     adapter.notifyDataSetChanged();
                 }

@@ -1,4 +1,4 @@
-package com.example.mangaxdroid.fragment;
+package com.example.mangaxdroid.fragment.categorytab;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.mangaxdroid.object.Manga;
@@ -21,26 +22,26 @@ import java.util.ArrayList;
 
 import static com.android.volley.VolleyLog.TAG;
 
-public class TimeTravelCategoryFragment extends Fragment {
+public class NewCategoryFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> mangaArrayList;
     MangaAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         listView = (ListView) view.findViewById(R.id.listManga);
         mangaArrayList = new ArrayList<>();
-
-        adapter= new MangaAdapter(view.getContext(), R.layout.manga_avatar, mangaArrayList);
+        adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, mangaArrayList);
         listView.setAdapter(adapter);
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/NewCategory");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
-                    Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
+               //     Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
                     mangaArrayList.add(manga);
                     adapter.notifyDataSetChanged();
                 }

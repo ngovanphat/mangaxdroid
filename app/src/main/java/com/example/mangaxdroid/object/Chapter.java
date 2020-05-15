@@ -7,8 +7,9 @@ public class Chapter {
     private String date;
     private String view;
     private int id;
-    private List<String> pagesURL;
+    private List<String> imageURL;
 
+    public Chapter(){}
     public Chapter(String name, String date, String view) {
         this.name = name;
         this.date = date;
@@ -48,10 +49,10 @@ public class Chapter {
     }
 
     public List<String> getPagesURL() {
-        return pagesURL;
+        return imageURL;
     }
 
     public void setPagesURL(List<String> pagesURL) {
-        this.pagesURL = pagesURL;
+        this.imageURL = pagesURL;
     }
 }

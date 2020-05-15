@@ -9,6 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.mangaxdroid.fragment.categorytab.ActionCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.AdventureCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.ComedyCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.HorrorCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.HotCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.LoveCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.MythCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.NewCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.ScifiCategoryFragment;
+import com.example.mangaxdroid.fragment.categorytab.TimeTravelCategoryFragment;
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.R;

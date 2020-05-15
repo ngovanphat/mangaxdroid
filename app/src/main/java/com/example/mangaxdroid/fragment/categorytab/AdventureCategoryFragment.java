@@ -1,4 +1,4 @@
-package com.example.mangaxdroid.fragment;
+package com.example.mangaxdroid.fragment.categorytab;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import static com.android.volley.VolleyLog.TAG;
 
-public class ScifiCategoryFragment extends Fragment {
+public class AdventureCategoryFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> mangaArrayList;
     MangaAdapter adapter;
@@ -33,7 +33,6 @@ public class ScifiCategoryFragment extends Fragment {
 
         adapter= new MangaAdapter(view.getContext(), R.layout.manga_avatar, mangaArrayList);
         listView.setAdapter(adapter);
-
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -41,7 +40,7 @@ public class ScifiCategoryFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
-                    Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
+                   // Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
                     mangaArrayList.add(manga);
                     adapter.notifyDataSetChanged();
                 }
