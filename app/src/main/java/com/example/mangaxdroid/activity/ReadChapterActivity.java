@@ -61,7 +61,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         actionBar=getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Chapter x: abc");
+        getSupportActionBar().setTitle("Chapter " + chapterName);
         bottomNav.setItemIconTintList(null);
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
