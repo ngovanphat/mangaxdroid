@@ -1,7 +1,7 @@
 package com.example.mangaxdroid.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,24 +22,19 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChapterAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    int images[];
-    List<String> imgURLs;
+    ArrayList<String> imgURLs;
 
-    public ChapterAdapter(Context context, int layout, List<String> imgURLs){
+    public ChapterAdapter(Context context, int layout, ArrayList<String> imgURLs){
         this.context = context;
         this.layout = layout;
         this.imgURLs=imgURLs;
-    }
-
-    public ChapterAdapter(Context context, int layout, int[] imgs) {
-        this.context = context;
-        this.layout = layout;
-        this.images = imgs;
     }
 
     @Override
@@ -64,22 +59,8 @@ public class ChapterAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(layout,null);
         ImageView imgv = (ImageView) convertView.findViewById(R.id.mangaPage);
-        //imgv.setImageResource(images[position]);
-        Log.d("imgsrc",imgURLs.get(position));
-        final ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progress);
-        Glide.with(convertView.getContext()).load("http://st.truyenchon.com/data/comics/180/the-childrens-teacher-mr-kwon.jpg").listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                progressBar.setVisibility(View.GONE);
-                return false;
-            }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                progressBar.setVisibility(View.GONE);
-                return false;
-            }
-        }).fitCenter().into(imgv);
+        Picasso.get().load(imgURLs.get(position)).into(imgv);
 
         return convertView;
     }
