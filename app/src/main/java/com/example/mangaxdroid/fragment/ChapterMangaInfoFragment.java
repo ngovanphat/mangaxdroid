@@ -66,7 +66,7 @@ public class ChapterMangaInfoFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listChapter.clear();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    listChapter.add(new Chapter("Chapter " + data.getRef().getKey(),"15/05/2020","909"));
+                    listChapter.add(new Chapter(data.getRef().getKey(),"15/05/2020","909"));
                 }
                 adapter.notifyDataSetChanged();
             }
