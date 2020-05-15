@@ -2,6 +2,7 @@ package com.example.mangaxdroid.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,24 +42,43 @@ public class ChapterMangaInfoFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_category, container, false);
-        connectContent();
-
+        listChapter= new ArrayList<>();
         listView = (ListView) view.findViewById(R.id.listManga);
         adapter = new CustomChapterListAdapter(view.getContext(), R.layout.chapter_list_custom_row, listChapter);
+        loadContent(manga.getName());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
+                intent.putExtra("mangaName",manga.getName());
+                intent.putExtra("numberChapter",listChapter.get(position).getName());
                 startActivity(intent);
             }
         });
         return view;
     }
 
+    public void loadContent(String nameManga){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+nameManga);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listChapter.clear();
+                for (DataSnapshot data: dataSnapshot.getChildren()
+                     ) {
+                    listChapter.add(new Chapter(data.getRef().getKey(),"15/05/2020","909"));
+                }
+                adapter.notifyDataSetChanged();
+            }
 
-    private void connectContent() {
-        listChapter = new ArrayList<>();
-        listChapter.add(new Chapter("1","1/1/1","0"));
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
     }
+
+
 }

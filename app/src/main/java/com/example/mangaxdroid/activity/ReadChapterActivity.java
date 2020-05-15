@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -29,6 +32,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     ActionBar actionBar;
     ArrayList<String> imgURLs=new ArrayList<String>();
     String chapterName;
+    String mangaName;
     FrameLayout readerFrame;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +40,14 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         setContentView(R.layout.activity_read_chapter);
         readerFrame=findViewById(R.id.readerFrame);
         //lấy tên & số chap
-        Bundle extras = getIntent().getExtras();
-        if(extras !=null) {
-            chapterName = extras.getString("id")+":"+extras.getString("Name");
-        }
+        Intent intent = getIntent();
+        mangaName = intent.getStringExtra("mangaName");
+        chapterName = intent.getStringExtra("numberChapter");
 
         ft=getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        bundle.putString("mangaID","auto_generated_id");
-        bundle.putString("chapterID","auto_generated_id");
+        bundle.putString("mangaID",mangaName);
+        bundle.putString("chapterID",chapterName);
         readVertical= ReadVerticalFragment.newInstance(bundle);
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
         //ft.replace(R.id.readerFrame,readVertical);

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +49,7 @@ public class ReadVerticalFragment extends Fragment {
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
 
-        imgURLs=fetchChapter("KHI TRÒ CHƠI ÁC MA BẮT ĐẦU","112");
+        imgURLs=fetchChapter(mangaID,chapterID);
         listView=layout.findViewById(R.id.imgList);
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){

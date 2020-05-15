@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -57,12 +58,13 @@ public class ReadHorizontalFragment extends Fragment {
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
         viewPager=layout.findViewById(R.id.viewPager);
-        imgURLs=fetchChapter("KHI TRÒ CHƠI ÁC MA BẮT ĐẦU","112");
+        imgURLs=fetchChapter(mangaID,chapterID);
         return layout;
     }
     //TODO Loading effect
     //TODO Error shown by an image(or a button for retry image)
     public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
+
         dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId).child("imageURL");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,6 +72,7 @@ public class ReadHorizontalFragment extends Fragment {
                 ArrayList<String> temp=new ArrayList<String>();
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                     temp.add(i,dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
+                    Log.d("nameManga",dataSnapshot.child(String.valueOf(i)).getValue().toString());
                     imgURLs=temp;
                     ChapterPagerAdapter pagerAdapter=new ChapterPagerAdapter(getActivity(),imgURLs);
                     viewPager.setAdapter(pagerAdapter);
