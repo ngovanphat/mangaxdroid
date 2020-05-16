@@ -46,17 +46,6 @@
         android:textSize="20sp"
         android:hint="Mật khẩu"/>
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="5dp"
-        android:inputType="textPassword"
-        android:textColorHint="@color/white"
-        android:textSize="20sp"
-        android:hint="Xác nhận mật khẩu"/>
-
     <View
         android:id="@+id/view3"
         android:layout_width="match_parent"
@@ -73,7 +62,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:text="Đăng ký" />
+        android:text="Đăng nhập" />
 
     <Button
         android:id="@+id/button"
@@ -98,4 +87,42 @@
         android:textSize="15sp"
         android:textColor="@color/white"
         android:text="Đăng nhập bằng Google" />
+
+    <TextView
+        android:id="@+id/forgotPW"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:textColor="@color/aqua"
+        android:textAlignment="center"
+        android:text="Quên mật khẩu ?" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
+            android:text="Bạn chưa có tài khoản ?" />
+
+        <TextView
+            android:id="@+id/signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/aqua"
+            android:text="Đăng ký" />
+    </LinearLayout>
+
 </LinearLayout>
