@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.fragment.CategoriesFragment;
 import com.example.mangaxdroid.fragment.HomeFragment;
+import com.example.mangaxdroid.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity<DatabaseReference> extends FragmentActivity {
@@ -31,6 +32,9 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
                                 break;
                             case R.id.page_2:
                                 selectedFragment = CategoriesFragment.newInstance();
+                                break;
+                            case R.id.page_5:
+                                selectedFragment = UserFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
