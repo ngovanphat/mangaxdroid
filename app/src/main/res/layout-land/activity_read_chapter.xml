@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".activity.ReadChapterActivity"
     android:clickable="true"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_read_chapter"
+    android:tileMode="repeat">
 
     <ListView
         android:id="@+id/imgList"
@@ -22,6 +24,8 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/background_bot_read_chap"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        android:layoutMode="opticalBounds"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/reader_bottom_nav" />
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
