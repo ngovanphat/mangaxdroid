@@ -7,10 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -18,11 +22,12 @@ import android.widget.Toast;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
 import com.example.mangaxdroid.fragment.ReadHorizontalFragment;
+import com.example.mangaxdroid.fragment.ReadSettingsFragment;
 import com.example.mangaxdroid.fragment.ReadVerticalFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
-public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener {
+public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener, ReadSettingsFragment.OnReadSettingsListener {
     FragmentTransaction ft;
     ReadVerticalFragment readVertical;
     ReadHorizontalFragment readHorizontal;
@@ -34,6 +39,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     String chapterName;
     String mangaName;
     FrameLayout readerFrame;
+    SharedPreferences sharedPreferences;
+    ReadSettingsFragment settingsFragment;
+    String viewType="Vertical";
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +60,15 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         bundle.putString("chapterID",chapterName);
         readVertical= ReadVerticalFragment.newInstance(bundle);
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
-        //ft.replace(R.id.readerFrame,readVertical);
-        ft.replace(R.id.readerFrame,readHorizontal);
+        ft.replace(R.id.readerFrame,readVertical);
         ft.commit();
+
+        /*final SharedPreferences settings=getSharedPreferences("settings",MODE_PRIVATE);
+        SharedPreferences.Editor edit=settings.edit();
+        viewType="Vertical";
+        edit.putString("viewType",viewType);
+        edit.apply();*/
+
 
         bottomNav=findViewById(R.id.navBar);
         layout = findViewById(R.id.baseLayout);
@@ -68,7 +84,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_setting:
-                        Toast.makeText(ReadChapterActivity.this, "setting", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),viewType,Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("currentViewType",viewType);
+                        settingsFragment= ReadSettingsFragment.newInstance(bundle);
+                        settingsFragment.show(getSupportFragmentManager(),"dialog");
                         break;
                     case R.id.action_chapterList:
                         Toast.makeText(ReadChapterActivity.this, "chapter list", Toast.LENGTH_SHORT).show();
@@ -79,6 +99,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                 return true;
             }
         });
+
     }
 
     @Override
@@ -125,4 +146,21 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             getSupportActionBar().hide();
         }
     }
+
+    @Override
+    public void OnReadSettingsChanged(String setViewType) {
+        if (readHorizontal.isResumed()&&setViewType=="Vertical") {
+            viewType="Vertical";
+            ft=getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.readerFrame,readVertical);
+            ft.commit();
+        }else if(readVertical.isResumed()&&setViewType=="Horizontal")
+        {
+            viewType="Horizontal";
+            ft=getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.readerFrame,readHorizontal);
+            ft.commit();
+        }
+    }
+
 }

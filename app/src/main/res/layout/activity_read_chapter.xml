@@ -17,9 +17,7 @@
         android:id="@+id/readerFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </FrameLayout>
+        android:orientation="vertical"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBar"
@@ -38,4 +36,5 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:visibility="visible" />
+
 </RelativeLayout>
