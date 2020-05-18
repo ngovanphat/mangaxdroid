@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mangaxdroid.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import android.widget.ProgressBar;
@@ -60,7 +61,21 @@ public class ChapterAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(layout,null);
         ImageView imgv = (ImageView) convertView.findViewById(R.id.mangaPage);
 
-        Picasso.get().load(imgURLs.get(position)).into(imgv);
+        final View finalConvertView = convertView;
+        Picasso.get().load(imgURLs.get(position)).into(imgv, new Callback() {
+            @Override
+            public void onSuccess() {
+                ProgressBar progressBar=(ProgressBar) finalConvertView.findViewById(R.id.progress);
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                //TODO add retry button or error image here
+                //.error(R.drawable.error_placeholder_image)
+                //Button retry
+            }
+        });
 
         return convertView;
     }
