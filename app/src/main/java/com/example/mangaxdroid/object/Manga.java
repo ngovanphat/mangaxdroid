@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Manga implements Serializable {
-    private int id;
+    private String id;
     private String Name;
     private String Author;
     private int viewCount;
@@ -15,7 +15,7 @@ public class Manga implements Serializable {
     private String image;
 
     public Manga(){}
-    public Manga(int id, String image, String name, String author, int viewCount, int status, String category, String description) {
+    public Manga(String id, String image, String name, String author, int viewCount, int status, String category, String description) {
         this.id=id;
         this.Name = name;
         this.image=image;
@@ -34,7 +34,7 @@ public class Manga implements Serializable {
         this.status=0;
         this.category="";
         this.chapters=null;
-        this.id=0;
+        this.id="";
         this.viewCount=0;
     }
 
@@ -62,11 +62,11 @@ public class Manga implements Serializable {
         this.Author = author;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

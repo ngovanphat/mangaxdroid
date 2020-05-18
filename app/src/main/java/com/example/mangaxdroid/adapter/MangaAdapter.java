@@ -37,9 +37,11 @@ public class MangaAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
+        return 0;
+    }
+    public String getItemID(int position){
         return listManga.get(position).getId();
     }
-
     private class ViewHolder {
         ImageView imgManga;
         TextView nameManga;

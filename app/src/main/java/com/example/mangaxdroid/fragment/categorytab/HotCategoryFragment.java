@@ -41,8 +41,8 @@ public class HotCategoryFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
-                    manga.setId(Integer.parseInt(children.getKey()));
-                  //  Log.e("manga",children.getKey()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
+                    //manga.setId(children.getKey());
+                   Log.e("manga",children.getKey()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
                     mangaArrayList.add(manga);
                     adapter.notifyDataSetChanged();
                 }
