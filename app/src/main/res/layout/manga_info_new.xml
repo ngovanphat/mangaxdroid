@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.MangaInfoActivity"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarMangaInfo"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/mangaThumbnailNew"
