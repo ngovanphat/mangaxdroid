@@ -90,31 +90,40 @@
 package com.example.mangaxdroid.activity;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import com.bumptech.glide.Glide;
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.activity.useractivity.UserFavoriteListActivity;
 import com.example.mangaxdroid.fragment.MangaInfoFragment;
 import com.example.mangaxdroid.object.Manga;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MangaInfoActivity extends FragmentActivity {
     ImageView image;
     TextView name;
     FrameLayout frame;
+    Context context;
+    BottomNavigationView navigationBarMangaInfo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manga_info_new);
+        context = this.getApplicationContext();
         connectContent();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Manga manga = (Manga) bundle.getSerializable("manga");
+        final Manga manga = (Manga) bundle.getSerializable("manga");
 
         name.setText(manga.getName());
         Glide.with(this)
@@ -128,12 +137,31 @@ public class MangaInfoActivity extends FragmentActivity {
         transaction.commit();
 
         MIF.onMsgFromMainToFragment(manga);
+
+        navigationBarMangaInfo.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_favorites:
+                        Intent intent = new Intent(context, UserFavoriteListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("manga", manga);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        break;
+                    case R.id.action_recents:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void connectContent() {
         name = (TextView) findViewById(R.id.mangaTitleNew);
         image = (ImageView) findViewById(R.id.mangaThumbnailNew);
         frame = (FrameLayout) findViewById(R.id.frameMangaInfo);
+        navigationBarMangaInfo = (BottomNavigationView) findViewById(R.id.navigationBarMangaInfo);
     }
 }
 
