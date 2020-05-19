@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#4B0082"
+        app:tabIndicatorColor="@color/teal"
         app:tabIndicatorHeight="4dp"
-        app:tabTextColor="#4B0082"
+        app:tabTextColor="@color/teal"
         app:tabMode="scrollable"/>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
