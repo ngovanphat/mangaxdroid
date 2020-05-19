@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.useractivity.UserFavoriteListActivity"
     android:orientation="vertical">
 
-    <FrameLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarFavorite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/teal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:text="Danh sách yêu thích" />
-    </FrameLayout>
+        android:layout_height="40dp"
+        android:background="@color/teal"
+        app:title="DANH SÁCH YÊU THÍCH"
+        app:titleMarginStart="40dp"
+        android:foregroundTint="@color/white"
+        app:titleTextColor="@color/white"
+        android:visibility="visible" />
 
     <ListView
         android:id="@+id/listFavorites"

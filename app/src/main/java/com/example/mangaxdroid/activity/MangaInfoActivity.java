@@ -90,9 +90,3 @@ public class MangaInfoActivity extends AppCompatActivity {
         navigationBarMangaInfo = (BottomNavigationView) findViewById(R.id.navigationBarMangaInfo);
     }
 }
-
-
-
-
-
-
