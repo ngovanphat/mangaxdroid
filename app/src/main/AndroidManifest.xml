@@ -13,7 +13,7 @@
 
         <activity android:name=".activity.ReadChapterActivity" />
         <activity android:name=".activity.MangaInfoActivity" />
-        <activity android:name=".CategoriesActivity" />
+        <activity android:name=".activity.useractivity.UserFavoriteListActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

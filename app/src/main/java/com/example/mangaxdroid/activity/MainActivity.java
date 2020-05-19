@@ -4,10 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.fragment.CategoriesFragment;
 import com.example.mangaxdroid.fragment.HomeFragment;
