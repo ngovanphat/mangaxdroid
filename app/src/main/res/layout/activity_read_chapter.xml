@@ -36,5 +36,4 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:visibility="visible" />
-
 </RelativeLayout>
