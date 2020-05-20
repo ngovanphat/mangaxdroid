@@ -33,13 +33,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.android.volley.VolleyLog.TAG;
 
 public class SearchFragment extends Fragment {
 
     private ArrayList<String> key = new ArrayList<>();
+    private HashMap<String,DatabaseReference> idManga = new HashMap<>();
     private List<String> category;
     private ArrayAdapter arrayAdapter;
     private Manga manga;
@@ -118,10 +121,12 @@ public class SearchFragment extends Fragment {
                 for (int i = 0; i < categoryList.length; i++) {
                     key.add(categoryList[i]);
                 }
+                idManga.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     for(DataSnapshot Obj : children.getChildren()){
                         String Name = (String) Obj.child("Name").getValue();
                         key.add(Name);
+                        idManga.put(Name,Obj.getRef());
                     }
                 }
             }
@@ -134,20 +139,12 @@ public class SearchFragment extends Fragment {
         });
     }
     public Manga loadMangaByName(final String Name){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/");
+        DatabaseReference myRef = idManga.get(Name);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                    for(DataSnapshot Obj : children.getChildren()){
-                        String name = (String) Obj.child("Name").getValue();
-                        if(Name.equals(name)){
-                           manga= Obj.getValue(Manga.class);
-                           return;
-                        }
-                    }
+                manga = dataSnapshot.getValue(Manga.class);
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
