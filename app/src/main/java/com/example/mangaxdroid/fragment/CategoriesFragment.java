@@ -28,6 +28,7 @@ import com.example.mangaxdroid.adapter.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
+@SuppressLint("ValidFragment")
 public class CategoriesFragment extends Fragment {
     private FragmentActivity myContext;
     private TabAdapter tabAdapter;
