@@ -1,5 +1,6 @@
 package com.example.mangaxdroid.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -34,10 +35,16 @@ public class CategoriesFragment extends Fragment {
     private ViewPager viewPager;
     private ListView listView;
     private MangaAdapter mangaAdapter;
-    ArrayList<Manga> mangaArrayList;
-    public static CategoriesFragment newInstance(){
-        CategoriesFragment fragment = new CategoriesFragment();
+    private ArrayList<Manga> mangaArrayList;
+    private int SelectedPage = 0;
+    public static CategoriesFragment newInstance(int number){
+        CategoriesFragment fragment = new CategoriesFragment(number);
         return fragment;
+    }
+
+    @SuppressLint("ValidFragment")
+    public CategoriesFragment(int selectedPage) {
+        SelectedPage = selectedPage;
     }
 
     @Override
@@ -70,7 +77,7 @@ public class CategoriesFragment extends Fragment {
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
         //loadPage(0,myContext);
-
+        viewPager.setCurrentItem(SelectedPage);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.fragment.CategoriesFragment;
 import com.example.mangaxdroid.fragment.HomeFragment;
+import com.example.mangaxdroid.fragment.SearchFragment;
 import com.example.mangaxdroid.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,7 +32,10 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
                                 selectedFragment = HomeFragment.newInstance();
                                 break;
                             case R.id.page_2:
-                                selectedFragment = CategoriesFragment.newInstance();
+                                selectedFragment = CategoriesFragment.newInstance(0);
+                                break;
+                            case R.id.page_3:
+                                selectedFragment = SearchFragment.newInstance();
                                 break;
                             case R.id.page_5:
                                 selectedFragment = UserFragment.newInstance();

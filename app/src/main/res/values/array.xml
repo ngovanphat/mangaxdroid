@@ -8,4 +8,16 @@
         <item>Vertical</item>
         <item>Horizontal</item>
     </string-array>
+    <string-array name="categories">
+        <item>Truyện Hot</item>
+        <item>Truyện Mới</item>
+        <item>Hành Động</item>
+        <item>Huyền Huyễn</item>
+        <item>Kinh Dị</item>
+        <item>Tình Yêu</item>
+        <item>Phiêu Lưu</item>
+        <item>Hài Hước</item>
+        <item>Viễn Tưởng</item>
+        <item>Xuyên Không</item>
+    </string-array>
 </resources>
