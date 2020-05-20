@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = myContext.getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameMain, CategoriesFragment.newInstance());
+                transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
                 transaction.commit();
             }
         });
