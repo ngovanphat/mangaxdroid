@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/setting_panel"
+        android:layout_width="326dp"
+        android:layout_height="484dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/layout_rounded_corner"
+        android:orientation="vertical"
+        android:divider="#FF9900">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:text="Chapter List"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_shadow"
+            android:textColor="#050709"
+            android:textStyle="bold"/>
+
+        <ListView
+            android:id="@+id/chapterList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="93"
+            android:scrollbarSize="8dp"
+            android:scrollbarThumbVertical="@drawable/list_custom_scrollbar"/>
+    </LinearLayout>
+
+</RelativeLayout>

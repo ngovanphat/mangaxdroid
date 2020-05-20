@@ -1,8 +1,10 @@
 package com.example.mangaxdroid.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,29 +13,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
+import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class ReadVerticalFragment extends Fragment {
     private static String chapterID;
+    private static Manga manga;
     private DatabaseReference dbRef;
     private static String mangaID;
     ListView listView;
-
     ArrayList<String> imgURLs=new ArrayList<String>();
     Context context=null;
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
-        mangaID=bundle.getString("mangaID");//truyen ten manga với chapter id ở đây
+        manga = (Manga) bundle.getSerializable("manga");
+        mangaID=manga.getName();
         chapterID=bundle.getString("chapterID");
         return fragment;
     }
@@ -51,7 +61,18 @@ public class ReadVerticalFragment extends Fragment {
 
         imgURLs=fetchChapter(mangaID,chapterID);
         listView=layout.findViewById(R.id.imgList);
-
+        final Button btnNext = new Button(context);
+        btnNext.setText("Next chapter");
+        btnNext.setTextColor(ContextCompat.getColor(context, R.color.white));
+        btnNext.getBackground().setAlpha(50);
+        btnNext.setPadding(0, 0, 0, 0);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toNextChapter();
+            }
+        });
+        listView.addFooterView(btnNext);
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             private int lastFirstVisibleItem;
             @Override
@@ -65,7 +86,6 @@ public class ReadVerticalFragment extends Fragment {
                 if (lastFirstVisibleItem > firstVisibleItem) {
                     ((OnListviewListener) context).onListviewScroll(1);
                 }
-                lastFirstVisibleItem = firstVisibleItem;
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,6 +95,49 @@ public class ReadVerticalFragment extends Fragment {
             }
         });
         return layout;
+    }
+
+    private void toNextChapter() {
+        dbRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+mangaID);
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double dif=Double.MAX_VALUE;
+                String nextChapter=chapterID;
+                double cur=Double.parseDouble(chapterID);
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String key = ds.getKey();
+                    double tmpdif = Double.parseDouble(key) - cur;
+                    if (tmpdif > 0 && dif > tmpdif) {
+                        dif = tmpdif;
+                        nextChapter = key;
+                    }
+                }
+                if(!nextChapter.equals(chapterID)){
+                    chapterID=nextChapter;
+                    Toast.makeText(context,"Chapter: "+nextChapter,Toast.LENGTH_SHORT).show();
+                    fetchChapter(mangaID,nextChapter);
+                }else {
+                    Toast.makeText(context,"Reached Last Chapter",Toast.LENGTH_SHORT).show();
+                    String superClass = context.getClass().getSuperclass().getSimpleName();
+                    if(superClass.equals(MangaInfoActivity.class.getName())){
+                        ((OnListviewListener) context).onListviewClick();
+                        ((OnListviewListener) context).onLastChapterClick();
+                    }else{
+                        Intent intent = new Intent(context, MangaInfoActivity.class);
+                        Bundle bundle= new Bundle();
+                        bundle.putSerializable("manga",manga);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        dbRef.onDisconnect();
     }
 
     //TODO Loading effect
@@ -97,10 +160,12 @@ public class ReadVerticalFragment extends Fragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        dbRef.onDisconnect();//disconnect để sang activity khác
         return imgURLs;
     }
     public interface OnListviewListener{
         void onListviewScroll(int flag);
         void onListviewClick();
+        void onLastChapterClick();
     }
 }

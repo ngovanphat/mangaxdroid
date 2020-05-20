@@ -52,7 +52,9 @@ public class ChapterMangaInfoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
-                intent.putExtra("mangaName",manga.getName());
+                Bundle bundle= new Bundle();
+                bundle.putSerializable("manga",manga);
+                intent.putExtras(bundle);
                 intent.putExtra("numberChapter",listChapter.get(position).getName());
                 startActivity(intent);
             }

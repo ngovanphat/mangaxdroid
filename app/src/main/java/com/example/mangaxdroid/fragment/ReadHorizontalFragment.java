@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
+import com.example.mangaxdroid.object.Manga;
 import com.github.chrisbanes.photoview.OnScaleChangedListener;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
@@ -38,13 +39,15 @@ import java.util.ArrayList;
 public class ReadHorizontalFragment extends Fragment {
     private static String chapterID;
     private DatabaseReference dbRef;
+    private static Manga manga;
     private static String mangaID;
     ViewPager viewPager;
     ArrayList<String> imgURLs=new ArrayList<String>();;
     Context context=null;
     public static ReadHorizontalFragment newInstance(Bundle bundle) {
         ReadHorizontalFragment fragment=new ReadHorizontalFragment();
-        mangaID=bundle.getString("mangaID");//truyen ten manga với chapter id ở đây
+        manga = (Manga) bundle.getSerializable("manga");
+        mangaID=manga.getName();
         chapterID=bundle.getString("chapterID");
 
         return fragment;

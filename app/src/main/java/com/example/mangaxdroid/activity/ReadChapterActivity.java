@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.mangaxdroid.adapter.ChapterAdapter;
 import com.example.mangaxdroid.fragment.ReadHorizontalFragment;
 import com.example.mangaxdroid.fragment.ReadSettingsFragment;
 import com.example.mangaxdroid.fragment.ReadVerticalFragment;
+import com.example.mangaxdroid.object.Manga;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
@@ -42,27 +44,30 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     SharedPreferences sharedPreferences;
     ReadSettingsFragment settingsFragment;
     String viewType="Vertical";
-
+    Button nextBtn;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_chapter);
         readerFrame=findViewById(R.id.readerFrame);
+        nextBtn=findViewById(R.id.toolbarbtn);
         //lấy tên & số chap
         Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+        final Manga manga = (Manga) bundle.getSerializable("manga");
         mangaName = intent.getStringExtra("mangaName");
         chapterName = intent.getStringExtra("numberChapter");
 
         ft=getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("mangaID",mangaName);
+        bundle = new Bundle();
+        bundle.putSerializable("manga",manga);
         bundle.putString("chapterID",chapterName);
         readVertical= ReadVerticalFragment.newInstance(bundle);
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
         ft.replace(R.id.readerFrame,readVertical);
         ft.commit();
-
         /*final SharedPreferences settings=getSharedPreferences("settings",MODE_PRIVATE);
         SharedPreferences.Editor edit=settings.edit();
         viewType="Vertical";
@@ -99,9 +104,13 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                 return true;
             }
         });
-
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ReadChapterActivity.this, "Next Chapter", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -133,6 +142,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             bottomNav.setVisibility(View.GONE);
             getSupportActionBar().hide();
         }
+    }
+
+    @Override
+    public void onLastChapterClick() {
+        finish();
     }
 
     @Override
