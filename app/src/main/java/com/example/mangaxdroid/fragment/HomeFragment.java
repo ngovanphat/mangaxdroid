@@ -61,11 +61,7 @@ public class HomeFragment extends Fragment {
             public void run() {
                 Log.d("img", String.valueOf(imgResource.size()));
                 carouselView.setImageListener(imageListener);
-
                 carouselView.setPageCount(imgResource.size());
-
-
-
             }
         }, 5000);
         btnViewMore = (Button) view.findViewById(R.id.btnViewMore);

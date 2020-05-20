@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,8 +88,8 @@ public class SearchFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              String Name = arrayAdapter.getItem(position).toString();
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+              final String Name = arrayAdapter.getItem(position).toString();
               if(category.contains(Name)){
                  int pageSelect =  category.indexOf(Name);
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -96,14 +97,21 @@ public class SearchFragment extends Fragment {
                   transaction.commit();
               }
               else if(key.contains(Name)){
-                  Manga manga = loadMangaByName(Name);
-                  if(manga!=null){
-                  Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
-                  Bundle bundle= new Bundle();
-                  bundle.putSerializable("manga",manga);
-                  intent.putExtras(bundle);
-                  startActivity(intent);
-                  }
+                  final Manga manga = loadMangaByName(Name);
+                  final Handler handler = new Handler();
+                  handler.postDelayed(new Runnable() {
+                      @Override
+                      public void run() {
+                          if(manga!=null&&manga.getName().equals(Name)){
+                              Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
+                              Bundle bundle= new Bundle();
+                              bundle.putSerializable("manga",manga);
+                              intent.putExtras(bundle);
+                              startActivity(intent);
+                          }
+                      }
+                  }, 300);
+
               }
             }
         });
@@ -140,17 +148,18 @@ public class SearchFragment extends Fragment {
     }
     public Manga loadMangaByName(final String Name){
         DatabaseReference myRef = idManga.get(Name);
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 manga = dataSnapshot.getValue(Manga.class);
-                }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
 
         return manga;
     }
