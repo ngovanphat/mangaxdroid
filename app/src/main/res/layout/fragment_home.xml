@@ -52,14 +52,15 @@
                             android:src="@drawable/manga1"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
+
                         <TextView
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:text="Tower of God"
-                            android:paddingTop="5dp"
-                            android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="30dp"
+                            android:paddingTop="5dp"
+                            android:text="Tower of God"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -174,27 +175,27 @@
                 android:orientation="horizontal"
                 android:layout_weight="2">
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginLeft="5dp"
                     android:foreground="@drawable/background_round_corner">
                     <ImageView
+                        android:id="@+id/suggestedImage1"
                         android:src="@drawable/image_1"
-                        android:layout_width="match_parent"
+                        android:layout_width="200dp"
                         android:layout_height="150dp"/>
                     <TextView
+                        android:id="@+id/suggestedText1"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:text="Fairy Tail"
                         android:layout_width="match_parent"
                         android:textAlignment="center"
                         android:paddingTop="5dp"
-                        android:layout_height="30dp" />
+                        android:layout_height="50dp" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -203,18 +204,20 @@
                     android:foreground="@drawable/background_round_corner">
 
                 <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:src="@drawable/image_2" />
+                    android:id="@+id/suggestedImage2"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/image_2" />
 
-                    <TextView
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:text="Hero Academia"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:paddingTop="5dp"
-                        android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/suggestedText2"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="Hero Academia"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:paddingTop="5dp"
+                    android:layout_height="50dp" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -224,27 +227,27 @@
                 android:orientation="horizontal"
                 android:layout_weight="2">
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginLeft="5dp"
                     android:foreground="@drawable/background_round_corner">
                     <ImageView
+                        android:id="@+id/suggestedImage3"
                         android:src="@drawable/image_1"
-                        android:layout_width="match_parent"
+                        android:layout_width="200dp"
                         android:layout_height="150dp"/>
                     <TextView
+                        android:id="@+id/suggestedText3"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:text="Fairy Tail"
                         android:layout_width="match_parent"
                         android:textAlignment="center"
                         android:paddingTop="5dp"
-                        android:layout_height="30dp" />
+                        android:layout_height="50dp" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -253,18 +256,20 @@
                     android:foreground="@drawable/background_round_corner">
 
                     <ImageView
-                        android:layout_width="match_parent"
+                        android:id="@+id/suggestedImage4"
+                        android:layout_width="200dp"
                         android:layout_height="150dp"
                         android:src="@drawable/image_2" />
 
                     <TextView
+                        android:id="@+id/suggestedText4"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:text="Hero Academia"
                         android:layout_width="match_parent"
                         android:textAlignment="center"
                         android:paddingTop="5dp"
-                        android:layout_height="30dp" />
+                        android:layout_height="50dp" />
                 </LinearLayout>
             </LinearLayout>
 
