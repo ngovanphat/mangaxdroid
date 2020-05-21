@@ -49,13 +49,15 @@
                         android:layout_marginLeft="5dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/stormImage1"
                             android:src="@drawable/manga1"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
 
                         <TextView
+                            android:id="@+id/stormText1"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:layout_height="50dp"
                             android:paddingTop="5dp"
                             android:text="Tower of God"
                             android:textAlignment="center"
@@ -69,17 +71,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/stormImage2"
                             android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/stormText2"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -88,17 +92,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/stormImage3"
                             android:src="@drawable/manga3"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/stormText3"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Trọng sinh đô thị tu tiên"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -107,17 +113,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/stormImage4"
                             android:src="@drawable/manga4"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/stormText4"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -126,17 +134,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/stormImage5"
                             android:src="@drawable/manga5"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/stormText5"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Kimetsu no Yaiba"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -145,17 +155,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/stormImage6"
                             android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/stormText6"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -311,17 +323,19 @@
                         android:layout_marginLeft="5dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/newImage1"
                             android:src="@drawable/manga1"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/newText1"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Tower of God"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -330,17 +344,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/newImage2"
                             android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/newText2"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -349,17 +365,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/newImage3"
                             android:src="@drawable/manga3"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/newText3"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Trọng sinh đô thị tu tiên"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -368,17 +386,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/newImage4"
                             android:src="@drawable/manga4"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/newText4"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -387,17 +407,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/newImage5"
                             android:src="@drawable/manga5"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/newText5"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Kimetsu no Yaiba"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -406,17 +428,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/newImage6"
                             android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/newText6"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -459,17 +483,19 @@
                         android:layout_marginLeft="5dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/hotImage1"
                             android:src="@drawable/manga1"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/hotText1"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Tower of God"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -478,17 +504,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/hotImage2"
                             android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/hotText2"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -497,17 +525,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/hotImage3"
                             android:src="@drawable/manga3"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/hotText3"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Trọng sinh đô thị tu tiên"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -516,17 +546,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/hotImage4"
                             android:src="@drawable/manga4"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/hotText4"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -535,17 +567,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/hotImage5"
                             android:src="@drawable/manga5"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/hotText5"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Kimetsu no Yaiba"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -554,17 +588,19 @@
                         android:layout_marginLeft="10dp"
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
+                            android:id="@+id/hotImage6"
                             android:src="@drawable/manga2"
                             android:layout_width="200dp"
                             android:layout_height="180dp" />
                         <TextView
+                            android:id="@+id/hotText6"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp" />
+                            android:layout_height="50dp" />
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>

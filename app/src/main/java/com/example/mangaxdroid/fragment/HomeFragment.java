@@ -33,8 +33,14 @@ public class HomeFragment extends Fragment {
     Button btnViewMore;
     ArrayList<String> imgResource = new ArrayList<>();
     ArrayList<Manga> mangaArrayList = new ArrayList<>();
-    ImageView suggestedImage1, suggestedImage2, suggestedImage3, suggestedImage4;
-    TextView suggestedText1, suggestedText2, suggestedText3, suggestedText4;
+    ImageView suggestedImage1, suggestedImage2, suggestedImage3, suggestedImage4,
+    stormImage1, stormImage2, stormImage3, stormImage4, stormImage5, stormImage6,
+    newImage1, newImage2, newImage3, newImage4, newImage5, newImage6,
+    hotImage1, hotImage2, hotImage3, hotImage4, hotImage5, hotImage6;
+    TextView suggestedText1, suggestedText2, suggestedText3, suggestedText4,
+    stormText1, stormText2, stormText3, stormText4, stormText5, stormText6,
+    newText1, newText2, newText3, newText4, newText5, newText6,
+    hotText1, hotText2, hotText3, hotText4, hotText5, hotText6;
     public static HomeFragment newInstance(){
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -57,6 +63,9 @@ public class HomeFragment extends Fragment {
         carouselView = view.findViewById(R.id.carouselView);
         loadImgResource();
         loadImgSuggested();
+        loadImgStorm();
+        loadImgNew();
+        loadImgHot();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -71,10 +80,46 @@ public class HomeFragment extends Fragment {
         suggestedImage2 = (ImageView) view.findViewById(R.id.suggestedImage2);
         suggestedImage3 = (ImageView) view.findViewById(R.id.suggestedImage3);
         suggestedImage4 = (ImageView) view.findViewById(R.id.suggestedImage4);
+        stormImage1 = (ImageView) view.findViewById(R.id.stormImage1);
+        stormImage2 = (ImageView) view.findViewById(R.id.stormImage2);
+        stormImage3 = (ImageView) view.findViewById(R.id.stormImage3);
+        stormImage4 = (ImageView) view.findViewById(R.id.stormImage4);
+        stormImage5 = (ImageView) view.findViewById(R.id.stormImage5);
+        stormImage6 = (ImageView) view.findViewById(R.id.stormImage6);
+        newImage1 = (ImageView) view.findViewById(R.id.newImage1);
+        newImage2 = (ImageView) view.findViewById(R.id.newImage2);
+        newImage3 = (ImageView) view.findViewById(R.id.newImage3);
+        newImage4 = (ImageView) view.findViewById(R.id.newImage4);
+        newImage5 = (ImageView) view.findViewById(R.id.newImage5);
+        newImage6 = (ImageView) view.findViewById(R.id.newImage6);
+        hotImage1 = (ImageView) view.findViewById(R.id.hotImage1);
+        hotImage2 = (ImageView) view.findViewById(R.id.hotImage2);
+        hotImage3 = (ImageView) view.findViewById(R.id.hotImage3);
+        hotImage4 = (ImageView) view.findViewById(R.id.hotImage4);
+        hotImage5 = (ImageView) view.findViewById(R.id.hotImage5);
+        hotImage6 = (ImageView) view.findViewById(R.id.hotImage6);
         suggestedText1 = (TextView) view.findViewById(R.id.suggestedText1);
         suggestedText2 = (TextView) view.findViewById(R.id.suggestedText2);
         suggestedText3 = (TextView) view.findViewById(R.id.suggestedText3);
         suggestedText4 = (TextView) view.findViewById(R.id.suggestedText4);
+        stormText1 = (TextView) view.findViewById(R.id.stormText1);
+        stormText2 = (TextView) view.findViewById(R.id.stormText2);
+        stormText3 = (TextView) view.findViewById(R.id.stormText3);
+        stormText4 = (TextView) view.findViewById(R.id.stormText4);
+        stormText5 = (TextView) view.findViewById(R.id.stormText5);
+        stormText6 = (TextView) view.findViewById(R.id.stormText6);
+        newText1 = (TextView) view.findViewById(R.id.newText1);
+        newText2 = (TextView) view.findViewById(R.id.newText2);
+        newText3 = (TextView) view.findViewById(R.id.newText3);
+        newText4 = (TextView) view.findViewById(R.id.newText4);
+        newText5 = (TextView) view.findViewById(R.id.newText5);
+        newText6 = (TextView) view.findViewById(R.id.newText6);
+        hotText1 = (TextView) view.findViewById(R.id.hotText1);
+        hotText2 = (TextView) view.findViewById(R.id.hotText2);
+        hotText3 = (TextView) view.findViewById(R.id.hotText3);
+        hotText4 = (TextView) view.findViewById(R.id.hotText4);
+        hotText5 = (TextView) view.findViewById(R.id.hotText5);
+        hotText6 = (TextView) view.findViewById(R.id.hotText6);
 
         btnViewMore = (Button) view.findViewById(R.id.btnViewMore);
         btnViewMore.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +154,92 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadImgSuggested() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mangaArrayList.clear();
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Manga manga = children.getValue(Manga.class);
+                    mangaArrayList.add(manga);
+                }
+                Picasso.get().load(mangaArrayList.get(13).getImage()).into(suggestedImage1);
+                suggestedText1.setText(mangaArrayList.get(13).getName());
+                Picasso.get().load(mangaArrayList.get(14).getImage()).into(suggestedImage2);
+                suggestedText2.setText(mangaArrayList.get(14).getName());
+                Picasso.get().load(mangaArrayList.get(15).getImage()).into(suggestedImage3);
+                suggestedText3.setText(mangaArrayList.get(15).getName());
+                Picasso.get().load(mangaArrayList.get(16).getImage()).into(suggestedImage4);
+                suggestedText4.setText(mangaArrayList.get(16).getName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+    }
+
+    private void loadImgStorm() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mangaArrayList.clear();
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Manga manga = children.getValue(Manga.class);
+                    mangaArrayList.add(manga);
+                }
+                Picasso.get().load(mangaArrayList.get(12).getImage()).into(stormImage1);
+                stormText1.setText(mangaArrayList.get(12).getName());
+                Picasso.get().load(mangaArrayList.get(11).getImage()).into(stormImage2);
+                stormText2.setText(mangaArrayList.get(11).getName());
+                Picasso.get().load(mangaArrayList.get(10).getImage()).into(stormImage3);
+                stormText3.setText(mangaArrayList.get(10).getName());
+                Picasso.get().load(mangaArrayList.get(9).getImage()).into(stormImage4);
+                stormText4.setText(mangaArrayList.get(9).getName());
+                Picasso.get().load(mangaArrayList.get(8).getImage()).into(stormImage5);
+                stormText5.setText(mangaArrayList.get(8).getName());
+                Picasso.get().load(mangaArrayList.get(7).getImage()).into(stormImage6);
+                stormText6.setText(mangaArrayList.get(7).getName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+    }
+
+    private void loadImgHot() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mangaArrayList.clear();
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Manga manga = children.getValue(Manga.class);
+                    mangaArrayList.add(manga);
+                }
+                Picasso.get().load(mangaArrayList.get(0).getImage()).into(hotImage1);
+                hotText1.setText(mangaArrayList.get(0).getName());
+                Picasso.get().load(mangaArrayList.get(1).getImage()).into(hotImage2);
+                hotText2.setText(mangaArrayList.get(1).getName());
+                Picasso.get().load(mangaArrayList.get(2).getImage()).into(hotImage3);
+                hotText3.setText(mangaArrayList.get(2).getName());
+                Picasso.get().load(mangaArrayList.get(3).getImage()).into(hotImage4);
+                hotText4.setText(mangaArrayList.get(3).getName());
+                Picasso.get().load(mangaArrayList.get(4).getImage()).into(hotImage5);
+                hotText5.setText(mangaArrayList.get(4).getName());
+                Picasso.get().load(mangaArrayList.get(5).getImage()).into(hotImage6);
+                hotText6.setText(mangaArrayList.get(5).getName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+    }
+
+    private void loadImgNew() {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/NewCategory");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -118,14 +249,18 @@ public class HomeFragment extends Fragment {
                     Manga manga = children.getValue(Manga.class);
                     mangaArrayList.add(manga);
                 }
-                Picasso.get().load(mangaArrayList.get(0).getImage()).into(suggestedImage1);
-                suggestedText1.setText(mangaArrayList.get(0).getName());
-                Picasso.get().load(mangaArrayList.get(1).getImage()).into(suggestedImage2);
-                suggestedText2.setText(mangaArrayList.get(1).getName());
-                Picasso.get().load(mangaArrayList.get(2).getImage()).into(suggestedImage3);
-                suggestedText3.setText(mangaArrayList.get(2).getName());
-                Picasso.get().load(mangaArrayList.get(3).getImage()).into(suggestedImage4);
-                suggestedText4.setText(mangaArrayList.get(3).getName());
+                Picasso.get().load(mangaArrayList.get(0).getImage()).into(newImage1);
+                newText1.setText(mangaArrayList.get(0).getName());
+                Picasso.get().load(mangaArrayList.get(1).getImage()).into(newImage2);
+                newText2.setText(mangaArrayList.get(1).getName());
+                Picasso.get().load(mangaArrayList.get(2).getImage()).into(newImage3);
+                newText3.setText(mangaArrayList.get(2).getName());
+                Picasso.get().load(mangaArrayList.get(3).getImage()).into(newImage4);
+                newText4.setText(mangaArrayList.get(3).getName());
+                Picasso.get().load(mangaArrayList.get(4).getImage()).into(newImage5);
+                newText5.setText(mangaArrayList.get(4).getName());
+                Picasso.get().load(mangaArrayList.get(0).getImage()).into(newImage6);
+                newText6.setText(mangaArrayList.get(0).getName());
             }
 
             @Override
