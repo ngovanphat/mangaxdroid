@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mangaxdroid">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@drawable/mangaxdroid"
         android:label="@string/app_name"
         android:roundIcon="@drawable/mangaxdroid"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.LoginActivity"></activity>
         <activity android:name=".activity.ReadChapterActivity" />
         <activity android:name=".activity.MangaInfoActivity" />
         <activity android:name=".activity.useractivity.UserFavoriteListActivity" />
