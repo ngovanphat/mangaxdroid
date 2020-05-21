@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
@@ -136,26 +135,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
-                transaction.commit();
-            }
-        });
-
-        toNew = (TextView) view.findViewById(R.id.toNew);
-        toNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = myContext.getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(1));
-                transaction.commit();
-            }
-        });
-
-        toHot = (TextView) view.findViewById(R.id.toHot);
-        toHot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = myContext.getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
                 transaction.commit();
             }
