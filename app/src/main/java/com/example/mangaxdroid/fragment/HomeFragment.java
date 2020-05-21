@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
     TextView suggestedText1, suggestedText2, suggestedText3, suggestedText4,
     stormText1, stormText2, stormText3, stormText4, stormText5, stormText6,
     newText1, newText2, newText3, newText4, newText5, newText6,
-    hotText1, hotText2, hotText3, hotText4, hotText5, hotText6;
+    hotText1, hotText2, hotText3, hotText4, hotText5, hotText6,viewMoreNew,viewMoreHot;
     public static HomeFragment newInstance(){
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -120,6 +120,24 @@ public class HomeFragment extends Fragment {
         hotText4 = (TextView) view.findViewById(R.id.hotText4);
         hotText5 = (TextView) view.findViewById(R.id.hotText5);
         hotText6 = (TextView) view.findViewById(R.id.hotText6);
+        viewMoreNew = (TextView) view.findViewById(R.id.viewMoreNew);
+        viewMoreNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(1));
+                transaction.commit();
+            }
+        });
+        viewMoreHot = (TextView) view.findViewById(R.id.viewMoreHot);
+        viewMoreHot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
+                transaction.commit();
+            }
+        });
 
         btnViewMore = (Button) view.findViewById(R.id.btnViewMore);
         btnViewMore.setOnClickListener(new View.OnClickListener() {
