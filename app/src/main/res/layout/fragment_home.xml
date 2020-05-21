@@ -301,6 +301,7 @@
                     android:text="Truyện mới"
                     android:textColor="@color/black" />
                 <TextView
+                    android:id="@+id/toNew"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="4"
                     android:text="Xem thêm"
@@ -461,6 +462,7 @@
                     android:text="Truyện Hot"
                     android:textColor="@color/black" />
                 <TextView
+                    android:id="@+id/toHot"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="4"
                     android:text="Xem thêm"
