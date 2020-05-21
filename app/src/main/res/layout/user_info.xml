@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/gradient"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -15,7 +20,7 @@
             android:id="@+id/userAvatar"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ava" />
+            android:src="@drawable/graduser" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +34,7 @@
                 android:text="USER NAME"
                 android:paddingLeft="5dp"
                 android:layout_marginTop="15dp"
-                android:textColor="@color/black"
+                android:textColor="@color/purple"
                 android:textSize="20sp"/>
 
             <TextView
@@ -39,16 +44,16 @@
                 android:text="Thành viên Mới"
                 android:paddingLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
+                android:textColor="@color/purple"
                 android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="20dp"
         android:layout_marginTop="5dp"
-        android:background="#E8E8E8"/>
+        android:background="@drawable/gradient"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +65,7 @@
             android:layout_height="match_parent"
             android:paddingTop="5dp"
             android:layout_weight="1"
-            android:src="@drawable/user" />
+            android:src="@drawable/userprofile" />
 
         <TextView
             android:id="@+id/accountInfo"
@@ -68,15 +73,20 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple"
             android:textSize="17sp"
             android:text="Thông tin tài khoản" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -84,7 +94,7 @@
             android:layout_height="match_parent"
             android:paddingTop="5dp"
             android:layout_weight="1"
-            android:src="@drawable/vip" />
+            android:src="@drawable/crown" />
 
         <TextView
             android:id="@+id/accountUpgrade"
@@ -92,15 +102,20 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple"
             android:textSize="17sp"
             android:text="Nâng cấp tài khoản" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -116,15 +131,20 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple"
             android:textSize="17sp"
             android:text="Lịch sử đọc truyện" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -140,15 +160,20 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple"
             android:textSize="17sp"
             android:text="Danh sách yêu thích" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -164,7 +189,7 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:paddingTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple"
             android:textSize="17sp"
             android:text="Cài đặt" />
     </LinearLayout>
@@ -173,7 +198,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#E8E8E8">
+        android:background="@drawable/gradient">
 
         <Button
             android:paddingHorizontal="30dp"
@@ -181,7 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:textColor="@color/white"
             android:text="ĐĂNG XUẤT"
             android:background="@drawable/btn_custom_user_info"/>
