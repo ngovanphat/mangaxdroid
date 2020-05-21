@@ -3,6 +3,7 @@ package com.example.mangaxdroid.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -11,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,9 +42,9 @@ public class HomeFragment extends Fragment {
     TextView suggestedText1, suggestedText2, suggestedText3, suggestedText4,
     stormText1, stormText2, stormText3, stormText4, stormText5, stormText6,
     newText1, newText2, newText3, newText4, newText5, newText6,
-
     hotText1, hotText2, hotText3, hotText4, hotText5, hotText6,
     toNew, toHot;
+    LinearLayout suggested1;
     public static HomeFragment newInstance(){
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -121,6 +124,8 @@ public class HomeFragment extends Fragment {
         hotText4 = (TextView) view.findViewById(R.id.hotText4);
         hotText5 = (TextView) view.findViewById(R.id.hotText5);
         hotText6 = (TextView) view.findViewById(R.id.hotText6);
+        suggested1 = (LinearLayout) view.findViewById(R.id.suggested1);
+
         toNew = (TextView) view.findViewById(R.id.toNew);
         toNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +135,7 @@ public class HomeFragment extends Fragment {
                 transaction.commit();
             }
         });
+
         toHot = (TextView) view.findViewById(R.id.toHot);
         toHot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +175,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
     }
 
     private void loadImgSuggested() {
@@ -182,8 +187,20 @@ public class HomeFragment extends Fragment {
                     Manga manga = children.getValue(Manga.class);
                     mangaArrayList.add(manga);
                 }
+                final Manga manga = mangaArrayList.get(13);
                 Picasso.get().load(mangaArrayList.get(13).getImage()).into(suggestedImage1);
                 suggestedText1.setText(mangaArrayList.get(13).getName());
+                suggested1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(myContext, MangaInfoActivity.class);
+                        Bundle bundle= new Bundle();
+                        bundle.putSerializable("manga", manga);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+
                 Picasso.get().load(mangaArrayList.get(14).getImage()).into(suggestedImage2);
                 suggestedText2.setText(mangaArrayList.get(14).getName());
                 Picasso.get().load(mangaArrayList.get(15).getImage()).into(suggestedImage3);

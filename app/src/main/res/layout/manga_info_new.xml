@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarMangaInfo"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:background="@color/teal"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:visibility="visible" />
