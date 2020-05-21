@@ -8,15 +8,15 @@
 
     <LinearLayout
         android:id="@+id/setting_panel"
-        android:layout_width="326dp"
-        android:layout_height="484dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:background="@drawable/layout_rounded_corner"
-        android:orientation="vertical"
-        android:divider="#FF9900">
+        android:divider="#FF9900"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/chapterListTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
@@ -24,11 +24,11 @@
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:text="Chapter List"
-            android:paddingLeft="10dp"
             android:background="@drawable/rounded_shadow"
+            android:paddingLeft="10dp"
+            android:text="Chapter List"
             android:textColor="#050709"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/chapterList"
@@ -36,7 +36,7 @@
             android:layout_height="0dp"
             android:layout_weight="93"
             android:scrollbarSize="8dp"
-            android:scrollbarThumbVertical="@drawable/list_custom_scrollbar"/>
+            android:scrollbarThumbVertical="@drawable/list_custom_scrollbar" />
     </LinearLayout>
 
 </RelativeLayout>

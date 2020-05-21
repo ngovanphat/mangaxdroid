@@ -116,6 +116,7 @@ public class ReadVerticalFragment extends Fragment {
                 if(!nextChapter.equals(chapterID)){
                     chapterID=nextChapter;
                     Toast.makeText(context,"Chapter: "+nextChapter,Toast.LENGTH_SHORT).show();
+                    ((OnListviewListener) context).onChapterChange(nextChapter);
                     fetchChapter(mangaID,nextChapter);
                 }else {
                     Toast.makeText(context,"Reached Last Chapter",Toast.LENGTH_SHORT).show();
@@ -166,6 +167,7 @@ public class ReadVerticalFragment extends Fragment {
     public interface OnListviewListener{
         void onListviewScroll(int flag);
         void onListviewClick();
+        void onChapterChange(String nextChapter);
         void onLastChapterClick();
     }
 }
