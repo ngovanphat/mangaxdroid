@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,15 +31,18 @@ import com.example.mangaxdroid.fragment.ReadSettingsFragment;
 import com.example.mangaxdroid.fragment.ReadVerticalFragment;
 import com.example.mangaxdroid.object.Manga;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener, ReadSettingsFragment.OnReadSettingsListener {
+public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener, ReadSettingsFragment.OnReadSettingsListener,ReadChapterListFragment.OnReadChapterListListener {
     //Controls
     ReadVerticalFragment readVertical;
     ReadHorizontalFragment readHorizontal;
@@ -89,16 +94,16 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         edit.putString("viewType",viewType);
         edit.apply();*/
 
-
         bottomNav=findViewById(R.id.navBar);
         layout = findViewById(R.id.baseLayout);
         toolbar = findViewById(R.id.toolBar);
+
+        checkBookmark();
         setSupportActionBar(toolbar);
         actionBar=getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Chapter " + chapterName);
-        bottomNav.setItemIconTintList(null);
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -110,14 +115,13 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                         settingsFragment.show(getSupportFragmentManager(),"dialog");
                         break;
                     case R.id.action_chapterList:
-                        Toast.makeText(ReadChapterActivity.this, "chapter list", Toast.LENGTH_SHORT).show();
                         bundle.putSerializable("manga",manga);
                         bundle.putString("chapterID",chapterName);
                         chapterListFragment=ReadChapterListFragment.newInstance(bundle);
                         chapterListFragment.show(getSupportFragmentManager(),"dialog");
                         break;
                     case R.id.action_bookmark:
-                        Toast.makeText(ReadChapterActivity.this, "bookmark", Toast.LENGTH_SHORT).show();
+                        onBookMarkClick();
                         break;                }
                 return true;
             }
@@ -262,5 +266,99 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             }
         });
         dbRef.onDisconnect();
+    }
+    private void checkBookmark(){
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            final DatabaseReference favdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.hasChild(mangaName)) {
+                        String check = snapshot.child(mangaName).getValue().toString();
+                        if (check.equals(chapterName)) {
+                            //menu mỗi lần xài phải gọi riêng, ko là báo lỗi
+                            Menu menu = bottomNav.getMenu();
+                            menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            favdb.onDisconnect();
+        }
+    }
+    private void onBookMarkClick(){
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            final Dialog notLoggedIn=new Dialog(this);
+            notLoggedIn.setContentView(R.layout.dialog_bookmark_sign_in);
+            Button login = (Button) notLoggedIn.findViewById(R.id.toLogIn);
+            login.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startActivity(new Intent(ReadChapterActivity.this, LoginActivity.class));
+                    notLoggedIn.dismiss();
+                }
+            });
+
+            Button cancel= (Button) notLoggedIn.findViewById(R.id.cancel);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    notLoggedIn.dismiss();
+                }
+            });
+            notLoggedIn.show();
+        }else{
+            final DatabaseReference favdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Menu menu = bottomNav.getMenu();
+                    //add new
+                    if (!snapshot.hasChild(mangaName)) {
+                        Toast.makeText(ReadChapterActivity.this, "Bookmark Added", Toast.LENGTH_SHORT).show();
+                        favdb.child(mangaName).setValue(chapterName);
+                        menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
+                    }else {
+                        String check=snapshot.child(mangaName).getValue().toString();
+                        if (check.equals(chapterName)) {//remove
+                            Toast.makeText(ReadChapterActivity.this, "Bookmark Removed", Toast.LENGTH_SHORT).show();
+                            favdb.child(mangaName).removeValue();
+                            menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_regular);
+                        }else {//change
+                            Toast.makeText(ReadChapterActivity.this, "Bookmark Updated", Toast.LENGTH_SHORT).show();
+                            favdb.child(mangaName).setValue(chapterName);
+                            menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            favdb.onDisconnect();
+        }
+    }
+    @Override
+    public void OnChapterListItemClick(String chapterID) {
+        getSupportActionBar().setTitle("Chapter " + chapterID);
+        ft=getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("manga",manga);
+        bundle.putString("chapterID",chapterID);
+        if(viewType.equals("Vertical"))
+        {
+            readVertical= ReadVerticalFragment.newInstance(bundle);
+            ft.replace(R.id.readerFrame,readVertical);
+        }
+        else{
+            readHorizontal=ReadHorizontalFragment.newInstance(bundle);
+            ft.replace(R.id.readerFrame,readHorizontal);
+        }
+        ft.commit();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.mangaxdroid.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,10 +57,18 @@ public class ReadChapterListFragment extends DialogFragment {
         layout=(RelativeLayout) inflater.inflate(R.layout.fragment_read_list, container, false);
         listChapter= new ArrayList<>();
         listView = layout.findViewById(R.id.chapterList);
-        adapter = new CustomChapterListAdapter(layout.getContext(), R.layout.chapter_list_custom_row, listChapter);
+        adapter = new CustomChapterListAdapter(layout.getContext(), R.layout.read_chapter_list_row, listChapter);
         loadContent(manga.getName());
         listView.setAdapter(adapter);
-        listView.smoothScrollToPosition(listChapter.indexOf(chapterID));
+
+        //listView.smoothScrollToPosition();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((OnReadChapterListListener)context).OnChapterListItemClick(listChapter.get(position).getName());
+                ReadChapterListFragment.this.dismiss();
+            }
+        });
         return layout;
     }
 

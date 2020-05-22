@@ -18,7 +18,7 @@
     <item
         android:id="@+id/action_bookmark"
         android:enabled="true"
-        android:icon="@drawable/bookmark_icon_states"
+        android:icon="@drawable/bookmark_regular"
         android:title="Bookmark"
         app:showAsAction="ifRoom" />
 </menu>

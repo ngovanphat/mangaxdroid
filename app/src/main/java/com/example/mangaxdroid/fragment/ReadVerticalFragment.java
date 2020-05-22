@@ -1,7 +1,9 @@
 package com.example.mangaxdroid.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -15,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -23,6 +26,8 @@ import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.adapter.ChapterAdapter;
 import com.example.mangaxdroid.object.Manga;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,6 +71,9 @@ public class ReadVerticalFragment extends Fragment {
         btnNext.setTextColor(ContextCompat.getColor(context, R.color.white));
         btnNext.getBackground().setAlpha(50);
         btnNext.setPadding(0, 0, 0, 0);
+        Point size = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+        btnNext.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, size.y/10));
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

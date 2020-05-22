@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:minHeight="200dp">
+
+    <TextView
+        android:id="@+id/announceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50"
+        android:gravity="center"
+        android:text="Vui lòng đăng nhập để sử dụng tính năng Bookmark"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/toLogIn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:background="@color/teal"
+        android:text="To Log in"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:background="@color/gray"
+        android:text="Cancel"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+</LinearLayout>

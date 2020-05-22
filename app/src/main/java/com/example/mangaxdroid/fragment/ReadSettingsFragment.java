@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.example.mangaxdroid.R;
@@ -27,7 +29,7 @@ public class ReadSettingsFragment extends DialogFragment {
     Context context=null;
     RelativeLayout layout;
     Spinner viewType;
-
+    SeekBar seekBar;
     public static ReadSettingsFragment newInstance(Bundle bundle) {
         ReadSettingsFragment fragment = new ReadSettingsFragment();
         curViewType=bundle.getString("currentViewType");
@@ -43,6 +45,7 @@ public class ReadSettingsFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout=(RelativeLayout) inflater.inflate(R.layout.fragment_read_settings, container, false);
         viewType=layout.findViewById(R.id.viewType);
+        seekBar = layout.findViewById(R.id.brightnessBar);
         final ArrayAdapter aa = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,viewTypes);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ReadChapterActivity parent=(ReadChapterActivity)getActivity();
@@ -61,8 +64,35 @@ public class ReadSettingsFragment extends DialogFragment {
             }
 
         });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                WindowManager.LayoutParams systemAtt = getActivity().getWindow().getAttributes();
+                systemAtt.screenBrightness = (float)progress;
+                getActivity().getWindow().setAttributes(systemAtt);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // called when the user first touches the SeekBar
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // called after the user finishes moving the SeekBar
+            }
+        });
         return layout;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.80);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.80);
+
+        getDialog().getWindow().setLayout(width, height);
+    }
+
     public interface OnReadSettingsListener{
         void OnReadSettingsChanged(String setViewType);
     }
