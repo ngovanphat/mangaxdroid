@@ -9,12 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mangaxdroid.R;
+import com.google.android.gms.common.SignInButton;
 
 public class LoginActivity extends Activity {
     EditText email,password;
-    Button loginWithEmail,loginWithFacebook,loginWithGoogle;
+    Button loginWithEmail,loginWithFacebook;
     TextView forgotPassword,signUp;
-
+    private SignInButton loginWithGoogle;
+    private int RC_SIGN_IN = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class LoginActivity extends Activity {
         password = (EditText) findViewById(R.id.editPasword);
         loginWithEmail = (Button) findViewById(R.id.buttonSignIn);
         loginWithFacebook = (Button) findViewById(R.id.buttonFacebook);
-        loginWithGoogle = (Button) findViewById(R.id.buttonGoogle);
+        loginWithGoogle = (SignInButton) findViewById(R.id.buttonGoogle);
         forgotPassword = (TextView) findViewById(R.id.forgotPW);
         signUp = (TextView) findViewById(R.id.signUp);
     }
