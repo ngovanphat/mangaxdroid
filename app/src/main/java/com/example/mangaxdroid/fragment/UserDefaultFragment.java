@@ -13,11 +13,12 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.LoginActivity;
+import com.example.mangaxdroid.activity.useractivity.UserFaqActivity;
 import com.example.mangaxdroid.activity.useractivity.UserFavoriteListActivity;
 
 public class UserDefaultFragment extends Fragment {
     private FragmentActivity myContext;
-    LinearLayout buttonLogin;
+    LinearLayout buttonLogin, faq;
 
     public static UserDefaultFragment newInstance(){
         UserDefaultFragment fragment = new UserDefaultFragment();
@@ -42,6 +43,14 @@ public class UserDefaultFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(view.getContext(), LoginActivity.class));
+            }
+        });
+
+        faq = (LinearLayout) view.findViewById(R.id.faq);
+        faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(view.getContext(), UserFaqActivity.class));
             }
         });
         return view;

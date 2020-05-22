@@ -45,10 +45,10 @@ public class SignUpActivity extends Activity {
 
     private void SignUp(String email,String password,String confirm){
         if(email.equals("")||password.equals("")||confirm.equals("")){
-            Toast.makeText(SignUpActivity.this,"Vui lòng nhập email và mật khẩu",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this,"Vui lòng nhập email và mật khẩu",Toast.LENGTH_LONG).show();
         }else{
             if(!(password.equals(confirm))){
-                Toast.makeText(SignUpActivity.this,"Xác nhận mật khẩu không khớp "+password+" "+confirm,Toast.LENGTH_LONG).show();
+                Toast.makeText(SignUpActivity.this,"Xác nhận mật khẩu không khớp "+password+" "+confirm,Toast.LENGTH_LONG).show();
             }else{
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

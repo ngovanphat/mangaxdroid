@@ -37,8 +37,8 @@ public class UserFragment extends Fragment {
         accountUpgrade = (TextView) view.findViewById(R.id.accountUpgrade);
         accountSetting = (TextView) view.findViewById(R.id.accountSetting);
         readHistory = (TextView) view.findViewById(R.id.readHistory);
-        listFavorite = (TextView) view.findViewById(R.id.listFavorite);
 
+        listFavorite = (TextView) view.findViewById(R.id.listFavorite);
         listFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
