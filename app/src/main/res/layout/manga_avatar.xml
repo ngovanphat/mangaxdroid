@@ -29,22 +29,22 @@
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/textviewViewCount"
-            android:paddingVertical="5dp"
-            android:textSize="17sp"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/fire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/textviewChapterMangaAvatar"
-            android:paddingVertical="5dp"
-            android:textSize="17sp"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/chapter"
+
+        <FrameLayout
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"/>
+            android:background="@drawable/layout_rounded_corner_3">
+            <TextView
+                android:id="@+id/textviewViewCount"
+                android:textSize="18sp"
+                android:drawablePadding="5dp"
+                android:padding="5dp"
+                android:drawableTint="@color/red"
+                android:textColor="@color/red"
+                android:drawableStart="@drawable/fire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>
