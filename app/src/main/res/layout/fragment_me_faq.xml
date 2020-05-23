@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#DCDCDC"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarFaq"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/gradient"
+        android:background="#DCDCDC"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:visibility="visible" />
-
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="InvalidId">
-
+        android:id="@+id/buttonLogin"
+        android:orientation="horizontal"
+        android:background="@drawable/layout_rounded_corner_2">
         <ImageView
             android:src="@drawable/question"
+            android:tint="@color/teal"
             android:layout_width="60dp"
             android:layout_height="60dp"/>
         <TextView
@@ -27,140 +31,116 @@
             android:text="Các câu hỏi thường gặp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/purple" />
+            android:layout_margin="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/teal"
+            android:layout_marginLeft="30dp"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
-
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/question1"
+        android:layout_height="260dp"
+        android:orientation="vertical"
+        android:background="@drawable/layout_rounded_corner_2">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:paddingLeft="15dp"
-            android:textSize="20sp"
-            android:text="Làm thế nào để đặt lại mật khẩu ?" />
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/question2"
+            <TextView
+                android:id="@+id/question1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:text="Làm thế nào để đặt lại mật khẩu ?" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:paddingLeft="15dp"
-            android:textSize="20sp"
-            android:text="Làm thế nào khi quên mật khẩu ?" />
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
+            <TextView
+                android:id="@+id/question2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:text="Làm thế nào khi quên mật khẩu ?" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/question3"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:paddingLeft="15dp"
-            android:textSize="20sp"
-            android:text="Tài khoản VIP là gì ?" />
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
+            <TextView
+                android:id="@+id/question3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:text="Tài khoản VIP là gì ?" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/question4"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:paddingLeft="15dp"
-            android:textSize="20sp"
-            android:text="Làm thê nào để nâng cấp thành tài khoản VIP ?" />
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
+            <TextView
+                android:id="@+id/question4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:text="Làm thê nào để nâng cấp thành tài khoản VIP ?" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/question5"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:paddingLeft="15dp"
-            android:textSize="20sp"
-            android:text="Làm thê nào để tải truyện về máy ?" />
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
+            <TextView
+                android:id="@+id/question5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:text="Làm thế nào để tải truyện về máy ?" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/question6"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple"
-            android:paddingLeft="15dp"
-            android:textSize="20sp"
-            android:text="Làm thê nào để lưu lịch sử đọc truyện ?" />
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/gradient"/>
+            <TextView
+                android:id="@+id/question6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:text="Làm thế nào để lưu lịch sử đọc truyện ?" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
