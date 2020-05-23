@@ -49,8 +49,19 @@
 | 1753082    | Ngô Văn Phát     | Hoàn thành thay đổi, nâng cấp giao diện trang chủ và danh mục truyện. Liên kết truyện trong danh mục với database. |   100%   |
 | 1753073    | Trương Thuận Nam | Hoàn thành tính năng đọc truyện. Load được truyện từ database. |   100%   |
 | 1753137    | Lê Minh Quân     |  Hoàn thành thay đổi, nâng cấp giao diện trang xem chi tiết truyện. Hoàn thiện giao diện trang đăng ký. Hoàn thành giao diện trang đăng nhập.           |   100%   |
+### Tuần 9: Tính năng tìm kiếm, tính năng đăng nhập, đăng ký, chuyển chapter
+|   MSSV     | Họ tên           |  Công việc                                                 | Hoàn thành |
+|:----------:|:----------------:|:----------------------------------------------------------:|:----------:|
+| 1753082    | Ngô Văn Phát     | Tính năng tìm kiếm truyện, đăng nhập, đăng ký. trang người dùng mặc định |   100%   |
+| 1753073    | Trương Thuận Nam | Tính năng chuyển chapter truyện, đọc theo chiều dọc, đọc theo chiều ngang |   100%   |
+| 1753137    | Lê Minh Quân     | 
+Kết nối trang chủ, trang người dùng đã đăng nhập, thiết kế lại UI trang đăng ký đăng nhập
+        |   100%   |
+
 ## References: 
+*Carousel Slide*
 https://medium.com/@lobothijau/create-carousel-easily-in-android-app-with-carouselview-6cbf5ef500a9
-
-
-
+*Tab Layout*
+https://medium.com/@droidbyme/android-material-design-tabs-tab-layout-with-swipe-884085ae80ff
+*Glide*
+https://github.com/bumptech/glide
