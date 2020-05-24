@@ -55,13 +55,14 @@
 | 1753082    | Ngô Văn Phát     | Tính năng tìm kiếm truyện, đăng nhập, đăng ký. trang người dùng mặc định |   100%   |
 | 1753073    | Trương Thuận Nam | Tính năng chuyển chapter truyện, đọc theo chiều dọc, đọc theo chiều ngang |   100%   |
 | 1753137    | Lê Minh Quân     | 
-Kết nối trang chủ, trang người dùng đã đăng nhập, thiết kế lại UI trang đăng ký đăng nhập
-        |   100%   |
+Kết nối trang chủ, trang người dùng đã đăng nhập, thiết kế lại UI trang đăng ký đăng nhập|   100%   |
 
 ## References: 
 *Carousel Slide*
 https://medium.com/@lobothijau/create-carousel-easily-in-android-app-with-carouselview-6cbf5ef500a9
+
 *Tab Layout*
 https://medium.com/@droidbyme/android-material-design-tabs-tab-layout-with-swipe-884085ae80ff
+
 *Glide*
 https://github.com/bumptech/glide

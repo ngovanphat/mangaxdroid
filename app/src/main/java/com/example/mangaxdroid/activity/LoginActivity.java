@@ -113,7 +113,8 @@ public class LoginActivity extends Activity {
     private void signInWithEmail(String email,String password){
         if(email.equals("")||password.equals("")){
             Toast.makeText(LoginActivity.this,"Vui lòng nhập email và mật khẩu",Toast.LENGTH_LONG).show();
-        }else{
+        }
+        else{
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
