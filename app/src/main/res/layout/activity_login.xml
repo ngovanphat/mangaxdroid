@@ -97,14 +97,15 @@
         <com.facebook.login.widget.LoginButton
             android:id="@+id/buttonFacebook"
             android:layout_width="260dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="#ff3b5998"
-            android:textSize="15sp"
-            android:textColor="@color/white"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:text="Đăng nhập bằng Facebook"
-            />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
         <com.google.android.gms.common.SignInButton
             android:id="@+id/buttonGoogle"
             android:layout_width="260dp"

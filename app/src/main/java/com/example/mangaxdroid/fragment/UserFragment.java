@@ -45,6 +45,9 @@ public class UserFragment extends Fragment {
         }else{
             username.setText(user.getEmail());
         }
+        if(user.getPhotoUrl()!=null){
+            Picasso.get().load(user.getPhotoUrl()).into(userAvatar);
+        }
 
     }
     @Override
@@ -63,7 +66,10 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-
+                LoginManager loginManager = LoginManager.getInstance();
+                if(loginManager!=null){
+                    loginManager.logOut();
+                }
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, UserDefaultFragment.newInstance());
                 transaction.commit();

@@ -2,7 +2,7 @@ package com.example.mangaxdroid.object;
 
 import java.util.List;
 
-public class Chapter {
+public class Chapter implements Comparable<Chapter>{
     private String name;
     private String date;
     private String view;
@@ -54,5 +54,9 @@ public class Chapter {
 
     public void setPagesURL(List<String> pagesURL) {
         this.imageURL = pagesURL;
+    }
+    @Override
+    public int compareTo(Chapter chapter) {
+        return this.getId() > chapter.getId() ? 0 : 1;
     }
 }

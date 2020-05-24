@@ -1,5 +1,7 @@
 package com.example.mangaxdroid.object;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -39,9 +41,18 @@ public class Manga implements Serializable {
     }
 
     public String getName() {
-        return Name;
+        return capitalizeFirstLetter(this.Name.toLowerCase());
     }
-
+    public String capitalizeFirstLetter(String text) {
+        StringBuilder str = new StringBuilder();
+        String[] tokens = text.split(" ");// Can be space,comma or hyphen
+        Log.d("SizeString", String.valueOf(tokens.length));
+        for (String token : tokens) {
+            str.append(Character.toUpperCase(token.charAt(0))).append(token.substring(1)).append(" ");
+        }
+        str.toString().trim();
+        return str.toString();
+    }
     public void setName(String name) {
         this.Name = name;
     }

@@ -14,12 +14,12 @@
         android:background="@drawable/layout_rounded_corner_2">
         <ImageView
             android:id="@+id/userAvatar"
-            android:tint="@color/teal"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/graduser" />
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/graduser"
+            android:background="@drawable/circle"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

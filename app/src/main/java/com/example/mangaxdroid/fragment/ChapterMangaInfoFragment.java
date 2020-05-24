@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 
 import static com.android.volley.VolleyLog.TAG;
@@ -71,6 +73,7 @@ public class ChapterMangaInfoFragment extends Fragment {
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     listChapter.add(new Chapter(data.getRef().getKey(),"15/05/2020","909"));
                 }
+                Collections.reverse(listChapter);
                 adapter.notifyDataSetChanged();
             }
 

@@ -7,7 +7,8 @@
         android:layout_marginTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/authorThumbnail"
@@ -40,6 +41,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -58,6 +60,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
             android:textSize="18sp"
+            android:layout_gravity="center"
             android:layout_weight="2"
             android:textColor="@color/black"
             android:text="Tình trạng" />
@@ -68,6 +71,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
             android:textSize="18sp"
+            android:layout_gravity="center"
             android:layout_weight="4"
             android:textColor="@color/black"
             android:text="Đang tiến hành" />
@@ -77,7 +81,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/genreThumbnail"
@@ -88,6 +93,7 @@
             android:src="@drawable/tag" />
 
         <TextView
+            android:layout_gravity="center"
             android:id="@+id/genre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -112,7 +118,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/viewThumbnail"
@@ -137,6 +144,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
+            android:layout_gravity="center"
             android:textSize="18sp"
             android:layout_weight="4"
             android:textColor="@color/black"
