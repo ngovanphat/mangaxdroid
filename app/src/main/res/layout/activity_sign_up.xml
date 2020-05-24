@@ -22,17 +22,17 @@
             android:textColor="#00a7a7"
             android:textSize="55sp"
             android:textStyle="bold" />
-        <Button
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/buttonFacebook"
             android:layout_width="260dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/facebookicon"
             android:background="#ff3b5998"
             android:textSize="15sp"
             android:textColor="@color/white"
-            android:text="Đăng nhập bằng Facebook" />
+            android:text="Đăng nhập bằng Facebook"
+            />
         <com.google.android.gms.common.SignInButton
             android:id="@+id/buttonGoogle"
             android:layout_width="260dp"
