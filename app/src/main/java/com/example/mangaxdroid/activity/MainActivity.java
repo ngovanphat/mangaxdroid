@@ -14,9 +14,12 @@ import com.example.mangaxdroid.fragment.SearchFragment;
 import com.example.mangaxdroid.fragment.UserDefaultFragment;
 import com.example.mangaxdroid.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity<DatabaseReference> extends FragmentActivity {
     BottomNavigationView bottomNavigationView;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
                                 selectedFragment = SearchFragment.newInstance();
                                 break;
                             case R.id.page_5:
-                                selectedFragment = UserDefaultFragment.newInstance();
+                                selectedFragment = showFragmentUser();
                                 break;
                         }
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -56,4 +59,16 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
     private void connectContent() {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationBarMain);
     }
+    private Fragment showFragmentUser(){
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        Fragment select = null;
+        if(user==null){
+            select= UserDefaultFragment.newInstance();
+        }
+        else{
+            select = UserFragment.newInstance();
+        }
+        return select;
+    }
+
 }

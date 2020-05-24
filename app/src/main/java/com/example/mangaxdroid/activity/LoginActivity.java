@@ -107,9 +107,11 @@ public class LoginActivity extends Activity {
                 if(task.isSuccessful()){
                     Log.d("success","Facebook login success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    uploadUI(user);
                 }
                 else{
-                    Log.d("failed","Facebook login failed");
+                    Log.d("failed","Facebook login failed"+task.getException().getMessage());
+                    uploadUI(null);
                 }
             }
         });
@@ -135,6 +137,7 @@ public class LoginActivity extends Activity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("failed", "Google sign in failed", e);
+                uploadUI(null);
                 // ...
             }
         }
@@ -149,11 +152,11 @@ public class LoginActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("success", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            uploadUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.d("failed",  task.getException().getMessage());
-                            Toast.makeText(LoginActivity.this, "Authentication Failed.",Toast.LENGTH_LONG).show();
+                             uploadUI(null);
                         }
 
                         // ...
@@ -173,11 +176,11 @@ public class LoginActivity extends Activity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("success", "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    uploadUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("failed", "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(LoginActivity.this, "Authentication failed. "+task.getException().getMessage(),
-                                            Toast.LENGTH_SHORT).show();
+                                    uploadUI(null);
                                 }
                             }
                         });
@@ -192,6 +195,13 @@ public class LoginActivity extends Activity {
         loginWithGoogle = (SignInButton) findViewById(R.id.buttonGoogle);
         forgotPassword = (TextView) findViewById(R.id.forgotPW);
         signUp = (TextView) findViewById(R.id.signUp);
+    }
+    private void uploadUI(FirebaseUser user){
+        if(user==null){
+            Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
+        }else{
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
     }
 
 }

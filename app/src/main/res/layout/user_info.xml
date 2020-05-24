@@ -177,14 +177,16 @@
                 android:text="Cài đặt" />
         </LinearLayout>
     </LinearLayout>
+
     <Button
-        android:paddingHorizontal="30dp"
-        android:padding="20dp"
+        android:id="@+id/buttonLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:textColor="@color/white"
+        android:background="@drawable/btn_custom_user_info"
+        android:padding="20dp"
+        android:paddingHorizontal="30dp"
         android:text="ĐĂNG XUẤT"
-        android:background="@drawable/btn_custom_user_info"/>
+        android:textColor="@color/white" />
 </LinearLayout>
