@@ -2,59 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/chapterNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:paddingLeft="10dp"
-        android:text="Số chương" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="horizontal">
-
         <TextView
-            android:id="@+id/dateUpdate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:paddingLeft="10dp"
-            android:paddingTop="3dp"
-            android:text="Cập nhật"
-            android:textColor="@color/gray"
-            android:textSize="13sp" />
+            android:id="@+id/chapterNo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:layout_weight="5"
+            android:textSize="20sp"
+            android:paddingLeft="15dp"
+            android:text="Số chương" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
             android:paddingTop="3dp"
-            android:src="@drawable/view"/>
+            android:src="@drawable/eye"/>
 
         <TextView
             android:id="@+id/viewCount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
             android:textColor="@color/gray"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:text="Lượt xem" />
-
     </LinearLayout>
 
-    <View
-        android:id="@+id/view1"
+    <TextView
+        android:id="@+id/dateUpdate"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="3dp"
+        android:text="Cập nhật"
+        android:textColor="@color/gray"
+        android:textSize="15sp" />
 </LinearLayout>

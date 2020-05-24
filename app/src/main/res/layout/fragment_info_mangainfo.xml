@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
+        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -11,7 +12,7 @@
         <ImageView
             android:id="@+id/authorThumbnail"
             android:layout_width="0dp"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:layout_marginTop="7dp"
             android:layout_weight="1"
             android:src="@drawable/author" />
@@ -19,8 +20,9 @@
         <TextView
             android:id="@+id/author"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
             android:layout_weight="2"
             android:textColor="@color/black"
             android:text="Tác giả" />
@@ -28,20 +30,14 @@
         <TextView
             android:id="@+id/authorName"
             android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
+            android:layout_weight="4"
             android:textColor="@color/black"
             android:text="Đang cập nhật" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_weight="0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +47,7 @@
         <ImageView
             android:id="@+id/stateThumbnail"
             android:layout_width="0dp"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:layout_marginTop="7dp"
             android:layout_weight="1"
             android:src="@drawable/status" />
@@ -59,8 +55,9 @@
         <TextView
             android:id="@+id/state"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
             android:layout_weight="2"
             android:textColor="@color/black"
             android:text="Tình trạng" />
@@ -68,20 +65,14 @@
         <TextView
             android:id="@+id/status"
             android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
+            android:layout_weight="4"
             android:textColor="@color/black"
             android:text="Đang tiến hành" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_weight="0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +82,7 @@
         <ImageView
             android:id="@+id/genreThumbnail"
             android:layout_width="0dp"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:layout_marginTop="7dp"
             android:layout_weight="1"
             android:src="@drawable/tag" />
@@ -99,8 +90,9 @@
         <TextView
             android:id="@+id/genre"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
             android:layout_weight="2"
             android:textColor="@color/black"
             android:text="Thể loại" />
@@ -109,19 +101,13 @@
             android:id="@+id/genres"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:layout_weight="3"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
+            android:layout_weight="4"
             android:textColor="@color/black"
             android:text="Genre 1 - Genre 2 - Genre 3 - Genre 4 - Genre 5 - Genre 6" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_weight="0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -131,16 +117,17 @@
         <ImageView
             android:id="@+id/viewThumbnail"
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:src="@drawable/view" />
 
         <TextView
             android:id="@+id/view"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
             android:layout_weight="2"
             android:textColor="@color/black"
             android:text="Lượt xem" />
@@ -148,20 +135,14 @@
         <TextView
             android:id="@+id/views"
             android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:paddingTop="4dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
+            android:layout_weight="4"
             android:textColor="@color/black"
             android:text="00.000.000" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_weight="0" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -171,13 +152,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-        <TextView
-            android:id="@+id/textviewContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="TextView"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/textviewContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:text="TextView"
+                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

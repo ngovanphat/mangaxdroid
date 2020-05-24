@@ -61,7 +61,7 @@ public class MangaAdapter extends BaseAdapter {
             holder.nameManga = (TextView) convertView.findViewById(R.id.textviewMangaNameAvatar);
             holder.categoryManga = (TextView) convertView.findViewById(R.id.textviewCategoryMangaAvatar);
             holder.viewCount = (TextView) convertView.findViewById(R.id.textviewViewCount);
-            holder.chapters = (TextView) convertView.findViewById(R.id.textviewChapterMangaAvatar);
+            //holder.chapters = (TextView) convertView.findViewById(R.id.textviewChapterMangaAvatar);
             convertView.setTag(holder);
         }
         else {
