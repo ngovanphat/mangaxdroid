@@ -9,9 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.example.mangaxdroid.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -29,17 +27,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+
 public class LoginActivity extends Activity {
     private EditText edtEmail,edtPassword;
-   private Button loginWithEmail;
-    private TextView forgotPassword,signUp;
+    private Button loginWithEmail;
+    private TextView forgotPassword, signUp;
     private FirebaseAuth mAuth;
     private SignInButton loginWithGoogle;
     private int RC_SIGN_IN = 123;
@@ -121,6 +118,7 @@ public class LoginActivity extends Activity {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -142,6 +140,7 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -163,11 +162,12 @@ public class LoginActivity extends Activity {
                     }
                 });
     }
+
     private void signInWithEmail(String email,String password){
-        if(email.equals("")||password.equals("")){
+        if (email.equals("")||password.equals("")) {
             Toast.makeText(LoginActivity.this,"Vui lòng nhập email và mật khẩu",Toast.LENGTH_LONG).show();
         }
-        else{
+        else {
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -196,12 +196,13 @@ public class LoginActivity extends Activity {
         forgotPassword = (TextView) findViewById(R.id.forgotPW);
         signUp = (TextView) findViewById(R.id.signUp);
     }
+
     private void uploadUI(FirebaseUser user){
-        if(user==null){
+        if (user == null) {
             Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
-        }else{
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
+        else {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     }
-
 }
