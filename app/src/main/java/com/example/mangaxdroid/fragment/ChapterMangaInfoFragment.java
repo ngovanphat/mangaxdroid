@@ -64,8 +64,9 @@ public class ChapterMangaInfoFragment extends Fragment {
         return view;
     }
 
-    public void loadContent(String nameManga){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+nameManga);
+    public void loadContent(final String nameManga){
+        final String path = "Data/Chapters/"+nameManga.toUpperCase();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(path);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -73,6 +74,8 @@ public class ChapterMangaInfoFragment extends Fragment {
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     listChapter.add(new Chapter(data.getRef().getKey(),"15/05/2020","909"));
                 }
+                Log.d("name", dataSnapshot.getRef() + " " +path+" "+listChapter.size());
+
                 Collections.reverse(listChapter);
                 adapter.notifyDataSetChanged();
             }

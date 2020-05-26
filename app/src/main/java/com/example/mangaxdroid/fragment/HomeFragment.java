@@ -187,9 +187,9 @@ public class HomeFragment extends Fragment {
                     Manga manga = children.getValue(Manga.class);
                     mangaArrayList.add(manga);
                 }
-                final Manga manga = mangaArrayList.get(13);
-                Picasso.get().load(mangaArrayList.get(13).getImage()).into(suggestedImage1);
-                suggestedText1.setText(mangaArrayList.get(13).getName());
+                final Manga manga = mangaArrayList.get(6);
+                Picasso.get().load(mangaArrayList.get(6).getImage()).into(suggestedImage1);
+                suggestedText1.setText(mangaArrayList.get(6).getName());
                 suggested1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -201,12 +201,12 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-                Picasso.get().load(mangaArrayList.get(14).getImage()).into(suggestedImage2);
-                suggestedText2.setText(mangaArrayList.get(14).getName());
-                Picasso.get().load(mangaArrayList.get(15).getImage()).into(suggestedImage3);
-                suggestedText3.setText(mangaArrayList.get(15).getName());
-                Picasso.get().load(mangaArrayList.get(16).getImage()).into(suggestedImage4);
-                suggestedText4.setText(mangaArrayList.get(16).getName());
+                Picasso.get().load(mangaArrayList.get(7).getImage()).into(suggestedImage2);
+                suggestedText2.setText(mangaArrayList.get(7).getName());
+                Picasso.get().load(mangaArrayList.get(8).getImage()).into(suggestedImage3);
+                suggestedText3.setText(mangaArrayList.get(8).getName());
+                Picasso.get().load(mangaArrayList.get(9).getImage()).into(suggestedImage4);
+                suggestedText4.setText(mangaArrayList.get(9).getName());
             }
 
             @Override
@@ -216,7 +216,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadImgStorm() {
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/HotCategory");
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/NewCategory");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -225,18 +225,18 @@ public class HomeFragment extends Fragment {
                     Manga manga = children.getValue(Manga.class);
                     mangaArrayList.add(manga);
                 }
-                Picasso.get().load(mangaArrayList.get(12).getImage()).into(stormImage1);
-                stormText1.setText(mangaArrayList.get(12).getName());
-                Picasso.get().load(mangaArrayList.get(11).getImage()).into(stormImage2);
-                stormText2.setText(mangaArrayList.get(11).getName());
-                Picasso.get().load(mangaArrayList.get(10).getImage()).into(stormImage3);
-                stormText3.setText(mangaArrayList.get(10).getName());
-                Picasso.get().load(mangaArrayList.get(9).getImage()).into(stormImage4);
-                stormText4.setText(mangaArrayList.get(9).getName());
-                Picasso.get().load(mangaArrayList.get(8).getImage()).into(stormImage5);
-                stormText5.setText(mangaArrayList.get(8).getName());
-                Picasso.get().load(mangaArrayList.get(7).getImage()).into(stormImage6);
-                stormText6.setText(mangaArrayList.get(7).getName());
+                Picasso.get().load(mangaArrayList.get(9).getImage()).into(stormImage1);
+                stormText1.setText(mangaArrayList.get(9).getName());
+                Picasso.get().load(mangaArrayList.get(8).getImage()).into(stormImage3);
+                stormText3.setText(mangaArrayList.get(8).getName());
+                Picasso.get().load(mangaArrayList.get(7).getImage()).into(stormImage4);
+                stormText4.setText(mangaArrayList.get(7).getName());
+                Picasso.get().load(mangaArrayList.get(6).getImage()).into(stormImage5);
+                stormText5.setText(mangaArrayList.get(6).getName());
+                Picasso.get().load(mangaArrayList.get(5).getImage()).into(stormImage6);
+                stormText6.setText(mangaArrayList.get(5).getName());
+                Picasso.get().load(mangaArrayList.get(4).getImage()).into(stormImage2);
+                stormText2.setText(mangaArrayList.get(4).getName());
             }
 
             @Override
@@ -295,8 +295,8 @@ public class HomeFragment extends Fragment {
                 newText4.setText(mangaArrayList.get(3).getName());
                 Picasso.get().load(mangaArrayList.get(4).getImage()).into(newImage5);
                 newText5.setText(mangaArrayList.get(4).getName());
-                Picasso.get().load(mangaArrayList.get(0).getImage()).into(newImage6);
-                newText6.setText(mangaArrayList.get(0).getName());
+                Picasso.get().load(mangaArrayList.get(5).getImage()).into(newImage6);
+                newText6.setText(mangaArrayList.get(5).getName());
             }
 
             @Override

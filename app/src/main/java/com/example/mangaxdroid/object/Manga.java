@@ -41,7 +41,7 @@ public class Manga implements Serializable {
     }
 
     public String getName() {
-        return capitalizeFirstLetter(this.Name.toLowerCase());
+        return this.Name;
     }
     public String capitalizeFirstLetter(String text) {
         StringBuilder str = new StringBuilder();
