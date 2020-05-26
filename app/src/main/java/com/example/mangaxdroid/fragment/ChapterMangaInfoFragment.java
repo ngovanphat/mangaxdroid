@@ -65,7 +65,7 @@ public class ChapterMangaInfoFragment extends Fragment {
     }
 
     public void loadContent(final String nameManga){
-        final String path = "Data/Chapters/"+nameManga.toUpperCase();
+        final String path = "Data/Chapters/"+nameManga.toUpperCase().toString();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(path);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override

@@ -44,6 +44,7 @@ public class NewCategoryFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
+                    manga.setId(children.getKey());
                //     Log.e("manga",manga.getName()+" "+manga.getAuthor()+" "+manga.getCategory()+" "+manga.getViewCount());
                     mangaArrayList.add(manga);
                     adapter.notifyDataSetChanged();

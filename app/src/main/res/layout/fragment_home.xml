@@ -43,17 +43,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/storm1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginLeft="5dp"
-                       >
-                        <ImageView
+                        android:foreground="@drawable/background_round_corner">
+                    <ImageView
                             android:id="@+id/stormImage1"
                             android:src="@drawable/manga1"
                             android:layout_width="150dp"
-                            android:layout_height="130dp"
-                            />
+                            android:layout_height="130dp" />
 
                         <TextView
                             android:id="@+id/stormText1"
@@ -67,6 +67,7 @@
                             android:paddingHorizontal="5dp"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/storm2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -89,6 +90,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/storm3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -111,6 +113,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/storm4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -133,6 +136,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/storm5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -155,6 +159,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/storm6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -179,120 +184,120 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <TextView
-                android:textSize="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif-black"
-                android:text="Đề Xuất"
-                android:textColor="@color/black" />
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="2">
-                <LinearLayout
-                    android:id="@+id/suggested1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:foreground="@drawable/background_round_corner">
-                    <ImageView
-                        android:id="@+id/suggestedImage1"
-                        android:src="@drawable/image_1"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"/>
-                    <TextView
-                        android:id="@+id/suggestedText1"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:text="Fairy Tail"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:paddingTop="5dp"
-                        android:layout_height="50dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:foreground="@drawable/background_round_corner">
+<!--            <TextView-->
+<!--                android:textSize="24dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:fontFamily="sans-serif-black"-->
+<!--                android:text="Đề Xuất"-->
+<!--                android:textColor="@color/black" />-->
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_weight="2">-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/suggested1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:foreground="@drawable/background_round_corner">-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/suggestedImage1"-->
+<!--                        android:src="@drawable/image_1"-->
+<!--                        android:layout_width="200dp"-->
+<!--                        android:layout_height="150dp"/>-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/suggestedText1"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:text="Fairy Tail"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:layout_height="50dp" />-->
+<!--                </LinearLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:foreground="@drawable/background_round_corner">-->
 
-                <ImageView
-                    android:id="@+id/suggestedImage2"
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/image_2" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/suggestedImage2"-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    android:src="@drawable/image_2" />-->
 
-                <TextView
-                    android:id="@+id/suggestedText2"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:text="Hero Academia"
-                    android:layout_width="match_parent"
-                    android:textAlignment="center"
-                    android:paddingTop="5dp"
-                    android:layout_height="50dp" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="2">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:foreground="@drawable/background_round_corner">
-                    <ImageView
-                        android:id="@+id/suggestedImage3"
-                        android:src="@drawable/image_1"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"/>
-                    <TextView
-                        android:id="@+id/suggestedText3"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:text="Fairy Tail"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:paddingTop="5dp"
-                        android:layout_height="50dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:foreground="@drawable/background_round_corner">
+<!--                <TextView-->
+<!--                    android:id="@+id/suggestedText2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:text="Hero Academia"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:layout_height="50dp" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_weight="2">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:foreground="@drawable/background_round_corner">-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/suggestedImage3"-->
+<!--                        android:src="@drawable/image_1"-->
+<!--                        android:layout_width="200dp"-->
+<!--                        android:layout_height="150dp"/>-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/suggestedText3"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:text="Fairy Tail"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:layout_height="50dp" />-->
+<!--                </LinearLayout>-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:foreground="@drawable/background_round_corner">-->
 
-                    <ImageView
-                        android:id="@+id/suggestedImage4"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/image_2" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/suggestedImage4"-->
+<!--                        android:layout_width="200dp"-->
+<!--                        android:layout_height="150dp"-->
+<!--                        android:src="@drawable/image_2" />-->
 
-                    <TextView
-                        android:id="@+id/suggestedText4"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:text="Hero Academia"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:paddingTop="5dp"
-                        android:layout_height="50dp" />
-                </LinearLayout>
-            </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/suggestedText4"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:text="Hero Academia"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:layout_height="50dp" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -328,6 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/new1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -336,12 +342,12 @@
                         <ImageView
                             android:id="@+id/newImage1"
                             android:src="@drawable/manga1"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText1"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Tower of God"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -349,6 +355,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/new2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -357,12 +364,12 @@
                         <ImageView
                             android:id="@+id/newImage2"
                             android:src="@drawable/manga2"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText2"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -370,6 +377,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/new3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -378,12 +386,12 @@
                         <ImageView
                             android:id="@+id/newImage3"
                             android:src="@drawable/manga3"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText3"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Trọng sinh đô thị tu tiên"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -391,6 +399,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/new4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -399,12 +408,12 @@
                         <ImageView
                             android:id="@+id/newImage4"
                             android:src="@drawable/manga4"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText4"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -412,6 +421,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/new5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -420,12 +430,12 @@
                         <ImageView
                             android:id="@+id/newImage5"
                             android:src="@drawable/manga5"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText5"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Kimetsu no Yaiba"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -433,6 +443,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/new6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -441,12 +452,12 @@
                         <ImageView
                             android:id="@+id/newImage6"
                             android:src="@drawable/manga2"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText6"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -490,6 +501,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:id="@+id/hot1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -498,12 +510,12 @@
                         <ImageView
                             android:id="@+id/hotImage1"
                             android:src="@drawable/manga1"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText1"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Tower of God"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -511,6 +523,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/hot2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -519,12 +532,12 @@
                         <ImageView
                             android:id="@+id/hotImage2"
                             android:src="@drawable/manga2"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText2"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -532,6 +545,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/hot3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -540,12 +554,12 @@
                         <ImageView
                             android:id="@+id/hotImage3"
                             android:src="@drawable/manga3"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText3"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Trọng sinh đô thị tu tiên"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -553,6 +567,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/hot4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -561,12 +576,12 @@
                         <ImageView
                             android:id="@+id/hotImage4"
                             android:src="@drawable/manga4"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText4"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -574,6 +589,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/hot5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -582,12 +598,12 @@
                         <ImageView
                             android:id="@+id/hotImage5"
                             android:src="@drawable/manga5"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText5"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Kimetsu no Yaiba"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
@@ -595,6 +611,7 @@
                             android:layout_height="50dp" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/hot6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -603,12 +620,12 @@
                         <ImageView
                             android:id="@+id/hotImage6"
                             android:src="@drawable/manga2"
-                            android:layout_width="200dp"
-                            android:layout_height="180dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText6"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:text="Võ luyện đỉnh phong"
                             android:paddingTop="5dp"
                             android:textAlignment="center"
