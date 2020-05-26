@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <item
+        android:id="@+id/action_download"
+        android:enabled="true"
+        android:icon="@drawable/download"
+        android:title="Bookmark"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_setting"
         android:enabled="true"
         android:icon="@drawable/setting"
@@ -14,11 +20,5 @@
         android:enabled="true"
         android:icon="@drawable/list_solid"
         android:title="Chapter List"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_bookmark"
-        android:enabled="true"
-        android:icon="@drawable/bookmark_regular"
-        android:title="Bookmark"
         app:showAsAction="ifRoom" />
 </menu>

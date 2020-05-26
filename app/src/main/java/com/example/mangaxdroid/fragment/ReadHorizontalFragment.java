@@ -89,9 +89,7 @@ public class ReadHorizontalFragment extends Fragment {
         });
         return imgURLs;
     }
-    public interface OnViewPagerListener{
-        void onViewPagerClick();
-    }
+
     public class ChapterPagerAdapter extends PagerAdapter {
         private Context context;
         ArrayList<String> imgURLs;
@@ -154,5 +152,9 @@ public class ReadHorizontalFragment extends Fragment {
         public void destroyItem (@NonNull ViewGroup container,int position, @NonNull Object object) {
             container.removeView((View) object);
         }
+    }
+    public interface OnViewPagerListener{
+        void onViewPagerClick();
+        void onCurrentPageUpdate(int curPage);
     }
 }

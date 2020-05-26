@@ -3,6 +3,7 @@ package com.example.mangaxdroid.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -44,6 +45,8 @@ public class ReadVerticalFragment extends Fragment {
     private static String mangaID;
     ListView listView;
     ArrayList<String> imgURLs=new ArrayList<String>();
+    SharedPreferences pageCountSharedPref;
+    int pageCount;
     Context context=null;
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
@@ -63,6 +66,10 @@ public class ReadVerticalFragment extends Fragment {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_vertical, container, false);
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
+        pageCount=0;//haven't read
+        SharedPreferences.Editor edit = pageCountSharedPref.edit();
+        edit.putString("pageCount", "0");
+        edit.apply();
 
         imgURLs=fetchChapter(mangaID,chapterID);
         listView=layout.findViewById(R.id.imgList);
@@ -90,9 +97,13 @@ public class ReadVerticalFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (lastFirstVisibleItem < firstVisibleItem) {
                     ((OnListviewListener) context).onListviewScroll(1);
+                    ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
+                    //checkPageCount(manga.getName(),chapterID);
                 }
                 if (lastFirstVisibleItem > firstVisibleItem) {
                     ((OnListviewListener) context).onListviewScroll(1);
+                    ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
+                    //checkPageCount(manga.getName(),chapterID);
                 }
             }
         });
@@ -148,7 +159,25 @@ public class ReadVerticalFragment extends Fragment {
         });
         dbRef.onDisconnect();
     }
-
+    private void checkPageCount(String mangaName, final String chapterId){
+        int curCount=Integer.parseInt(pageCountSharedPref.getString("pageCount",""));
+        if(curCount>(imgURLs.size()*30/100)){//total page loaded (not ordered >30%)
+            dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId);
+            dbRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChild("view")){
+                        int curViewCount=Integer.parseInt(dataSnapshot.child("view").getValue().toString());
+                        dbRef.child("view").setValue(curViewCount+1);
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+            dbRef.onDisconnect();//disconnect để sang activity khác
+        }
+    }
     //TODO Loading effect
     //TODO Error shown by an image(or a button for retry image)
     public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
@@ -166,7 +195,6 @@ public class ReadVerticalFragment extends Fragment {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
         dbRef.onDisconnect();//disconnect để sang activity khác
@@ -177,5 +205,6 @@ public class ReadVerticalFragment extends Fragment {
         void onListviewClick();
         void onChapterChange(String nextChapter);
         void onLastChapterClick();
+        void onCurrentPageUpdate(int curPage);
     }
 }

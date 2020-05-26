@@ -2,6 +2,7 @@ package com.example.mangaxdroid.adapter;
 
 import android.content.Context;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,8 @@ import java.util.List;
 public class ChapterAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    ArrayList<String> imgURLs;
+    private ArrayList<String> imgURLs;
+    private SharedPreferences pageCountSharedPref;
 
     public ChapterAdapter(Context context, int layout, ArrayList<String> imgURLs){
         this.context = context;
@@ -60,13 +62,17 @@ public class ChapterAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(layout,null);
         ImageView imgv = (ImageView) convertView.findViewById(R.id.mangaPage);
-
+        pageCountSharedPref = context.getSharedPreferences("readPages", context.MODE_PRIVATE);
         final View finalConvertView = convertView;
         Picasso.get().load(imgURLs.get(position)).into(imgv, new Callback() {
             @Override
             public void onSuccess() {
                 ProgressBar progressBar=(ProgressBar) finalConvertView.findViewById(R.id.progress);
                 progressBar.setVisibility(View.GONE);
+                SharedPreferences.Editor edit = pageCountSharedPref.edit();
+                String curCount=pageCountSharedPref.getString("pageCount","");
+                edit.putString("pageCount", String.valueOf(Integer.parseInt(curCount)+1));
+                edit.apply();
             }
 
             @Override

@@ -41,6 +41,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener, ReadSettingsFragment.OnReadSettingsListener,ReadChapterListFragment.OnReadChapterListListener {
     //Controls
@@ -59,6 +60,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     ArrayList<String> imgURLs=new ArrayList<String>();
     String chapterName;
     String mangaName;
+    int currentPage;
     //Menus & settings
     SharedPreferences sharedPreferences;
     ReadSettingsFragment settingsFragment;
@@ -98,7 +100,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         layout = findViewById(R.id.baseLayout);
         toolbar = findViewById(R.id.toolBar);
 
-        checkBookmark();
+        //checkDownloaded
         setSupportActionBar(toolbar);
         actionBar=getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,8 +122,8 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                         chapterListFragment=ReadChapterListFragment.newInstance(bundle);
                         chapterListFragment.show(getSupportFragmentManager(),"dialog");
                         break;
-                    case R.id.action_bookmark:
-                        onBookMarkClick();
+                    case R.id.action_download:
+                        //onDownloadClick
                         break;                }
                 return true;
             }
@@ -267,11 +269,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         });
         dbRef.onDisconnect();
     }
-    private void checkBookmark(){
+    /*private void checkBookmark(){
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
-            final DatabaseReference favdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            final DatabaseReference bookmarkdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Bookmark");
+            bookmarkdb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     if (snapshot.hasChild(mangaName)) {
@@ -288,7 +290,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
 
                 }
             });
-            favdb.onDisconnect();
+            bookmarkdb.onDisconnect();
         }
     }
     private void onBookMarkClick(){
@@ -312,25 +314,25 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             });
             notLoggedIn.show();
         }else{
-            final DatabaseReference favdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            final DatabaseReference bookmarkdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Bookmark");
+            bookmarkdb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     Menu menu = bottomNav.getMenu();
                     //add new
                     if (!snapshot.hasChild(mangaName)) {
                         Toast.makeText(ReadChapterActivity.this, "Bookmark Added", Toast.LENGTH_SHORT).show();
-                        favdb.child(mangaName).setValue(chapterName);
+                        bookmarkdb.child(mangaName).setValue(chapterName);
                         menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
                     }else {
                         String check=snapshot.child(mangaName).getValue().toString();
                         if (check.equals(chapterName)) {//remove
                             Toast.makeText(ReadChapterActivity.this, "Bookmark Removed", Toast.LENGTH_SHORT).show();
-                            favdb.child(mangaName).removeValue();
+                            bookmarkdb.child(mangaName).removeValue();
                             menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_regular);
                         }else {//change
                             Toast.makeText(ReadChapterActivity.this, "Bookmark Updated", Toast.LENGTH_SHORT).show();
-                            favdb.child(mangaName).setValue(chapterName);
+                            bookmarkdb.child(mangaName).setValue(chapterName);
                             menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
                         }
                     }
@@ -340,7 +342,36 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
 
                 }
             });
-            favdb.onDisconnect();
+            bookmarkdb.onDisconnect();
+        }
+    }*/
+    private void toHistory(){
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            final DatabaseReference historyDb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            historyDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String mangaId=manga.getId();
+                    Date date = new Date();
+                    //This method returns the time in millis
+                    long timeMilli = date.getTime();
+                    //add new
+                    historyDb.child(mangaId).child("Chapter").setValue(chapterName);
+                    historyDb.child(mangaId).child("Page").setValue(currentPage);//get current page count
+                    historyDb.child(mangaId).child("Date").setValue(timeMilli);
+                    int count=(int)snapshot.getChildrenCount();
+                    if(count>10){
+                        for(DataSnapshot ds:snapshot.child(mangaId).getChildren()){
+
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            historyDb.onDisconnect();
         }
     }
     @Override
@@ -360,5 +391,9 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             ft.replace(R.id.readerFrame,readHorizontal);
         }
         ft.commit();
+    }
+    @Override
+    public void onCurrentPageUpdate(int curPage){
+        currentPage=curPage;
     }
 }
