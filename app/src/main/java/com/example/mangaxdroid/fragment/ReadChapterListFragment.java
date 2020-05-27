@@ -1,23 +1,19 @@
 package com.example.mangaxdroid.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mangaxdroid.R;
-import com.example.mangaxdroid.activity.ReadChapterActivity;
 import com.example.mangaxdroid.adapter.CustomChapterListAdapter;
 import com.example.mangaxdroid.object.Chapter;
 import com.example.mangaxdroid.object.Manga;

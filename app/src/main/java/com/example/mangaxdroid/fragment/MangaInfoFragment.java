@@ -44,6 +44,7 @@ public class MangaInfoFragment extends Fragment implements FragmentCallBacks {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         tabAdapter = new TabAdapter(myContext.getSupportFragmentManager());
         tabAdapter.addFragment(new InfoMangaInfoFragment(manga),"Thông tin");
+        tabAdapter.addFragment(new CommentMangaInfoFragment(manga),"Bình luận");
         tabAdapter.addFragment(new ChapterMangaInfoFragment(manga),"Chapters");
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
