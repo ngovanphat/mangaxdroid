@@ -9,6 +9,15 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="facebook_app_id">2956715871087361</string> <string name="fb_login_protocol_scheme">fb2956715871087361</string>
-
+    <string name="facebook_app_id">2956715871087361</string>
+    <string name="fb_login_protocol_scheme">fb2956715871087361</string>
+    <string name="question1">1. Vào Trang cá nhân\n2. Nhấn vào Cài đặt\n3. Nhấn vào Đổi mật khẩu</string>
+    <string name="question2">1. Vào Trang đăng nhập\n2. Nhấn vào Quên mật khẩu</string>
+    <string name="question3">- Tải khoản VIP là tải khoản cần sử dụng một khoản phí để duy trì thành viên.
+        \n- Tài khoản VIP cho phép bạn tải và lưu truyện offline để có thể thuận tiện cho việc đọc khi không có Internet.
+        \n- Để nâng cấp thành tài khoản VIP, nhấn vào nút \"Xem thêm\" để biết thêm thông tin.
+    </string>
+    <string name="question4">1. Vào Trang cá nhân\n2. Nhấn vào Nâng cấp tài khoản</string>
+    <string name="question5">Chưa có thông tin</string>
+    <string name="question6">Truyện sẽ được lưu tự động với chapter gần nhất mà bạn đọc.</string>
 </resources>
