@@ -9,14 +9,15 @@
     <LinearLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="0dp"
+        android:layout_weight="6"
         android:orientation="vertical"
         android:background="@drawable/layout_rounded_corner_2">
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="Manga x Droid"
             android:textAlignment="center"
             android:textColor="#00a7a7"
@@ -126,7 +127,8 @@
     <LinearLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:background="@drawable/layout_rounded_corner_2">
         <TextView
