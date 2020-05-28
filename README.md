@@ -8,21 +8,35 @@
 
 ## Các chức năng của đồ án:
 
-- Đăng nhập
-- Đọc truyện
-- Lưu truyện
-- Tải truyện
-- Tìm kiếm truyện
-- Upload truyện
-- Quản lý truyện
-- Tìm kiếm theo tiêu chí
-- Quản lý người dùng
-- Nâng cấp tài khoản
-- Đề cử truyện cho người đọc
-- Theo dõi truyện
-- Xem chi tiết giới thiệu truyện
-- Bình luận đánh giá truyện
-- Đăng ký
+[x] Đề xuất truyện trong trang chủ 
+[x] Hiển thị danh sách truyện theo thể loại: 
+[x] Tìm kiếm truyện:
+	- Theo tên 
+ 	- Theo thể loại 
+[x] Hiên thị chi tiết thông tin truyện 
+[x] Bình luận đánh giá truyện 
+[x] Đọc truyện theo từng chương
+[] Danh sách yêu thích: 
+	- Thêm truyện vào danh sách yêu thích 
+	- Hiển thị danh sách yêu thích 
+[] Lịch sử đọc truyện: 
+	- Hiển thị danh sách lịch sử đọc truyện 
+	- Đọc tiếp chương từ lần đọc cuối cùng
+[x] Đọc truyện: 
+	- Theo chiều dọc 
+	- Theo chiều ngang
+	- Đi tới chương bất kỳ 
+	- Đi tới chương kế tiếp 
+[] Tải truyện offline
+[x] Report lỗi
+[x] FAQ / Liên hệ 
+[x] Đăng ký 
+[x] Đăng nhập: 
+	- Với email 
+	- Với Facebook
+	- Với Google
+[] Quên mật khẩu 
+[] Đổi mật khẩu 
 
 ## Công việc theo tuần:
 
