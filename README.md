@@ -8,35 +8,35 @@
 
 ## Các chức năng của đồ án:
 
-[x] Đề xuất truyện trong trang chủ 
+- [x] Đề xuất truyện trong trang chủ 
 
-[x] Hiển thị danh sách truyện theo thể loại
+- [x] Hiển thị danh sách truyện theo thể loại
 
-[x] Tìm kiếm truyện:
+- [x] Tìm kiếm truyện:
 
 	- Theo tên 
 	
  	- Theo thể loại 
 	
-[x] Hiên thị chi tiết thông tin truyện 
+- [x] Hiên thị chi tiết thông tin truyện 
 
-[x] Bình luận đánh giá truyện 
+- [x] Bình luận đánh giá truyện 
 
-[x] Đọc truyện theo từng chương
+- [x] Đọc truyện theo từng chương
 
-[] Danh sách yêu thích: 
+- [] Danh sách yêu thích: 
 
 	- Thêm truyện vào danh sách yêu thích 
 	
 	- Hiển thị danh sách yêu thích 
 	
-[] Lịch sử đọc truyện: 
+- [] Lịch sử đọc truyện: 
 
 	- Hiển thị danh sách lịch sử đọc truyện 
 	
 	- Đọc tiếp chương từ lần đọc cuối cùng
 	
-[x] Đọc truyện: 
+- [x] Đọc truyện: 
 
 	- Theo chiều dọc 
 	
@@ -46,15 +46,15 @@
 	
 	- Đi tới chương kế tiếp 
 	
-[] Tải truyện offline
+- [] Tải truyện offline
 
-[x] Report lỗi
+- [x] Report lỗi
 
-[x] FAQ / Liên hệ 
+- [x] FAQ / Liên hệ 
 
-[x] Đăng ký 
+- [x] Đăng ký 
 
-[x] Đăng nhập: 
+- [x] Đăng nhập: 
 
 	- Với email 
 	
@@ -62,9 +62,9 @@
 	
 	- Với Google
 	
-[] Quên mật khẩu 
+- [] Quên mật khẩu 
 
-[] Đổi mật khẩu 
+- [] Đổi mật khẩu 
 
 ## Công việc theo tuần:
 
