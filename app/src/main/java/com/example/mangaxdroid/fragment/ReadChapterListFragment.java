@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.android.volley.VolleyLog.TAG;
 
@@ -78,7 +79,7 @@ public class ReadChapterListFragment extends DialogFragment {
     }
 
     public void loadContent(String nameManga){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+nameManga);
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+nameManga.toUpperCase());
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,6 +87,7 @@ public class ReadChapterListFragment extends DialogFragment {
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     listChapter.add(new Chapter(data.getRef().getKey(),"15/05/2020","909"));
                 }
+                Collections.reverse(listChapter);
                 adapter.notifyDataSetChanged();
             }
 

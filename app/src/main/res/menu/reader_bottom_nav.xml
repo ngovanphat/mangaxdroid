@@ -7,7 +7,7 @@
         android:id="@+id/action_download"
         android:enabled="true"
         android:icon="@drawable/download"
-        android:title="Bookmark"
+        android:title="Save Offline"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_setting"

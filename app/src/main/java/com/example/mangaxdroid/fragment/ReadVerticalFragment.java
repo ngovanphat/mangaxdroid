@@ -100,14 +100,15 @@ public class ReadVerticalFragment extends Fragment {
             }
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (lastFirstVisibleItem < firstVisibleItem) {
+                if (lastFirstVisibleItem != firstVisibleItem) {
                     //((OnListviewListener) context).onListviewScroll(1);
-                    ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
-                    //checkPageCount(manga.getName(),chapterID);
-                }
-                if (lastFirstVisibleItem > firstVisibleItem) {
-                    //((OnListviewListener) context).onListviewScroll(1);
-                    ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
+                    int pos = 0;
+                    if (listView.getChildCount() > 1 && listView.getChildAt(0).getTop() < 0) pos++;
+                    View item = listView.getChildAt(pos);
+                    if(item.getTag()!=null){//nút next chapter
+                        if(item.getTag().equals("loaded"))
+                            ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
+                    }
                     //checkPageCount(manga.getName(),chapterID);
                 }
             }
@@ -189,6 +190,7 @@ public class ReadVerticalFragment extends Fragment {
                         int curViewCount=Integer.parseInt(dataSnapshot.child("view").getValue().toString());
                         dbRef.child("view").setValue(curViewCount+1);
                     }
+                    else dbRef.child("view").setValue(1);
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {

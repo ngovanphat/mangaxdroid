@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80000000"
+    android:background="@drawable/layout_rounded_corner"
     android:weightSum="100">
 
     <LinearLayout
@@ -35,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="93"
-            android:scrollbarSize="8dp"
-            android:scrollbarThumbVertical="@drawable/list_custom_scrollbar" />
+            android:scrollbarSize="8dp"/>
     </LinearLayout>
 
 </RelativeLayout>

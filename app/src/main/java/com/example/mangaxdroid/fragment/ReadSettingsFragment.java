@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,6 +31,7 @@ public class ReadSettingsFragment extends DialogFragment {
     RelativeLayout layout;
     Spinner viewType;
     SeekBar seekBar;
+    Button reportBtn;
     public static ReadSettingsFragment newInstance(Bundle bundle) {
         ReadSettingsFragment fragment = new ReadSettingsFragment();
         curViewType=bundle.getString("currentViewType");
@@ -46,6 +48,7 @@ public class ReadSettingsFragment extends DialogFragment {
         layout=(RelativeLayout) inflater.inflate(R.layout.fragment_read_settings, container, false);
         viewType=layout.findViewById(R.id.viewType);
         seekBar = layout.findViewById(R.id.brightnessBar);
+        reportBtn=layout.findViewById(R.id.reportBtn);
         final ArrayAdapter aa = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,viewTypes);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ReadChapterActivity parent=(ReadChapterActivity)getActivity();

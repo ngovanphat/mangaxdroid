@@ -349,7 +349,8 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
             final DatabaseReference historyDb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            historyDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            Query historyQuery=historyDb.orderByChild("updatedAt");
+            historyQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     String mangaId=manga.getId();
@@ -359,11 +360,16 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                     //add new
                     historyDb.child(mangaId).child("Chapter").setValue(chapterName);
                     historyDb.child(mangaId).child("Page").setValue(currentPage);//get current page count
-                    historyDb.child(mangaId).child("Date").setValue(timeMilli);
+                    historyDb.child(mangaId).child("updatedAt").setValue(timeMilli);
                     int count=(int)snapshot.getChildrenCount();
                     if(count>10){
+                        int counter=0;
                         for(DataSnapshot ds:snapshot.child(mangaId).getChildren()){
-
+                            if(counter==10){
+                                //node thứ 11
+                                historyDb.child(ds.getKey()).removeValue();
+                            }
+                            counter++;
                         }
                     }
                 }
@@ -374,6 +380,13 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             historyDb.onDisconnect();
         }
     }
+
+    @Override
+    protected void onPause() {
+        toHistory();
+        super.onPause();
+    }
+
     @Override
     public void OnChapterListItemClick(String chapterID) {
         getSupportActionBar().setTitle("Chapter " + chapterID);
