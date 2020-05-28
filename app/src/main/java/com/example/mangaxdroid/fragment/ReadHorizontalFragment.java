@@ -47,7 +47,7 @@ public class ReadHorizontalFragment extends Fragment {
     public static ReadHorizontalFragment newInstance(Bundle bundle) {
         ReadHorizontalFragment fragment=new ReadHorizontalFragment();
         manga = (Manga) bundle.getSerializable("manga");
-        mangaID=manga.getName();
+        mangaID=manga.getName().toUpperCase().toString();
         chapterID=bundle.getString("chapterID");
 
         return fragment;

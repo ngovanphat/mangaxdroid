@@ -51,7 +51,7 @@ public class ReadVerticalFragment extends Fragment {
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
         manga = (Manga) bundle.getSerializable("manga");
-        mangaID=manga.getName();
+        mangaID=manga.getName().toUpperCase().toString();
         chapterID=bundle.getString("chapterID");
         return fragment;
     }
@@ -67,6 +67,7 @@ public class ReadVerticalFragment extends Fragment {
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
         pageCount=0;//haven't read
+        pageCountSharedPref = getContext().getSharedPreferences("pageCount",Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = pageCountSharedPref.edit();
         edit.putString("pageCount", "0");
         edit.apply();

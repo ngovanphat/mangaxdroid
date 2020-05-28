@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.adapter.CommentAdapter;
@@ -25,6 +27,8 @@ public class CommentMangaInfoFragment extends Fragment {
     public CommentMangaInfoFragment(Manga manga) {
         this.manga = manga;
     }
+
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

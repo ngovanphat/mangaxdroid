@@ -47,7 +47,9 @@ public class CategoriesFragment extends Fragment {
     public CategoriesFragment(int selectedPage) {
         SelectedPage = selectedPage;
     }
-
+    public CategoriesFragment() {
+        SelectedPage = 0;
+    }
     @Override
     public void onCreate(Bundle savedIntanceState){
         super.onCreate(savedIntanceState);

@@ -79,7 +79,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
 
         Bundle bundle = intent.getExtras();
         manga = (Manga) bundle.getSerializable("manga");
-        mangaName = manga.getName();
+        mangaName = manga.getName().toUpperCase().toString();
         chapterName = intent.getStringExtra("numberChapter");
 
         ft=getSupportFragmentManager().beginTransaction();
