@@ -24,13 +24,13 @@
 
 - [x] Đọc truyện theo từng chương
 
-- [] Danh sách yêu thích: 
+- [ ] Danh sách yêu thích: 
 
 	- Thêm truyện vào danh sách yêu thích 
 	
 	- Hiển thị danh sách yêu thích 
 	
-- [] Lịch sử đọc truyện: 
+- [ ] Lịch sử đọc truyện: 
 
 	- Hiển thị danh sách lịch sử đọc truyện 
 	
@@ -46,7 +46,7 @@
 	
 	- Đi tới chương kế tiếp 
 	
-- [] Tải truyện offline
+- [ ] Tải truyện offline
 
 - [x] Report lỗi
 
@@ -62,9 +62,9 @@
 	
 	- Với Google
 	
-- [] Quên mật khẩu 
+- [ ] Quên mật khẩu 
 
-- [] Đổi mật khẩu 
+- [ ] Đổi mật khẩu 
 
 ## Công việc theo tuần:
 
