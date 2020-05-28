@@ -18,7 +18,7 @@
 	
  	- Theo thể loại 
 	
-- [x] Hiên thị chi tiết thông tin truyện 
+- [x] Hiển thị chi tiết thông tin truyện 
 
 - [x] Bình luận đánh giá truyện 
 
@@ -48,7 +48,7 @@
 	
 - [ ] Tải truyện offline
 
-- [x] Report lỗi
+- [ ] Report lỗi
 
 - [x] FAQ / Liên hệ 
 
