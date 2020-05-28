@@ -70,7 +70,7 @@ public class ChapterAdapter extends BaseAdapter {
                 ProgressBar progressBar=(ProgressBar) finalConvertView.findViewById(R.id.progress);
                 progressBar.setVisibility(View.GONE);
                 SharedPreferences.Editor edit = pageCountSharedPref.edit();
-                String curCount=pageCountSharedPref.getString("pageCount","");
+                String curCount=pageCountSharedPref.getString("pageCount","0");
                 edit.putString("pageCount", String.valueOf(Integer.parseInt(curCount)+1));
                 edit.apply();
             }

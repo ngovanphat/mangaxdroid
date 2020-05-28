@@ -1,5 +1,6 @@
 package com.example.mangaxdroid.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -60,6 +63,7 @@ public class ReadVerticalFragment extends Fragment {
         super.onAttach(context);
         this.context=context;
     }
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,7 +71,7 @@ public class ReadVerticalFragment extends Fragment {
         //lấy ảnh & đổ ảnh vào listView
         //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
         pageCount=0;//haven't read
-        pageCountSharedPref = getContext().getSharedPreferences("pageCount",Context.MODE_PRIVATE);
+        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = pageCountSharedPref.edit();
         edit.putString("pageCount", "0");
         edit.apply();
@@ -97,23 +101,37 @@ public class ReadVerticalFragment extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (lastFirstVisibleItem < firstVisibleItem) {
-                    ((OnListviewListener) context).onListviewScroll(1);
+                    //((OnListviewListener) context).onListviewScroll(1);
                     ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
                     //checkPageCount(manga.getName(),chapterID);
                 }
                 if (lastFirstVisibleItem > firstVisibleItem) {
-                    ((OnListviewListener) context).onListviewScroll(1);
+                    //((OnListviewListener) context).onListviewScroll(1);
                     ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
                     //checkPageCount(manga.getName(),chapterID);
                 }
             }
         });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+        GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
                 ((OnListviewListener) context).onListviewClick();
+                return false;
             }
-        });
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                ((OnListviewListener) context).onListviewScroll(1);
+                return false;
+            }
+        };
+        final GestureDetector gd = new GestureDetector(context,listener);
+        View.OnTouchListener l = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gd.onTouchEvent(event);
+            }
+        };
+        listView.setOnTouchListener(l);
         return layout;
     }
 

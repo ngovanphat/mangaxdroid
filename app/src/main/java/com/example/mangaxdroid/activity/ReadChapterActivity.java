@@ -394,6 +394,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     }
     @Override
     public void onCurrentPageUpdate(int curPage){
+        Log.d("read page",String.valueOf(curPage));
         currentPage=curPage;
     }
 }
