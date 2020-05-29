@@ -157,15 +157,16 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="5dp">
             <TextView
                 android:id="@+id/textviewContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="TextView"
                 android:textColor="@color/black" />
         </LinearLayout>

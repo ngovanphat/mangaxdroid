@@ -14,7 +14,7 @@
         android:id="@+id/page_3"
         android:enabled="true"
         android:icon="@drawable/safari"
-        android:title="Khám phá"/>
+        android:title="Tìm kiếm"/>
     <item
         android:id="@+id/page_4"
         android:enabled="true"
