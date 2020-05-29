@@ -244,6 +244,12 @@ public class HomeFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
+                    try{
+                        manga.setId(children.getKey());
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                     mangaArrayList.add(manga);
                 }
 
@@ -338,6 +344,12 @@ public class HomeFragment extends Fragment {
                 mangaArrayList2.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
+                    try{
+                    manga.setId(children.getKey());
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                     mangaArrayList2.add(manga);
                 }
                 Picasso.get().load(mangaArrayList2.get(0).getImage()).into(hotImage1);
@@ -428,6 +440,12 @@ public class HomeFragment extends Fragment {
                 mangaArrayList3.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
+                    try{
+                        manga.setId(children.getKey());
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                     mangaArrayList3.add(manga);
                 }
 
