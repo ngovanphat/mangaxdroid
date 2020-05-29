@@ -51,7 +51,7 @@
                         android:foreground="@drawable/background_round_corner">
                     <ImageView
                             android:id="@+id/stormImage1"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
 
                         <TextView
@@ -73,7 +73,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/stormImage2"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp"/>
                         <TextView
                             android:id="@+id/stormText2"
@@ -94,7 +94,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/stormImage3"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/stormText3"
@@ -115,7 +115,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/stormImage4"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/stormText4"
@@ -136,7 +136,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/stormImage5"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/stormText5"
@@ -157,7 +157,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/stormImage6"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/stormText6"
@@ -214,7 +214,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/newImage1"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText1"
@@ -234,7 +234,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/newImage2"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText2"
@@ -254,7 +254,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/newImage3"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText3"
@@ -274,7 +274,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/newImage4"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText4"
@@ -294,7 +294,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/newImage5"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText5"
@@ -314,7 +314,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/newImage6"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/newText6"
@@ -370,7 +370,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/hotImage1"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText1"
@@ -390,7 +390,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/hotImage2"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText2"
@@ -410,7 +410,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/hotImage3"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText3"
@@ -430,7 +430,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/hotImage4"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText4"
@@ -450,7 +450,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/hotImage5"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText5"
@@ -470,7 +470,7 @@
                         android:foreground="@drawable/background_round_corner">
                         <ImageView
                             android:id="@+id/hotImage6"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="130dp" />
                         <TextView
                             android:id="@+id/hotText6"
