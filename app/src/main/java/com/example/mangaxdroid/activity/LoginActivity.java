@@ -93,6 +93,13 @@ public class LoginActivity extends Activity {
 
             }
         });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivity(new Intent(LoginActivity.this,ResetPasswordActivity.class));
+            }
+        });
     }
 
     private void handleFacebookToken(AccessToken accessToken) {

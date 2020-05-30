@@ -244,16 +244,15 @@ public class HomeFragment extends Fragment {
                 mangaArrayList.clear();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Manga manga = children.getValue(Manga.class);
-                    try{
+                    try {
                         manga.setId(children.getKey());
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     mangaArrayList.add(manga);
                 }
-
                 Picasso.get().load(mangaArrayList.get(6).getImage()).into(stormImage1);
+
                 stormText1.setText(mangaArrayList.get(6).getName());
                 storm1.setOnClickListener(new View.OnClickListener() {
 

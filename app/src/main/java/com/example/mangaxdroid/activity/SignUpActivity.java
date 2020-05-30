@@ -197,7 +197,21 @@ public class SignUpActivity extends Activity {
             Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
         }
         else {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("EmailResult", "Email sent.");
+                            }
+                        }
+                    });
+            if(!user.isEmailVerified()){
+                Toast.makeText(this,"Vui lòng xác nhận email!!",Toast.LENGTH_LONG).show();
+
+            }
             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+
         }
     }
 
