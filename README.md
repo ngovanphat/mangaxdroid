@@ -98,7 +98,12 @@
 | 1753073    | Trương Thuận Nam | Tính năng chuyển chapter truyện, đọc theo chiều dọc, đọc theo chiều ngang |   100%   |
 | 1753137    | Lê Minh Quân     | Kết nối trang chủ, trang người dùng đã đăng nhập, thiết kế lại UI trang đăng ký đăng nhập, trang chi tiêt tuyện, thiết kế và kêt nối trang danh sách yêu thích|   100%   |
 
-
+### Tuần 10: Danh sách truyện yêu thích, lịch sử đọc truyện
+|   MSSV     | Họ tên           |  Công việc                                                 | Hoàn thành |
+|:----------:|:----------------:|:----------------------------------------------------------:|:----------:|
+| 1753082    | Ngô Văn Phát     | Tính năng đăng nhập với facebook, tính năng upload truyện, tính năng reset lại mật khẩu, tính năng xác nhận email |   100%   |
+| 1753073    | Trương Thuận Nam | Tính năng lưu lịch sử đọc truyện|   100%   |
+| 1753137    | Lê Minh Quân     | Tính năng xem danh sách yêu thích|   100%   |
 ## References: 
 *Carousel Slide*
 https://medium.com/@lobothijau/create-carousel-easily-in-android-app-with-carouselview-6cbf5ef500a9
