@@ -60,9 +60,9 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     ArrayList<String> imgURLs=new ArrayList<String>();
     String chapterName;
     String mangaName;
-    int currentPage;
+    int currentPage=0;
+    SharedPreferences pageCountSharedPref;
     //Menus & settings
-    SharedPreferences sharedPreferences;
     ReadSettingsFragment settingsFragment;
     ReadChapterListFragment chapterListFragment;
     String viewType="Vertical";
@@ -76,7 +76,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         nextBtn=findViewById(R.id.toolbarbtn);
         //lấy tên & số chap
         Intent intent = getIntent();
-
         Bundle bundle = intent.getExtras();
         manga = (Manga) bundle.getSerializable("manga");
         mangaName = manga.getName().toUpperCase().toString();
@@ -90,11 +89,10 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
         ft.replace(R.id.readerFrame,readVertical);
         ft.commit();
-        /*final SharedPreferences settings=getSharedPreferences("settings",MODE_PRIVATE);
-        SharedPreferences.Editor edit=settings.edit();
-        viewType="Vertical";
-        edit.putString("viewType",viewType);
-        edit.apply();*/
+        pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
+        SharedPreferences.Editor edit = pageCountSharedPref.edit();
+        edit.putString("pageCount", "0");
+        edit.apply();
 
         bottomNav=findViewById(R.id.navBar);
         layout = findViewById(R.id.baseLayout);
@@ -188,14 +186,19 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     }
 
     @Override
-    public void onViewPagerClick() {
-        if(bottomNav.getVisibility()==View.GONE)
-        {
-            bottomNav.setVisibility(View.VISIBLE);
-            getSupportActionBar().show();
-        }else {
+    public void onViewPagerClick(int flag) {
+        if(flag==1){
             bottomNav.setVisibility(View.GONE);
             getSupportActionBar().hide();
+        }else{
+            if(bottomNav.getVisibility()==View.GONE)
+            {
+                bottomNav.setVisibility(View.VISIBLE);
+                getSupportActionBar().show();
+            }else {
+                bottomNav.setVisibility(View.GONE);
+                getSupportActionBar().hide();
+            }
         }
     }
 
@@ -203,12 +206,31 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     public void OnReadSettingsChanged(String setViewType) {
         if (readHorizontal.isResumed()&&setViewType=="Vertical") {
             viewType="Vertical";
+            Log.e("current page", "OnReadSettingsChanged: "+currentPage );
+            pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
+            SharedPreferences.Editor edit = pageCountSharedPref.edit();
+            edit.putString("pageCount", String.valueOf(currentPage));
+            edit.apply();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("manga",manga);
+            bundle.putString("chapterID",chapterName);
+            readVertical= ReadVerticalFragment.newInstance(bundle);
             ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.readerFrame,readVertical);
             ft.commit();
         }else if(readVertical.isResumed()&&setViewType=="Horizontal")
         {
             viewType="Horizontal";
+            Log.e("current page", "OnReadSettingsChanged: "+currentPage );
+            pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
+            SharedPreferences.Editor edit = pageCountSharedPref.edit();
+            edit.putString("pageCount", String.valueOf(currentPage));
+            edit.apply();
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("manga",manga);
+            bundle.putString("chapterID",chapterName);
+            readHorizontal=ReadHorizontalFragment.newInstance(bundle);
             ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.readerFrame,readHorizontal);
             ft.commit();

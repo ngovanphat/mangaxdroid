@@ -13,17 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -53,30 +56,50 @@ public class ReadHorizontalFragment extends Fragment {
     ViewPager viewPager;
     private SharedPreferences pageCountSharedPref;
     ArrayList<String> imgURLs=new ArrayList<String>();;
+    int pageCount;
+    private static int startPageCount;
     Context context=null;
     public static ReadHorizontalFragment newInstance(Bundle bundle) {
         ReadHorizontalFragment fragment=new ReadHorizontalFragment();
         manga = (Manga) bundle.getSerializable("manga");
         mangaID=manga.getName().toUpperCase().toString();
         chapterID=bundle.getString("chapterID");
-
         return fragment;
     }
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context=context;
+        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
+        pageCount=Integer.parseInt(pageCountSharedPref.getString("pageCount","0"));
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_horizontal, container, false);
-        //lấy ảnh & đổ ảnh vào listView
-        //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
-
-        pageCountSharedPref = context.getSharedPreferences("readPages", context.MODE_PRIVATE);
+        /*pageCount=startPageCount;//default of static int is 0
+        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = pageCountSharedPref.edit();
+        edit.putString("pageCount", String.valueOf(pageCount));
+        edit.apply();*/
         viewPager=layout.findViewById(R.id.viewPager);
         imgURLs=fetchChapter(mangaID,chapterID);
+        Log.e("page count", "onCreateView: "+String.valueOf(pageCount) );
+        viewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setCurrentItem(pageCount);
+            }
+        },10);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            public void onPageSelected(int position) {
+                Log.e("page count", "position view pager: "+String.valueOf(position) );
+                ((OnViewPagerListener)context).onCurrentPageUpdate(position);
+            }
+        });
         return layout;
     }
     //TODO Loading effect
@@ -122,7 +145,7 @@ public class ReadHorizontalFragment extends Fragment {
         @NonNull
         @Override
         public Object instantiateItem (@NonNull ViewGroup container,int position){
-            LayoutInflater layoutinflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater layoutinflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final View ve = layoutinflater.inflate(R.layout.chapter_item_resizable, null);
             final ProgressBar progress=ve.findViewById(R.id.progress);
             final PhotoView photoView =new PhotoView(context);
@@ -167,13 +190,14 @@ public class ReadHorizontalFragment extends Fragment {
             photoView.setOnMatrixChangeListener(new OnMatrixChangedListener() {
                 @Override
                 public void onMatrixChanged(RectF rect) {
+                    ((OnViewPagerListener)context).onViewPagerClick(1);
                     photoView.setAllowParentInterceptOnEdge(photoView.getScale() == 1);
                 }
             });
             photoView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
-                    ((OnViewPagerListener)context).onViewPagerClick();
+                    ((OnViewPagerListener)context).onViewPagerClick(0);
                     return false;
                 }
 
@@ -184,6 +208,7 @@ public class ReadHorizontalFragment extends Fragment {
 
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
+                    ((OnViewPagerListener)context).onViewPagerClick(1);
                     photoView.setScale(1);
                     return false;
                 }
@@ -215,7 +240,7 @@ public class ReadHorizontalFragment extends Fragment {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
     public interface OnViewPagerListener{
-        void onViewPagerClick();
+        void onViewPagerClick(int flag);
         void onCurrentPageUpdate(int curPage);
     }
 }

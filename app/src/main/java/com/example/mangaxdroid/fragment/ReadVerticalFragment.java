@@ -50,6 +50,7 @@ public class ReadVerticalFragment extends Fragment {
     ArrayList<String> imgURLs=new ArrayList<String>();
     SharedPreferences pageCountSharedPref;
     int pageCount;
+    private static int startPageCount;
     Context context=null;
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
@@ -62,19 +63,20 @@ public class ReadVerticalFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context=context;
+        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
+        pageCount=Integer.parseInt(pageCountSharedPref.getString("pageCount","0"));
     }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_vertical, container, false);
-        //lấy ảnh & đổ ảnh vào listView
-        //chapter có id tự động, tìm bằng id lưu trong thông tin của mỗi chap
-        pageCount=0;//haven't read
+        //Page storing for history
+        /*pageCount=0;//default of static int is 0
         pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = pageCountSharedPref.edit();
-        edit.putString("pageCount", "0");
-        edit.apply();
+        edit.putString("pageCount", String.valueOf(pageCount));
+        edit.apply();*/
 
         imgURLs=fetchChapter(mangaID,chapterID);
         listView=layout.findViewById(R.id.imgList);
@@ -93,6 +95,13 @@ public class ReadVerticalFragment extends Fragment {
             }
         });
         listView.addFooterView(btnNext);
+        Log.e("page count", "onCreateView: "+String.valueOf(pageCount) );
+        listView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listView.setSelection(pageCount);
+            }
+        },10);
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             private int lastFirstVisibleItem;
             @Override

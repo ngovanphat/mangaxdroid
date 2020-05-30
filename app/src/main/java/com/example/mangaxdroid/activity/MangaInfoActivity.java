@@ -168,4 +168,47 @@ public class MangaInfoActivity extends AppCompatActivity {
             favdb.onDisconnect();
         }
     }
+    private void onHistoryClick() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            final Dialog notLoggedIn = new Dialog(this);
+            notLoggedIn.setContentView(R.layout.dialog_bookmark_sign_in);
+            Button login = (Button) notLoggedIn.findViewById(R.id.toLogIn);
+            login.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startActivity(new Intent(MangaInfoActivity.this, LoginActivity.class));
+                    notLoggedIn.dismiss();
+                }
+            });
+            Button cancel = (Button) notLoggedIn.findViewById(R.id.cancel);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    notLoggedIn.dismiss();
+                }
+            });
+            notLoggedIn.show();
+        } else {
+            final DatabaseReference historyDb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            historyDb.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Menu menu = navigationBarMangaInfo.getMenu();
+                    String mangaId = manga.getId();
+                    //add new
+                    if (snapshot.hasChild(mangaId)) {
+                        historyDb.child(mangaId).setValue(manga.getName());
+
+                    } else {
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            historyDb.onDisconnect();
+        }
+    }
 }

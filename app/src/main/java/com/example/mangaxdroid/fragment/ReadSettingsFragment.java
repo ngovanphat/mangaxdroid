@@ -1,6 +1,7 @@
 package com.example.mangaxdroid.fragment;
 
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +70,9 @@ public class ReadSettingsFragment extends DialogFragment {
             }
 
         });
+        //NOT APPLICABLE => HIDDEN
+        layout.findViewById(R.id.brightnessIcon).setVisibility(View.GONE);
+        seekBar.setVisibility(View.GONE);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override

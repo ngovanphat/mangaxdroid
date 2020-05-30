@@ -12,8 +12,7 @@
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:elevation="10dp"
         android:visibility="visible"
-        android:layout_centerVertical="true"/>
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
