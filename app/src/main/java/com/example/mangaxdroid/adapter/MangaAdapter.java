@@ -72,6 +72,7 @@ public class MangaAdapter extends BaseAdapter {
                 .load(manga.getImage())
                 .centerCrop()
                 .into(holder.imgManga);
+        holder.imgManga.setClipToOutline(true);
         holder.nameManga.setText(manga.getName());
         holder.categoryManga.setText(manga.getCategory());
         holder.viewCount.setText(String.valueOf(manga.getViewCount()));
