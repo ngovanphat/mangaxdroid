@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginLeft="5dp"
-                        android:foreground="@drawable/background_round_corner">
+                        android:background="@drawable/background_round_corner">
                     <ImageView
                             android:id="@+id/stormImage1"
                             android:layout_width="120dp"
