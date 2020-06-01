@@ -141,7 +141,8 @@ public class MangaInfoActivity extends AppCompatActivity {
                 }
             });
             notLoggedIn.show();
-        }else{
+        }
+        else {
             final DatabaseReference favdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
             favdb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -187,7 +188,8 @@ public class MangaInfoActivity extends AppCompatActivity {
                 }
             });
             notLoggedIn.show();
-        } else {
+        }
+        else {
             final DatabaseReference historyDb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
             historyDb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
