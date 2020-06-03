@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -69,7 +72,9 @@ public class ChapterMangaInfoFragment extends Fragment {
                     String date = "15/05/2020";
                     String view = "1";
                     try{
-                        date = data.child("date").getValue().toString();
+                        PrettyTime prettyTime = new PrettyTime();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                        date = prettyTime.format(dateFormat.parse(data.child("date").getValue().toString()));
                         view = data.child("view").getValue().toString();
                     }
                     catch (Exception e){
