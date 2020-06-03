@@ -9,7 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.object.Comment;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CommentAdapter extends BaseAdapter {
     private Context context;
@@ -47,7 +53,14 @@ public class CommentAdapter extends BaseAdapter {
         TextView userComment = (TextView) convertView.findViewById(R.id.userComment);
         TextView commentDate = (TextView) convertView.findViewById(R.id.commentDate);
         userComment.setText(listComment.get(position).getContent());
-        commentDate.setText(listComment.get(position).getDate());
+        PrettyTime prettyTime = new PrettyTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+        try {
+            commentDate.setText(prettyTime.format(dateFormat.parse(listComment.get(position).getDate())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        userName.setText(listComment.get(position).getUserID());
         return convertView;
     }
 }

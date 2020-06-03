@@ -3,9 +3,11 @@ package com.example.mangaxdroid.fragment;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,7 +22,18 @@ import com.example.mangaxdroid.object.Comment;
 import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class CommentMangaInfoFragment extends Fragment {
     ListView listView;
@@ -29,6 +42,8 @@ public class CommentMangaInfoFragment extends Fragment {
     ImageView btnSend;
     ArrayList<Comment> listComments;
     CommentAdapter adapter;
+    private DatabaseReference mDatabase;
+// ...
 
     public CommentMangaInfoFragment(Manga manga) {
         this.manga = manga;
@@ -43,7 +58,7 @@ public class CommentMangaInfoFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listComment);
         textComment = (EditText) view.findViewById(R.id.textComment);
         btnSend = (ImageView) view.findViewById(R.id.btnSend);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         loadContent(manga.getName());
 
         adapter = new CommentAdapter(view.getContext(), R.layout.comment_list_custom_row, listComments);
@@ -74,17 +89,51 @@ public class CommentMangaInfoFragment extends Fragment {
                     });
                     notLoggedIn.show();
                 }
+                else{
+                    String message = textComment.getText().toString().trim();
+                    if(!message.equals("")){
+                    sendMessageToDatabase(message,user);
+                    textComment.onEditorAction(EditorInfo.IME_ACTION_DONE);
+                    textComment.setText("");
+                    }
+                }
             }
         });
         return view;
     }
-
+    private void sendMessageToDatabase(String message,FirebaseUser user){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.CHINA);
+        Date time =  new Date();
+        String username= "";
+        if(!user.getDisplayName().equals("")){
+            username = user.getDisplayName();
+        }else{
+            username = user.getEmail();
+        }
+        Comment comment = new Comment(message,dateFormat.format(time).toString(),username);
+        mDatabase.child("Comments").child(manga.getId()).push().setValue(comment);
+    }
     public void loadContent(final String nameManga){
-        listComments.clear();
-        listComments.add(new Comment("Test comment function ABC\nTest comment function ABC","15/05/2020"));
-        listComments.add(new Comment("Test comment function DEF\nTest comment function DEF","15/05/2020"));
-        listComments.add(new Comment("Test comment function GHI\nTest comment function GHI","15/05/2020"));
-        listComments.add(new Comment("Test comment function JKL\nTest comment function JKL","15/05/2020"));
-        listComments.add(new Comment("Test comment function MNO\nTest comment function MNO","15/05/2020"));
+
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Comments/"+manga.getId());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listComments.clear();
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Comment comment = children.getValue(Comment.class);
+                    listComments.add(comment);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
     }
 }

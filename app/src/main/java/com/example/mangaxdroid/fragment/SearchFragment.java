@@ -152,6 +152,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 manga = dataSnapshot.getValue(Manga.class);
+                manga.setId(dataSnapshot.getKey());
             }
 
             @Override

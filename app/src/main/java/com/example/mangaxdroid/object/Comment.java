@@ -4,12 +4,22 @@ public class Comment {
     private String content;
     private String date;
 
+
+
+    private String userID;
     public Comment(){}
-    public Comment(String content, String date) {
+    public Comment(String content, String date,String userID) {
         this.content = content;
         this.date = date;
+        this.userID = userID;
+    }
+    public String getUserID() {
+        return userID;
     }
 
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
     public String getContent() {
         return content;
     }

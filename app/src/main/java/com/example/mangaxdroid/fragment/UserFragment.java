@@ -40,7 +40,7 @@ public class UserFragment extends Fragment {
         super.onAttach(activity);
     }
     public void loadUser(FirebaseUser user){
-        if(user.getDisplayName()!=null){
+        if(!user.getDisplayName().equals("")){
             username.setText(user.getDisplayName());
         }else{
             username.setText(user.getEmail());
