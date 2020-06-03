@@ -1,6 +1,7 @@
 package com.example.mangaxdroid.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +32,7 @@ import com.example.mangaxdroid.fragment.ReadSettingsFragment;
 import com.example.mangaxdroid.fragment.ReadVerticalFragment;
 import com.example.mangaxdroid.object.Manga;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +41,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.SyncTree;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,7 +64,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     String chapterName;
     String mangaName;
     int currentPage=0;
+    ArrayList<Integer> pagesLoaded= new ArrayList<Integer>();
     SharedPreferences pageCountSharedPref;
+    int dbViewCount=0;
+    boolean isRead=false;
+    long totalPages=Long.MAX_VALUE;//để khi chưa lấy được thông tin chapter thì cũng không + view lên
     //Menus & settings
     ReadSettingsFragment settingsFragment;
     ReadChapterListFragment chapterListFragment;
@@ -81,6 +88,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         mangaName = manga.getName().toUpperCase().toString();
         chapterName = intent.getStringExtra("numberChapter");
 
+
         ft=getSupportFragmentManager().beginTransaction();
         bundle = new Bundle();
         bundle.putSerializable("manga",manga);
@@ -89,11 +97,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
         ft.replace(R.id.readerFrame,readVertical);
         ft.commit();
-        pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
-        SharedPreferences.Editor edit = pageCountSharedPref.edit();
-        edit.putString("pageCount", "0");
-        edit.apply();
-
         bottomNav=findViewById(R.id.navBar);
         layout = findViewById(R.id.baseLayout);
         toolbar = findViewById(R.id.toolBar);
@@ -142,6 +145,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -149,6 +153,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getChapterSize(long size) {
+        totalPages=size;
     }
 
     @Override
@@ -254,6 +263,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                 }
                 Toast.makeText(ReadChapterActivity.this,"Chapter: "+nextChapter,Toast.LENGTH_SHORT).show();
                 if(!nextChapter.equals(chapterName)){//To next chapter
+                    resetVariables();
                     chapterName=nextChapter;
                     getSupportActionBar().setTitle("Chapter " + chapterName);
                     ft=getSupportFragmentManager().beginTransaction();
@@ -291,82 +301,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         });
         dbRef.onDisconnect();
     }
-    /*private void checkBookmark(){
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null){
-            final DatabaseReference bookmarkdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Bookmark");
-            bookmarkdb.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if (snapshot.hasChild(mangaName)) {
-                        String check = snapshot.child(mangaName).getValue().toString();
-                        if (check.equals(chapterName)) {
-                            //menu mỗi lần xài phải gọi riêng, ko là báo lỗi
-                            Menu menu = bottomNav.getMenu();
-                            menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-            bookmarkdb.onDisconnect();
-        }
-    }
-    private void onBookMarkClick(){
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        if(user==null){
-            final Dialog notLoggedIn=new Dialog(this);
-            notLoggedIn.setContentView(R.layout.dialog_bookmark_sign_in);
-            Button login = (Button) notLoggedIn.findViewById(R.id.toLogIn);
-            login.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    startActivity(new Intent(ReadChapterActivity.this, LoginActivity.class));
-                    notLoggedIn.dismiss();
-                }
-            });
-
-            Button cancel= (Button) notLoggedIn.findViewById(R.id.cancel);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    notLoggedIn.dismiss();
-                }
-            });
-            notLoggedIn.show();
-        }else{
-            final DatabaseReference bookmarkdb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Bookmark");
-            bookmarkdb.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    Menu menu = bottomNav.getMenu();
-                    //add new
-                    if (!snapshot.hasChild(mangaName)) {
-                        Toast.makeText(ReadChapterActivity.this, "Bookmark Added", Toast.LENGTH_SHORT).show();
-                        bookmarkdb.child(mangaName).setValue(chapterName);
-                        menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
-                    }else {
-                        String check=snapshot.child(mangaName).getValue().toString();
-                        if (check.equals(chapterName)) {//remove
-                            Toast.makeText(ReadChapterActivity.this, "Bookmark Removed", Toast.LENGTH_SHORT).show();
-                            bookmarkdb.child(mangaName).removeValue();
-                            menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_regular);
-                        }else {//change
-                            Toast.makeText(ReadChapterActivity.this, "Bookmark Updated", Toast.LENGTH_SHORT).show();
-                            bookmarkdb.child(mangaName).setValue(chapterName);
-                            menu.findItem(R.id.action_bookmark).setIcon(R.drawable.bookmark_solid);
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-            bookmarkdb.onDisconnect();
-        }
-    }*/
     private void toHistory(){
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
@@ -405,8 +339,8 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
 
     @Override
     protected void onPause() {
-        toHistory();
         super.onPause();
+        toHistory();
     }
 
     @Override
@@ -430,6 +364,61 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     @Override
     public void onCurrentPageUpdate(int curPage){
         Log.d("read page",String.valueOf(curPage));
+        pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
+        SharedPreferences.Editor edit = pageCountSharedPref.edit();
+        edit.putString("pageCount", String.valueOf(curPage));
+        edit.apply();
+        Log.d("page loaded",pagesLoaded.size()+": "+pagesLoaded.size());
+        if(!isRead &&(pagesLoaded.size()>totalPages*50/100)){
+            addViewCount(mangaName,chapterName);
+            isRead=true;
+        }
+        if(!pagesLoaded.contains(curPage)){
+            pagesLoaded.add(curPage);
+        }
         currentPage=curPage;
+    }
+/*    private int checkViewCount(String mangaName, final String chapterId){
+        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName.toUpperCase()).child(chapterId);
+        final int[] curViewCount = {0};
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild("view")){
+                    curViewCount[0] =Integer.parseInt(dataSnapshot.child("view").getValue().toString());
+                }
+                else {
+                    curViewCount[0]=1;
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        dbRef.onDisconnect();
+        return curViewCount[0];
+    }*/
+    private void addViewCount(String mangaName, final String chapterId){
+        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName.toUpperCase()).child(chapterId);
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild("view")){
+                    int curViewCount=Integer.parseInt(dataSnapshot.child("view").getValue().toString());
+                    dbRef.child("view").setValue(curViewCount+1);
+                }
+                else dbRef.child("view").setValue(1);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        dbRef.onDisconnect();
+    }
+
+    private void resetVariables(){
+        isRead=false;
+        pagesLoaded=new ArrayList<Integer>();
+        totalPages=Long.MAX_VALUE;
     }
 }

@@ -46,12 +46,12 @@ public class ReadVerticalFragment extends Fragment {
     private static Manga manga;
     private DatabaseReference dbRef;
     private static String mangaID;
-    ListView listView;
+    private ListView listView;
     ArrayList<String> imgURLs=new ArrayList<String>();
     SharedPreferences pageCountSharedPref;
-    int pageCount;
+    private int pageCount=0;
     private static int startPageCount;
-    Context context=null;
+    private Context context=null;
     public static ReadVerticalFragment newInstance(Bundle bundle) {
         ReadVerticalFragment fragment=new ReadVerticalFragment();
         manga = (Manga) bundle.getSerializable("manga");
@@ -188,26 +188,6 @@ public class ReadVerticalFragment extends Fragment {
         });
         dbRef.onDisconnect();
     }
-    private void checkPageCount(String mangaName, final String chapterId){
-        int curCount=Integer.parseInt(pageCountSharedPref.getString("pageCount",""));
-        if(curCount>(imgURLs.size()*30/100)){//total page loaded (not ordered >30%)
-            dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId);
-            dbRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChild("view")){
-                        int curViewCount=Integer.parseInt(dataSnapshot.child("view").getValue().toString());
-                        dbRef.child("view").setValue(curViewCount+1);
-                    }
-                    else dbRef.child("view").setValue(1);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-            dbRef.onDisconnect();//disconnect để sang activity khác
-        }
-    }
     //TODO Loading effect
     //TODO Error shown by an image(or a button for retry image)
     public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
@@ -217,6 +197,7 @@ public class ReadVerticalFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> temp=new ArrayList<String>();
+                ((OnListviewListener) context).getChapterSize(dataSnapshot.getChildrenCount());
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                     temp.add(i,dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
                     imgURLs=temp;
@@ -231,6 +212,7 @@ public class ReadVerticalFragment extends Fragment {
         return imgURLs;
     }
     public interface OnListviewListener{
+        void getChapterSize(long size);
         void onListviewScroll(int flag);
         void onListviewClick();
         void onChapterChange(String nextChapter);

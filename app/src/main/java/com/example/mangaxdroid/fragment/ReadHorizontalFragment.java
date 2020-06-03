@@ -56,7 +56,7 @@ public class ReadHorizontalFragment extends Fragment {
     ViewPager viewPager;
     private SharedPreferences pageCountSharedPref;
     ArrayList<String> imgURLs=new ArrayList<String>();;
-    int pageCount;
+    int pageCount=0;
     private static int startPageCount;
     Context context=null;
     public static ReadHorizontalFragment newInstance(Bundle bundle) {
@@ -110,6 +110,7 @@ public class ReadHorizontalFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> temp=new ArrayList<String>();
+                ((OnViewPagerListener) context).getChapterSize(dataSnapshot.getChildrenCount());
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                     temp.add(i,dataSnapshot.child(String.valueOf(i)).getValue().toString());//URLs cho adapter truyền ảnh vào ImageViews
                     imgURLs=temp;
@@ -240,6 +241,7 @@ public class ReadHorizontalFragment extends Fragment {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
     public interface OnViewPagerListener{
+        void getChapterSize(long size);
         void onViewPagerClick(int flag);
         void onCurrentPageUpdate(int curPage);
     }
