@@ -89,10 +89,10 @@ public class ReadSettingsFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String[] items={"Chapter không load được","Lỗi giao diện","Chapter không thuộc truyện này","Chapter chưa được dịch"};
-
+                LayoutInflater inflater = getLayoutInflater();
                 AlertDialog choice=new AlertDialog.Builder(context,R.style.AlertDialogStyle)
+                        .setView(inflater.inflate(R.layout.report_dialog, null))
                         .setTitle("Choose Topic Of Report")
-                        .setSingleChoiceItems(items, 0, null)
                         .setPositiveButton("Send Report", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();
@@ -140,9 +140,6 @@ public class ReadSettingsFragment extends DialogFragment {
                                     }
                                 });
                                 handler.postDelayed(runnable, 4000);
-
-
-
                             }
                         })
                         .show();
