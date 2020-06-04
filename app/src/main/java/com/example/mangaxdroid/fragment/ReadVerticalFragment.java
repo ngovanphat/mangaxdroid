@@ -36,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,9 +64,8 @@ public class ReadVerticalFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context=context;
-        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
-        pageCount=Integer.parseInt(pageCountSharedPref.getString("pageCount","0"));
     }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +77,8 @@ public class ReadVerticalFragment extends Fragment {
         SharedPreferences.Editor edit = pageCountSharedPref.edit();
         edit.putString("pageCount", String.valueOf(pageCount));
         edit.apply();*/
-
+        checkHistory();
+        Log.e("page count", "onCreateView: "+pageCount );
         imgURLs=fetchChapter(mangaID,chapterID);
         listView=layout.findViewById(R.id.imgList);
         final Button btnNext = new Button(context);
@@ -96,12 +97,7 @@ public class ReadVerticalFragment extends Fragment {
         });
         listView.addFooterView(btnNext);
         Log.e("page count", "onCreateView: "+String.valueOf(pageCount) );
-        listView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                listView.setSelection(pageCount);
-            }
-        },10);
+
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             private int lastFirstVisibleItem;
             @Override
@@ -210,6 +206,35 @@ public class ReadVerticalFragment extends Fragment {
         });
         dbRef.onDisconnect();//disconnect để sang activity khác
         return imgURLs;
+    }
+
+    private void checkHistory(){
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            final DatabaseReference historyDb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            Query historyQuery=historyDb.orderByChild("updatedAt");
+            historyQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String mangaId=manga.getId();
+                    if(snapshot.hasChild(mangaId)){
+                        if(snapshot.child(mangaId).child("Chapter").getValue().toString().equals(chapterID)){
+                            Log.e("check chapter get", "onDataChange: "+"got chapter " );
+                            ((OnListviewListener) context).onCurrentPageUpdate(pageCount);
+                            pageCount=Integer.parseInt(snapshot.child(mangaId).child("Page").getValue().toString());
+                            listView.smoothScrollToPositionFromTop(pageCount,0);
+                        }
+                        else{
+                            Log.e("check chapter get", "onDataChange: "+"did not get chapter" );
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            historyDb.onDisconnect();
+        }
     }
     public interface OnListviewListener{
         void getChapterSize(long size);

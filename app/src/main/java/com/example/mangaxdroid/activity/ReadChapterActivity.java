@@ -110,7 +110,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         mangaName = manga.getName().toUpperCase().toString();
         chapterName = intent.getStringExtra("numberChapter");
 
-
         ft=getSupportFragmentManager().beginTransaction();
         bundle = new Bundle();
         bundle.putSerializable("manga",manga);
@@ -237,14 +236,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     public void OnReadSettingsChanged(String setViewType) {
         if (readHorizontal.isResumed()&&setViewType=="Vertical") {
             viewType="Vertical";
-            Log.e("current page", "OnReadSettingsChanged: "+currentPage );
-            pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
-            SharedPreferences.Editor edit = pageCountSharedPref.edit();
-            edit.putString("pageCount", String.valueOf(currentPage));
-            edit.apply();
+            toHistory();
             Bundle bundle = new Bundle();
             bundle.putSerializable("manga",manga);
             bundle.putString("chapterID",chapterName);
+            bundle.putInt("pageCount",currentPage);
             readVertical= ReadVerticalFragment.newInstance(bundle);
             ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.readerFrame,readVertical);
@@ -252,15 +248,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         }else if(readVertical.isResumed()&&setViewType=="Horizontal")
         {
             viewType="Horizontal";
-            Log.e("current page", "OnReadSettingsChanged: "+currentPage );
-            pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
-            SharedPreferences.Editor edit = pageCountSharedPref.edit();
-            edit.putString("pageCount", String.valueOf(currentPage));
-            edit.apply();
-
+            toHistory();
             Bundle bundle = new Bundle();
             bundle.putSerializable("manga",manga);
             bundle.putString("chapterID",chapterName);
+            bundle.putInt("pageCount",currentPage);
             readHorizontal=ReadHorizontalFragment.newInstance(bundle);
             ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.readerFrame,readHorizontal);
@@ -358,7 +350,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             historyDb.onDisconnect();
         }
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -385,12 +376,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     }
     @Override
     public void onCurrentPageUpdate(int curPage){
-        Log.d("read page",String.valueOf(curPage));
-        pageCountSharedPref = getSharedPreferences("readPages",MODE_PRIVATE);
-        SharedPreferences.Editor edit = pageCountSharedPref.edit();
-        edit.putString("pageCount", String.valueOf(curPage));
-        edit.apply();
-        Log.d("page loaded",pagesLoaded.size()+": "+pagesLoaded.size());
         if(!isRead &&(pagesLoaded.size()>totalPages*50/100)){
             addViewCount(mangaName,chapterName);
             isRead=true;
@@ -400,26 +385,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         }
         currentPage=curPage;
     }
-/*    private int checkViewCount(String mangaName, final String chapterId){
-        dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName.toUpperCase()).child(chapterId);
-        final int[] curViewCount = {0};
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChild("view")){
-                    curViewCount[0] =Integer.parseInt(dataSnapshot.child("view").getValue().toString());
-                }
-                else {
-                    curViewCount[0]=1;
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        dbRef.onDisconnect();
-        return curViewCount[0];
-    }*/
     private void addViewCount(String mangaName, final String chapterId){
         dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName.toUpperCase()).child(chapterId);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {

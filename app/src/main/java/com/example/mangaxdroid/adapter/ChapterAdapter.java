@@ -99,10 +99,6 @@ public class ChapterAdapter extends BaseAdapter {
                             params.topMargin = 0;
                             params.bottomMargin = 0;
                             imgv.setLayoutParams(params);
-                            SharedPreferences.Editor edit = pageCountSharedPref.edit();
-                            String curCount = pageCountSharedPref.getString("pageCount", "0");
-                            edit.putString("pageCount", String.valueOf(Integer.parseInt(curCount) + 1));
-                            edit.apply();
                         }
                         @Override
                         public void onError(Exception e) {
