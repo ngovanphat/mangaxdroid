@@ -81,6 +81,7 @@ public class MangaInfoActivity extends AppCompatActivity {
                         onFavoriteClick();
                         break;
                     case R.id.action_recents:
+                        onHistoryClick();
                         break;
                 }
                 return true;
@@ -198,10 +199,15 @@ public class MangaInfoActivity extends AppCompatActivity {
                     String mangaId = manga.getId();
                     //add new
                     if (snapshot.hasChild(mangaId)) {
-                        historyDb.child(mangaId).setValue(manga.getName());
-
-                    } else {
-
+                        String chapterID=snapshot.child(mangaId).child("Chapter").getValue().toString();
+                        Intent intent = new Intent(context, ReadChapterActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("manga", manga);
+                        bundle.putString("numberChapter", chapterID);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    } else {//xét cho coi chap cũ nhất ?
+                        Toast.makeText(context,"Bạn chưa xem truyện này",Toast.LENGTH_SHORT).show();
                     }
                 }
 

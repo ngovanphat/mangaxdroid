@@ -1,38 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checkedButton="@id/option_1"
         android:orientation="vertical"
-        android:layout_centerHorizontal="true">
-        <RadioButton android:id="@+id/option_1"
+        android:paddingTop="10dp">
+
+        <RadioButton
+            android:id="@+id/option_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chapter không load được"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/option_2"
+            android:text="Chapter không load được" />
+
+        <RadioButton
+            android:id="@+id/option_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chapter không thuộc truyện này"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/option_3"
+            android:text="Chapter không thuộc truyện này" />
+
+        <RadioButton
+            android:id="@+id/option_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chapter chưa được dịch"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/option_4"
+            android:text="Chapter chưa được dịch" />
+
+        <RadioButton
+            android:id="@+id/option_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lỗi giao diện"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/option_5"
+            android:text="Lỗi giao diện" />
+
+        <RadioButton
+            android:id="@+id/option_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Khác"
-            android:onClick="onRadioButtonClicked"/>
+            android:text="Khác" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/detailsLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:text="Chi tiết" />
+
+    <EditText
+        android:id="@+id/detailsEditText"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_below="@+id/detailsLbl"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:background="@drawable/background_round_corner_gray"
+        android:padding="10dp"
+        android:gravity="top|left"
+        android:scrollbars="vertical"
+        android:lines="5"
+        android:text="" />
 
 </RelativeLayout>

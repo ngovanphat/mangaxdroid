@@ -141,7 +141,8 @@ public class ReadHorizontalFragment extends Fragment {
                             Log.e("check chapter get", "onDataChange: "+"did not get chapter" );
                         }
                     }
-                    viewPager.setCurrentItem(pageCount);
+                    if(pageCount!=0)//để không ẩn menu khi vừa chuyển dạng xem (setCurrentItem trigger đổi trang)
+                        viewPager.setCurrentItem(pageCount);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

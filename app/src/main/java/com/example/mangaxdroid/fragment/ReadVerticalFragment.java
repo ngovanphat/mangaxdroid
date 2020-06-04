@@ -58,6 +58,7 @@ public class ReadVerticalFragment extends Fragment {
         manga = (Manga) bundle.getSerializable("manga");
         mangaID=manga.getName().toUpperCase().toString();
         chapterID=bundle.getString("chapterID");
+        startPageCount=bundle.getInt("pageCount");
         return fragment;
     }
     @Override
@@ -77,6 +78,8 @@ public class ReadVerticalFragment extends Fragment {
         SharedPreferences.Editor edit = pageCountSharedPref.edit();
         edit.putString("pageCount", String.valueOf(pageCount));
         edit.apply();*/
+        if(startPageCount!=0)
+            pageCount=startPageCount;
         checkHistory();
         Log.e("page count", "onCreateView: "+pageCount );
         imgURLs=fetchChapter(mangaID,chapterID);
@@ -96,7 +99,6 @@ public class ReadVerticalFragment extends Fragment {
             }
         });
         listView.addFooterView(btnNext);
-        Log.e("page count", "onCreateView: "+String.valueOf(pageCount) );
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             private int lastFirstVisibleItem;
@@ -222,12 +224,13 @@ public class ReadVerticalFragment extends Fragment {
                             Log.e("check chapter get", "onDataChange: "+"got chapter " );
                             ((OnListviewListener) context).onCurrentPageUpdate(pageCount);
                             pageCount=Integer.parseInt(snapshot.child(mangaId).child("Page").getValue().toString());
-                            listView.smoothScrollToPositionFromTop(pageCount,0);
                         }
                         else{
                             Log.e("check chapter get", "onDataChange: "+"did not get chapter" );
                         }
                     }
+                    if(pageCount!=0)//để không ẩn menu khi vừa chuyển dạng xem (scrolltoPos trigger đổi trang)
+                        listView.smoothScrollToPositionFromTop(pageCount,0);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

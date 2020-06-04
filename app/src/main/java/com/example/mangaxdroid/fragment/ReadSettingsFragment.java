@@ -22,10 +22,13 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -34,9 +37,16 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.ReadChapterActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.List;
 
 public class ReadSettingsFragment extends DialogFragment {
@@ -85,64 +95,32 @@ public class ReadSettingsFragment extends DialogFragment {
         //NOT APPLICABLE => HIDDEN
         layout.findViewById(R.id.brightnessIcon).setVisibility(View.GONE);
         seekBar.setVisibility(View.GONE);
+
+        LayoutInflater dialogInflater = getLayoutInflater();
+        final View dialogView= dialogInflater.inflate(R.layout.report_dialog, null);
+        AlertDialog.Builder alertBuilder=new AlertDialog.Builder(context,R.style.AlertDialogStyle)
+                .setView(dialogView)
+                .setTitle("Chọn nội dung để phản hồi")
+                .setPositiveButton("Send Report", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+
+                        RadioGroup radioGroup=(RadioGroup)dialogView.findViewById(R.id.radioGroup);
+                        RadioButton radioButton=(RadioButton)dialogView.findViewById(radioGroup.getCheckedRadioButtonId());
+                        EditText details=(EditText)dialogView.findViewById(R.id.detailsEditText);
+                        ((OnReadSettingsListener)context).onReportSubmit(radioButton.getText().toString(),details.getText().toString());
+
+                    }
+                });
+        final AlertDialog choice=alertBuilder.create();
         reportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] items={"Chapter không load được","Lỗi giao diện","Chapter không thuộc truyện này","Chapter chưa được dịch"};
-                LayoutInflater inflater = getLayoutInflater();
-                AlertDialog choice=new AlertDialog.Builder(context,R.style.AlertDialogStyle)
-                        .setView(inflater.inflate(R.layout.report_dialog, null))
-                        .setTitle("Choose Topic Of Report")
-                        .setPositiveButton("Send Report", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.dismiss();
-                                int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
-                                // Do something useful withe the position of the selected radio button
-                                final Dialog success = new Dialog(context);
-                                success.setContentView(R.layout.report_btn_success);
-                                final LottieAnimationView successAnimation=success.findViewById(R.id.successAnimationView);
-                                final ProgressBar animationProgress=success.findViewById(R.id.progressBar2);
-                                final TextView successDialogTxtView=success.findViewById(R.id.successDialogTxtView);
-                                successAnimation.addAnimatorListener(new Animator.AnimatorListener() {
-                                    @Override
-                                    public void onAnimationStart(Animator animation) {
-                                        successDialogTxtView.setVisibility(View.VISIBLE);
-                                        animationProgress.setVisibility(View.GONE);
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                    }
-
-                                    @Override
-                                    public void onAnimationCancel(Animator animation) {
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animator animation) {
-                                    }
-
-                                });
-                                success.show();
-                                final Handler handler  = new Handler();
-                                final Runnable runnable = new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (success.isShowing()) {
-                                            success.dismiss();
-                                        }
-                                    }
-                                };
-                                success.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        handler.removeCallbacks(runnable);
-                                    }
-                                });
-                                handler.postDelayed(runnable, 4000);
-                            }
-                        })
-                        .show();
+                reportBtn.setEnabled(false);
+                choice.show();
+                int width = (int)(getResources().getDisplayMetrics().widthPixels*0.80);
+                int height = (int)(getResources().getDisplayMetrics().heightPixels*0.60);
+                choice.getWindow().setLayout(width,height);
             }
         });
         return layout;
@@ -153,12 +131,12 @@ public class ReadSettingsFragment extends DialogFragment {
         super.onResume();
         int width = (int)(getResources().getDisplayMetrics().widthPixels*0.80);
         int height = (int)(getResources().getDisplayMetrics().heightPixels*0.80);
-
         getDialog().getWindow().setLayout(width, height);
     }
 
     public interface OnReadSettingsListener{
         void OnReadSettingsChanged(String setViewType);
+        void onReportSubmit(final String topic,final String details);
     }
 
 }

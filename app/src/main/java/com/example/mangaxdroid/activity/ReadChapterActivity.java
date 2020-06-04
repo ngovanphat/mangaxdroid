@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,6 +22,8 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,9 +36,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieCompositionFactory;
+import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.LottieListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -67,6 +78,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.SimpleTimeZone;
+import java.util.concurrent.CountDownLatch;
 
 public class ReadChapterActivity extends AppCompatActivity implements ReadVerticalFragment.OnListviewListener, ReadHorizontalFragment.OnViewPagerListener, ReadSettingsFragment.OnReadSettingsListener,ReadChapterListFragment.OnReadChapterListListener {
     //Controls
@@ -87,8 +99,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     String mangaName;
     int currentPage=0;
     ArrayList<Integer> pagesLoaded= new ArrayList<Integer>();
-    SharedPreferences pageCountSharedPref;
-    int dbViewCount=0;
     boolean isRead=false;
     long totalPages=Long.MAX_VALUE;//để khi chưa lấy được thông tin chapter thì cũng không + view lên
     //Menus & settings
@@ -103,24 +113,33 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         setContentView(R.layout.activity_read_chapter);
         readerFrame=findViewById(R.id.readerFrame);
         nextBtn=findViewById(R.id.toolbarbtn);
+        bottomNav=findViewById(R.id.navBar);
+        layout = findViewById(R.id.baseLayout);
+        toolbar = findViewById(R.id.toolBar);
         //lấy tên & số chap
+        LottieCompositionFactory.fromRawRes(this,R.raw.checkmark_animation);
+        LottieCompositionFactory.fromRawRes(this,R.raw.error_animation);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         manga = (Manga) bundle.getSerializable("manga");
         mangaName = manga.getName().toUpperCase().toString();
         chapterName = intent.getStringExtra("numberChapter");
-
+        CountDownLatch done = new CountDownLatch(1);
         ft=getSupportFragmentManager().beginTransaction();
         bundle = new Bundle();
         bundle.putSerializable("manga",manga);
         bundle.putString("chapterID",chapterName);
-        readVertical= ReadVerticalFragment.newInstance(bundle);
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
-        ft.replace(R.id.readerFrame,readVertical);
-        ft.commit();
-        bottomNav=findViewById(R.id.navBar);
-        layout = findViewById(R.id.baseLayout);
-        toolbar = findViewById(R.id.toolBar);
+        if(viewType.equals("Vertical"))
+        {
+            readVertical= ReadVerticalFragment.newInstance(bundle);
+            ft.replace(R.id.readerFrame,readVertical);
+            ft.commit();
+        }else if(viewType.equals("Horizontal")){
+            readHorizontal=ReadHorizontalFragment.newInstance(bundle);
+            ft.replace(R.id.readerFrame,readHorizontal);
+            ft.commit();
+        }
 
         //checkDownloaded
         setSupportActionBar(toolbar);
@@ -176,6 +195,14 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        toHistory();
+    }
+
+    //----------------------------------
+    //Listeners
     @Override
     public void getChapterSize(long size) {
         totalPages=size;
@@ -234,7 +261,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
 
     @Override
     public void OnReadSettingsChanged(String setViewType) {
-        if (readHorizontal.isResumed()&&setViewType=="Vertical") {
+        if (readHorizontal.isResumed()&&setViewType.equals("Vertical")) {
             viewType="Vertical";
             toHistory();
             Bundle bundle = new Bundle();
@@ -258,6 +285,25 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             ft.replace(R.id.readerFrame,readHorizontal);
             ft.commit();
         }
+    }
+
+    @Override
+    public void onCurrentPageUpdate(int curPage){
+        if(!isRead &&(pagesLoaded.size()>totalPages*50/100)){
+            addViewCount(mangaName,chapterName);
+            isRead=true;
+        }
+        if(!pagesLoaded.contains(curPage)){
+            pagesLoaded.add(curPage);
+        }
+        currentPage=curPage;
+    }
+    //----------------------------------
+    //General
+    private void resetVariables(){
+        isRead=false;
+        pagesLoaded=new ArrayList<Integer>();
+        totalPages=Long.MAX_VALUE;
     }
     private void toNextChapter(){
         dbRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+mangaName);
@@ -351,12 +397,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         }
     }
     @Override
-    protected void onPause() {
-        super.onPause();
-        toHistory();
-    }
-
-    @Override
     public void OnChapterListItemClick(String chapterID) {
         getSupportActionBar().setTitle("Chapter " + chapterID);
         ft=getSupportFragmentManager().beginTransaction();
@@ -373,17 +413,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             ft.replace(R.id.readerFrame,readHorizontal);
         }
         ft.commit();
-    }
-    @Override
-    public void onCurrentPageUpdate(int curPage){
-        if(!isRead &&(pagesLoaded.size()>totalPages*50/100)){
-            addViewCount(mangaName,chapterName);
-            isRead=true;
-        }
-        if(!pagesLoaded.contains(curPage)){
-            pagesLoaded.add(curPage);
-        }
-        currentPage=curPage;
     }
     private void addViewCount(String mangaName, final String chapterId){
         dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName.toUpperCase()).child(chapterId);
@@ -403,12 +432,111 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         dbRef.onDisconnect();
     }
 
-    private void resetVariables(){
-        isRead=false;
-        pagesLoaded=new ArrayList<Integer>();
-        totalPages=Long.MAX_VALUE;
-    }
+    @Override
+    public void onReportSubmit(final String topic,final String details){
+        if(!isNetworkAvailable()){
+            finishReportDialog(1);
+            return;
+        }
+        final DatabaseReference reportDb= FirebaseDatabase.getInstance().getReference("Reports");
+        final Query reportQuery=reportDb.orderByChild("updatedAt");
+        reportQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String mangaId=manga.getId();
+                String key =  reportDb.push().getKey();
+                Date date = new Date();
+                //This method returns the time in millis
+                long timeMilli = date.getTime();
+                //add new
+                reportDb.child(key).child("Manga").setValue(mangaId);
+                reportDb.child(key).child("Chapter").setValue(chapterName);
+                reportDb.child(key).child("Topic").setValue(topic);
+                reportDb.child(key).child("Details").setValue(details);
+                reportDb.child(key).child("createdAt").setValue(timeMilli,new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                        if (databaseError == null) {
+                            finishReportDialog(0);
+                        }else{
+                            finishReportDialog(1);
+                        }
+                    }
+                });
+                int count=(int)snapshot.getChildrenCount();
+                int limit=10;
+                if(count>limit){
+                    int counter=0;
+                    for(DataSnapshot ds:snapshot.child(mangaId).getChildren()){
+                        if(counter==limit){
+                            reportDb.child(ds.getKey()).removeValue();
+                        }
+                        counter++;
+                    }
+                }
 
+                reportDb.onDisconnect();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                finishReportDialog(1);
+            }
+        });
+        reportDb.onDisconnect();
+    }
+    private void finishReportDialog(int fl){
+        final Dialog success = new Dialog(this);
+        success.setContentView(R.layout.report_btn_success);
+        final LottieAnimationView successAnimation=success.findViewById(R.id.successAnimationView);
+        final ProgressBar animationProgress=success.findViewById(R.id.progressBar2);
+        final TextView successDialogTxtView=success.findViewById(R.id.successDialogTxtView);
+        if(fl==1) {
+            successAnimation.setAnimation(R.raw.error_animation);
+            successDialogTxtView.setText("Report Failed!\nPlease try again.");
+        }
+        successAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                successDialogTxtView.setVisibility(View.VISIBLE);
+                animationProgress.setVisibility(View.GONE);
+            }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        success.setCanceledOnTouchOutside(false);
+        success.setCancelable(false);
+        success.show();
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (success.isShowing()) {
+                    success.dismiss();
+                }
+            }
+        };
+        success.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                handler.removeCallbacks(runnable);
+            }
+        });
+        handler.postDelayed(runnable, 4000);
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    //----------------------------------
+    //Download file
     // xin cấp quyền truy cập vào bộ nhớ
     private void getPermission(){
         if (ContextCompat.checkSelfPermission(this,
@@ -523,4 +651,5 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         mediaScanIntent.setData(contentUri);
         sendBroadcast(mediaScanIntent);
     }
+
 }
