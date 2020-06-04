@@ -2,6 +2,7 @@ package com.example.mangaxdroid.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class HistoryFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
+            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
             favdb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
@@ -76,6 +77,7 @@ public class HistoryFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
+            Log.d("User","Chua Dang Nhap");
             adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
             listView.setAdapter(adapter);
         }
@@ -92,11 +94,5 @@ public class HistoryFragment extends Fragment {
             }
         });
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 }
