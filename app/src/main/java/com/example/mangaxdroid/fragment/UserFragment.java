@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.useractivity.UserFavoriteListActivity;
+import com.example.mangaxdroid.activity.useractivity.UserHistoryListActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,10 +55,9 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.user_info, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        accountInfo = (TextView) view.findViewById(R.id.accountInfo);
+        //accountInfo = (TextView) view.findViewById(R.id.accountInfo);
         accountUpgrade = (TextView) view.findViewById(R.id.accountUpgrade);
         accountSetting = (TextView) view.findViewById(R.id.accountSetting);
-        readHistory = (TextView) view.findViewById(R.id.readHistory);
         username = (TextView) view.findViewById(R.id.userEmail);
         userAvatar = (ImageView) view.findViewById(R.id.userAvatar);
         btnLogout = (Button) view.findViewById(R.id.buttonLogOut);
@@ -83,7 +83,14 @@ public class UserFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        readHistory = (TextView) view.findViewById(R.id.readHistory);
+        readHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), UserHistoryListActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

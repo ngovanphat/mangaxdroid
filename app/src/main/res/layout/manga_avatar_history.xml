@@ -47,6 +47,7 @@
 
         <TextView
             android:id="@+id/textviewMangaTotalChapter"
+            android:layout_marginTop="5dp"
             android:paddingVertical="5dp"
             android:fontFamily="sans-serif"
             android:text="Đã cập nhật đến: "
