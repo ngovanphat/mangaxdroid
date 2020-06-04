@@ -2,14 +2,19 @@ package com.example.mangaxdroid.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
+import com.example.mangaxdroid.activity.ReadChapterActivity;
+import com.example.mangaxdroid.adapter.HistoryAdapter;
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.R;
@@ -25,23 +30,26 @@ import java.util.ArrayList;
 public class HistoryFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> favoriteMangas;
-    MangaAdapter adapter;
+    HistoryAdapter adapter;
+    ArrayList<String> chapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_category, container, false);
         listView = (ListView) view.findViewById(R.id.listManga);
         favoriteMangas = new ArrayList<>();
+        chapter = new ArrayList<>();
         if (!favoriteMangas.isEmpty())
             favoriteMangas.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
+            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
             favdb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         mangaListIds.add(ds.getKey());
+                        chapter.add((String) ds.child("Chapter").getValue());
                     }
                 }
 
@@ -57,7 +65,7 @@ public class HistoryFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+                                adapter = new HistoryAdapter(view.getContext(), R.layout.manga_avatar_history, favoriteMangas, chapter);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
@@ -76,27 +84,23 @@ public class HistoryFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
-            adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+            Log.d("User","Chua Dang Nhap");
+            adapter = new HistoryAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas, chapter);
             listView.setAdapter(adapter);
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
+                Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
                 Bundle bundle = new Bundle();
                 Manga manga = favoriteMangas.get(position);
                 bundle.putSerializable("manga", manga);
+                bundle.putString("numberChapter", chapter.get(position));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 }
