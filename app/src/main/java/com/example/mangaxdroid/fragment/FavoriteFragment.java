@@ -59,6 +59,7 @@ public class FavoriteFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
+                                Log.d("size", String.valueOf(favoriteMangas.size()));
                                 adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
                                 listView.setAdapter(adapter);
                             }
