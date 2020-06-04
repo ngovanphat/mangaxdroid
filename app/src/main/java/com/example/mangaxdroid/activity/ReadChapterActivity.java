@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -460,29 +461,68 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         }
     }
     //Đường dẫn của hình ảnh tải về được lưu tại /storage/emulated/0/Data/Tên truyện viết hoa/Số chap truyện
-    private void onDownloadClick(Manga manga,String chapterName){
+    private void onDownloadClick(final Manga manga, final String chapterName){
         getPermission();
-        DownloadManga downloadManga= new DownloadManga(manga,chapterName,ReadChapterActivity.this);
-        final ArrayList<String> getURL = downloadManga.fetchChapter(mangaName,chapterName);
-        final String path = "/Data/"+mangaName+"/"+chapterName+"/";
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (int i=0;i<getURL.size();i++) {
-                    final int finalI = i;
-                    Glide.with(ReadChapterActivity.this).load(getURL.get(i)).into(new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            saveImage(resource,"image"+ finalI +".jpeg",path);
-                            //Log.d("onResourceReady","come in");
-                        }
-                    });
+        final FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            final Dialog notLoggedIn=new Dialog(this);
+            notLoggedIn.setContentView(R.layout.dialog_bookmark_sign_in);
+            Button login = (Button) notLoggedIn.findViewById(R.id.toLogIn);
+            login.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startActivity(new Intent(ReadChapterActivity.this, LoginActivity.class));
+                    notLoggedIn.dismiss();
                 }
-            }
-        }, 500);
-    }
+            });
+            Button cancel= (Button) notLoggedIn.findViewById(R.id.cancel);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    notLoggedIn.dismiss();
+                }
+            });
+            notLoggedIn.show();
+        }
+        else {
+            DownloadManga downloadManga = new DownloadManga(manga, chapterName, ReadChapterActivity.this);
+            final ArrayList<String> getURL = downloadManga.fetchChapter(mangaName, chapterName);
+            final ArrayList<String> urlDownload = new ArrayList<>();
+            final String path = "/Data/" + mangaName + "/" + chapterName + "/";
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    urlDownload.clear();
+                    for (int i = 0; i < getURL.size(); i++) {
+                        final int finalI = i;
+                        Glide.with(ReadChapterActivity.this).load(getURL.get(i)).into(new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                super.onLoadFailed(errorDrawable);
+                                File storage = new File(Environment.getExternalStorageDirectory() +path);
+                                storage.delete();
+                                Toast.makeText(ReadChapterActivity.this,"Tải về thất bại, vui lòng thử lại sau",Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                String saveImageLink = saveImage(resource, "image" + finalI + ".jpeg", path);
+                                urlDownload.add(saveImageLink);
+                                if(finalI==getURL.size()-1){
+                                    Toast.makeText(ReadChapterActivity.this,"Tải hoàn tất",Toast.LENGTH_LONG).show();
+                                    writeToDatabaseMangaDownloaded(manga,user,chapterName,urlDownload);
+                                }
+                            }
+                        });
+                    }
+                }
+            }, 500);
+        }
+    }
+    private void writeToDatabaseMangaDownloaded(Manga manga,FirebaseUser user,String chapterID,ArrayList<String> urlDownload){
+        final DatabaseReference offlineDB=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Offline");
+        offlineDB.child(manga.getId()).child(chapterID).setValue(urlDownload);
+    }
     private String saveImage(Drawable resource,String fileName,String path){
         String savedImagePath = null;
         //tạo thư mục lưu trữ ảnh truyện
@@ -507,7 +547,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             }
         // Dòng phía dưới để thêm hình ảnh vào gallery hình ảnh của người dùng
           //  galleryAddPic(savedImagePath);
-            Toast.makeText(ReadChapterActivity.this, "IMAGE SAVED", Toast.LENGTH_LONG).show();
+            //Toast.makeText(ReadChapterActivity.this, "IMAGE SAVED", Toast.LENGTH_LONG).show();
         }
         return savedImagePath;
     }
