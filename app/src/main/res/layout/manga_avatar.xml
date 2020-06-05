@@ -3,8 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    >
+    android:layout_marginBottom="5dp">
 
     <ImageView
         android:layout_margin="10dp"
@@ -35,12 +34,13 @@
             android:paddingLeft="5dp"
             android:fontFamily="sans-serif"
             android:text="Thể loại: "
+            android:textColor="@color/red"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <FrameLayout
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="75dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView

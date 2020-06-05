@@ -89,7 +89,7 @@ public class HistoryAdapter extends BaseAdapter {
                 .into(holder.imgManga);
         holder.imgManga.setClipToOutline(true);
         holder.nameManga.setText(manga.getName());
-        holder.curChapter.setText("Lần xem trước đến: \tChapter " + chapter.get(position));
+        holder.curChapter.setText("Lần xem trước: \tChapter " + chapter.get(position));
 
         listChapter.clear();
         final String path = "Data/Chapters/" + manga.getName().toUpperCase();
@@ -105,7 +105,7 @@ public class HistoryAdapter extends BaseAdapter {
                 int total = Integer.parseInt(listChapter.get(0));
                 int percent = (cur * 100) / total ;
                 holder.percent.setText("[" + percent + " %]");
-                holder.totalChapter.setText("Đã cập nhật đến: \tChapter " + listChapter.get(0));
+                holder.totalChapter.setText("Cập nhật đến chapter " + listChapter.get(0));
             }
             @Override
             public void onCancelled(DatabaseError error) {

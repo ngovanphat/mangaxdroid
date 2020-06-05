@@ -44,8 +44,8 @@ public class HistoryFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            favdb.addValueEventListener(new ValueEventListener() {
+            final DatabaseReference hisdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            hisdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -58,7 +58,7 @@ public class HistoryFragment extends Fragment {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-            favdb.onDisconnect();
+            hisdb.onDisconnect();
             final DatabaseReference mangadb = FirebaseDatabase.getInstance().getReference("Data/Mangas");
             mangadb.addValueEventListener(new ValueEventListener() {
                 @Override

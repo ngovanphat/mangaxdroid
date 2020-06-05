@@ -24,20 +24,20 @@ import java.util.ArrayList;
 
 public class OfflineFragment extends Fragment {
     ListView listView;
-    ArrayList<Manga> favoriteMangas;
+    ArrayList<Manga> historyMangas;
     MangaAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_category, container, false);
         listView = (ListView) view.findViewById(R.id.listManga);
-        favoriteMangas = new ArrayList<>();
-        if (!favoriteMangas.isEmpty())
-            favoriteMangas.clear();
+        historyMangas = new ArrayList<>();
+        if (!historyMangas.isEmpty())
+            historyMangas.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            favdb.addValueEventListener(new ValueEventListener() {
+            final DatabaseReference hisdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            hisdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -49,7 +49,7 @@ public class OfflineFragment extends Fragment {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-            favdb.onDisconnect();
+            hisdb.onDisconnect();
             final DatabaseReference mangadb = FirebaseDatabase.getInstance().getReference("Data/Mangas");
             mangadb.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -57,14 +57,14 @@ public class OfflineFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+                                adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, historyMangas);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
                                 mangaListIds.remove(cds.getKey());
                                 Manga temp = cds.getValue(Manga.class);
                                 temp.setId(cds.getKey());
-                                favoriteMangas.add(temp);
+                                historyMangas.add(temp);
                             }
                         }
                     }
@@ -76,7 +76,7 @@ public class OfflineFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
-            adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+            adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, historyMangas);
             listView.setAdapter(adapter);
         }
 
@@ -85,7 +85,7 @@ public class OfflineFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
                 Bundle bundle = new Bundle();
-                Manga manga = favoriteMangas.get(position);
+                Manga manga = historyMangas.get(position);
                 bundle.putSerializable("manga", manga);
                 intent.putExtras(bundle);
                 startActivity(intent);

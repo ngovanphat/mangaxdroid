@@ -2,7 +2,6 @@ package com.example.mangaxdroid.activity.useractivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class UserOfflineListActivity extends AppCompatActivity {
-    private ArrayList<Manga> historyMangas = new ArrayList<>();
+    private ArrayList<Manga> offlineMangas = new ArrayList<>();
     HistoryAdapter adapter;
     ListView listView;
     Toolbar toolbar;
@@ -34,7 +33,7 @@ public class UserOfflineListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history);
+        setContentView(R.layout.offline);
 
         listView = (ListView) findViewById(R.id.listFavorites);
         toolbar = (Toolbar) findViewById(R.id.toolBarFavorite);
@@ -42,13 +41,12 @@ public class UserOfflineListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getFavoriteList();
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
                 Bundle bundle= new Bundle();
-                Manga manga = historyMangas.get(position);
+                Manga manga = offlineMangas.get(position);
                 bundle.putSerializable("manga",manga);
                 bundle.putString("numberChapter", chapter.get(position));
                 intent.putExtras(bundle);
@@ -66,14 +64,14 @@ public class UserOfflineListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void getHistoryList(){
-        if (!historyMangas.isEmpty())
-            historyMangas.clear();
+        if (!offlineMangas.isEmpty())
+            offlineMangas.clear();
         chapter = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            favdb.addValueEventListener(new ValueEventListener() {
+            final DatabaseReference offdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            offdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -86,7 +84,7 @@ public class UserOfflineListActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-            favdb.onDisconnect();
+            offdb.onDisconnect();
             final DatabaseReference mangadb = FirebaseDatabase.getInstance().getReference("Data/Mangas");
             mangadb.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -94,14 +92,14 @@ public class UserOfflineListActivity extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                adapter = new HistoryAdapter(UserOfflineListActivity.this, R.layout.manga_avatar_history, historyMangas, chapter);
+                                adapter = new HistoryAdapter(UserOfflineListActivity.this, R.layout.manga_avatar_history, offlineMangas, chapter);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
                                 mangaListIds.remove(cds.getKey());
                                 Manga temp = cds.getValue(Manga.class);
                                 temp.setId(cds.getKey());
-                                historyMangas.add(temp);
+                                offlineMangas.add(temp);
                             }
                         }
                     }
