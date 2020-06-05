@@ -37,10 +37,13 @@ import com.github.chrisbanes.photoview.OnScaleChangedListener;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.github.chrisbanes.photoview.OnMatrixChangedListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -64,47 +67,40 @@ public class ReadHorizontalFragment extends Fragment {
         manga = (Manga) bundle.getSerializable("manga");
         mangaID=manga.getName().toUpperCase().toString();
         chapterID=bundle.getString("chapterID");
+        startPageCount=bundle.getInt("pageCount");
         return fragment;
     }
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context=context;
-        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
-        pageCount=Integer.parseInt(pageCountSharedPref.getString("pageCount","0"));
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_horizontal, container, false);
-        /*pageCount=startPageCount;//default of static int is 0
-        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = pageCountSharedPref.edit();
-        edit.putString("pageCount", String.valueOf(pageCount));
-        edit.apply();*/
         viewPager=layout.findViewById(R.id.viewPager);
         imgURLs=fetchChapter(mangaID,chapterID);
-        Log.e("page count", "onCreateView: "+String.valueOf(pageCount) );
-        viewPager.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                viewPager.setCurrentItem(pageCount);
-            }
-        },10);
+        if(startPageCount!=0)
+            pageCount=startPageCount;
+        checkHistory();
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {}
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             public void onPageSelected(int position) {
-                Log.e("page count", "position view pager: "+String.valueOf(position) );
-                ((OnViewPagerListener)context).onCurrentPageUpdate(position);
+                View item=viewPager.getChildAt(position);
+                if(item!=null&&item.getTag()!=null) {//nút next chapter
+                    if (item.getTag().equals("loaded"))
+                        ((OnViewPagerListener) context).onCurrentPageUpdate(position);
+                }
             }
         });
         return layout;
     }
     //TODO Loading effect
     //TODO Error shown by an image(or a button for retry image)
-    public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
+    private ArrayList<String> fetchChapter(String mangaName, final String chapterId){
         dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId).child("imageURL");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,6 +120,36 @@ public class ReadHorizontalFragment extends Fragment {
             }
         });
         return imgURLs;
+    }
+
+    private void checkHistory(){
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            final DatabaseReference historyDb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            Query historyQuery=historyDb.orderByChild("updatedAt");
+            historyQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String mangaId=manga.getId();
+                    if(snapshot.hasChild(mangaId)){
+                        if(snapshot.child(mangaId).child("Chapter").getValue().toString().equals(chapterID)){
+                            Log.e("check chapter get", "onDataChange: "+"got chapter " );
+                            ((ReadVerticalFragment.OnListviewListener) context).onCurrentPageUpdate(pageCount);
+                            pageCount=Integer.parseInt(snapshot.child(mangaId).child("Page").getValue().toString());
+                        }
+                        else{
+                            Log.e("check chapter get", "onDataChange: "+"did not get chapter" );
+                        }
+                    }
+                    if(pageCount!=0)//để không ẩn menu khi vừa chuyển dạng xem (setCurrentItem trigger đổi trang)
+                        viewPager.setCurrentItem(pageCount);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            historyDb.onDisconnect();
+        }
     }
 
     public class ChapterPagerAdapter extends PagerAdapter {
@@ -174,10 +200,6 @@ public class ReadHorizontalFragment extends Fragment {
                             progress.setVisibility(View.GONE);
                             photoView.setTag("loaded");
                             ve.setTag("loaded");
-                            SharedPreferences.Editor edit = pageCountSharedPref.edit();
-                            String curCount = pageCountSharedPref.getString("pageCount", "0");
-                            edit.putString("pageCount", String.valueOf(Integer.parseInt(curCount) + 1));
-                            edit.apply();
                         }
                         @Override
                         public void onError(Exception e) {

@@ -25,34 +25,34 @@
             android:textColor="#000"
             android:fontFamily="sans-serif-black"
             android:textSize="16sp"
-            android:paddingLeft="5dp"
             android:text="Tên truyện"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/textviewCategoryMangaAvatar"
+            android:id="@+id/textviewMangaCurrentChapter"
             android:paddingVertical="5dp"
-            android:paddingLeft="5dp"
             android:fontFamily="sans-serif"
-            android:text="Thể loại: "
+            android:text="Lần xem trước đến: "
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <FrameLayout
-            android:layout_marginTop="5dp"
+        <TextView
+            android:id="@+id/textviewPercent"
+            android:fontFamily="sans-serif"
+            android:text="[%] "
+            android:textSize="14sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/textviewViewCount"
-                android:textSize="14sp"
-                android:drawablePadding="5dp"
-                android:padding="5dp"
-                android:drawableTint="@color/red"
-                android:textColor="@color/red"
-                android:drawableStart="@drawable/fire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </FrameLayout>
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textviewMangaTotalChapter"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="5dp"
+            android:fontFamily="sans-serif"
+            android:text="Đã cập nhật đến: "
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>

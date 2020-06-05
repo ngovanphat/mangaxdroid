@@ -106,7 +106,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:textSize="20sp"
-                android:text="Làm thê nào để nâng cấp thành tài khoản VIP ?" />
+                android:text="Làm thế nào để nâng cấp thành tài khoản VIP ?" />
         </LinearLayout>
 
         <LinearLayout

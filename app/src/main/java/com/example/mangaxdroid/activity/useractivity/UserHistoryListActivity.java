@@ -1,21 +1,20 @@
-package com.example.mangaxdroid.fragment;
+package com.example.mangaxdroid.activity.useractivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
+import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.ReadChapterActivity;
 import com.example.mangaxdroid.adapter.HistoryAdapter;
 import com.example.mangaxdroid.object.Manga;
-import com.example.mangaxdroid.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,21 +22,53 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
-public class HistoryFragment extends Fragment {
-    ListView listView;
-    ArrayList<Manga> historyMangas;
+public class UserHistoryListActivity extends AppCompatActivity {
+    private ArrayList<Manga> historyMangas = new ArrayList<>();
     HistoryAdapter adapter;
+    ListView listView;
+    Toolbar toolbar;
     ArrayList<String> chapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_category, container, false);
-        listView = (ListView) view.findViewById(R.id.listManga);
-        historyMangas = new ArrayList<>();
-        chapter = new ArrayList<>();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.history);
+
+        listView = (ListView) findViewById(R.id.listFavorites);
+        toolbar = (Toolbar) findViewById(R.id.toolBarFavorite);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getFavoriteList();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
+                Bundle bundle= new Bundle();
+                Manga manga = historyMangas.get(position);
+                bundle.putSerializable("manga",manga);
+                bundle.putString("numberChapter", chapter.get(position));
+                intent.putExtras(bundle);
+                listView.setAdapter(null);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void getHistoryList(){
         if (!historyMangas.isEmpty())
             historyMangas.clear();
+        chapter = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
@@ -63,7 +94,7 @@ public class HistoryFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                adapter = new HistoryAdapter(view.getContext(), R.layout.manga_avatar_history, historyMangas, chapter);
+                                adapter = new HistoryAdapter(UserHistoryListActivity.this, R.layout.manga_avatar_history, historyMangas, chapter);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
@@ -81,24 +112,16 @@ public class HistoryFragment extends Fragment {
             });
             mangadb.onDisconnect();
         }
-        else {
-            Log.d("User","Chua Dang Nhap");
-            adapter = new HistoryAdapter(view.getContext(), R.layout.manga_avatar, historyMangas, chapter);
-            listView.setAdapter(adapter);
-        }
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
-                Bundle bundle = new Bundle();
-                Manga manga = historyMangas.get(position);
-                bundle.putSerializable("manga", manga);
-                bundle.putString("numberChapter", chapter.get(position));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        return view;
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {//gắn đây vì onResume có chạy lúc khởi động activity
+        super.onResume();
+        getHistoryList();
     }
 }

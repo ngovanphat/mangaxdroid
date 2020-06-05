@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -57,7 +60,6 @@ public class ReadChapterListFragment extends DialogFragment {
         adapter = new CustomChapterListAdapter(layout.getContext(), R.layout.read_chapter_list_row, listChapter);
         loadContent(manga.getName());
         listView.setAdapter(adapter);
-
         //listView.smoothScrollToPosition();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,14 +80,25 @@ public class ReadChapterListFragment extends DialogFragment {
         getDialog().getWindow().setLayout(width, height);
     }
 
-    public void loadContent(String nameManga){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+nameManga.toUpperCase());
+    public void loadContent(final String nameManga){
+        final String path = "Data/Chapters/"+nameManga.toUpperCase().toString();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(path);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listChapter.clear();
-                for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    listChapter.add(new Chapter(data.getRef().getKey(),"15/05/2020","909"));
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String date = "15/05/2020";
+                    String view = "1";
+                    try {
+                        PrettyTime prettyTime = new PrettyTime();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                        date = prettyTime.format(dateFormat.parse(data.child("date").getValue().toString()));
+                        view = data.child("view").getValue().toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    listChapter.add(new Chapter(data.getRef().getKey(), date, view));
                 }
                 Collections.reverse(listChapter);
                 adapter.notifyDataSetChanged();
@@ -98,7 +111,7 @@ public class ReadChapterListFragment extends DialogFragment {
             }
         });
     }
-    public interface OnReadChapterListListener{
+            public interface OnReadChapterListListener{
         void OnChapterListItemClick(String chapterID);
     }
 

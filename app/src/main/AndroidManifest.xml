@@ -3,8 +3,10 @@
     package="com.example.mangaxdroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@drawable/mangaxdroid"
         android:label="@string/app_name"
@@ -38,6 +40,7 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.ReadChapterActivity" />
         <activity android:name=".activity.MangaInfoActivity" />
+        <activity android:name=".activity.useractivity.UserHistoryListActivity" />
         <activity android:name=".activity.useractivity.UserFavoriteListActivity" />
         <activity android:name=".activity.useractivity.UserFaqActivity" />
         <activity android:name=".activity.MainActivity">
