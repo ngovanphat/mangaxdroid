@@ -46,7 +46,7 @@ public class BookshelfFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         tabAdapter = new TabAdapter(myContext.getSupportFragmentManager());
         tabAdapter.addFragment(new FavoriteFragment(),"Yêu thích");
-        tabAdapter.addFragment(new HistoryFragment(),"Lịch sử");
+        //tabAdapter.addFragment(new HistoryFragment(),"Lịch sử");
         tabAdapter.addFragment(new OfflineFragment(),"Tải xuống");
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
