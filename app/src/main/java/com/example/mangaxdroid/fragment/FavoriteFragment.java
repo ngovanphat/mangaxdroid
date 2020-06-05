@@ -39,7 +39,7 @@ public class FavoriteFragment extends Fragment {
 
             final ArrayList<String> mangaListIds = new ArrayList<String>();
             final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
-            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            favdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -53,7 +53,7 @@ public class FavoriteFragment extends Fragment {
             });
             favdb.onDisconnect();
             final DatabaseReference mangadb = FirebaseDatabase.getInstance().getReference("Data/Mangas");
-            mangadb.addListenerForSingleValueEvent(new ValueEventListener() {
+            mangadb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {

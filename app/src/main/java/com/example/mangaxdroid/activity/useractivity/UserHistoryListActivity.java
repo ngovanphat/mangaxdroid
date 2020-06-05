@@ -73,7 +73,7 @@ public class UserHistoryListActivity extends AppCompatActivity {
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
             final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            favdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -88,7 +88,7 @@ public class UserHistoryListActivity extends AppCompatActivity {
             });
             favdb.onDisconnect();
             final DatabaseReference mangadb = FirebaseDatabase.getInstance().getReference("Data/Mangas");
-            mangadb.addListenerForSingleValueEvent(new ValueEventListener() {
+            mangadb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
