@@ -36,7 +36,7 @@ public class OfflineFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Offline");
             favdb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
