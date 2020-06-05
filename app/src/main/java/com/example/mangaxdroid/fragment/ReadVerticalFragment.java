@@ -1,7 +1,6 @@
 package com.example.mangaxdroid.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,12 +17,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.mangaxdroid.R;
@@ -39,7 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class ReadVerticalFragment extends Fragment {
@@ -72,16 +67,9 @@ public class ReadVerticalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FrameLayout layout=(FrameLayout) inflater.inflate(R.layout.fragment_read_vertical, container, false);
-        //Page storing for history
-        /*pageCount=0;//default of static int is 0
-        pageCountSharedPref = getContext().getSharedPreferences("readPages",Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = pageCountSharedPref.edit();
-        edit.putString("pageCount", String.valueOf(pageCount));
-        edit.apply();*/
         if(startPageCount!=0)
             pageCount=startPageCount;
         checkHistory();
-        Log.e("page count", "onCreateView: "+pageCount );
         imgURLs=fetchChapter(mangaID,chapterID);
         listView=layout.findViewById(R.id.imgList);
         final Button btnNext = new Button(context);
@@ -108,7 +96,6 @@ public class ReadVerticalFragment extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (lastFirstVisibleItem != firstVisibleItem) {
-                    //((OnListviewListener) context).onListviewScroll(1);
                     int pos = 0;
                     if (listView.getChildCount() > 1 && listView.getChildAt(0).getTop() < 0) pos++;
                     View item = listView.getChildAt(pos);
@@ -116,7 +103,7 @@ public class ReadVerticalFragment extends Fragment {
                         if(item.getTag().equals("loaded"))
                             ((OnListviewListener) context).onCurrentPageUpdate(firstVisibleItem);
                     }
-                    //checkPageCount(manga.getName(),chapterID);
+                    lastFirstVisibleItem=firstVisibleItem;
                 }
             }
         });
@@ -186,8 +173,6 @@ public class ReadVerticalFragment extends Fragment {
         });
         dbRef.onDisconnect();
     }
-    //TODO Loading effect
-    //TODO Error shown by an image(or a button for retry image)
     public ArrayList<String> fetchChapter(String mangaName, final String chapterId){
 
         dbRef= FirebaseDatabase.getInstance().getReference().child("Data").child("Chapters").child(mangaName).child(chapterId).child("imageURL");
