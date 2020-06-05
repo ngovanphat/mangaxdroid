@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.object.Manga;
@@ -58,6 +60,7 @@ public class HistoryAdapter extends BaseAdapter {
         TextView curChapter;
         TextView percent;
         TextView totalChapter;
+        ImageView trash;
     }
 
     @Override
@@ -72,6 +75,7 @@ public class HistoryAdapter extends BaseAdapter {
             holder.curChapter = (TextView) convertView.findViewById(R.id.textviewMangaCurrentChapter);
             holder.percent = (TextView) convertView.findViewById(R.id.textviewPercent);
             holder.totalChapter = (TextView) convertView.findViewById(R.id.textviewMangaTotalChapter);
+            holder.trash = (ImageView) convertView.findViewById(R.id.trash);
             convertView.setTag(holder);
         }
         else {
@@ -105,6 +109,13 @@ public class HistoryAdapter extends BaseAdapter {
             }
             @Override
             public void onCancelled(DatabaseError error) {
+            }
+        });
+
+        holder.trash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Successfully removed! ", Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
