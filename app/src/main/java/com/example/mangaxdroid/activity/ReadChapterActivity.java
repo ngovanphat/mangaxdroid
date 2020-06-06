@@ -124,19 +124,17 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         manga = (Manga) bundle.getSerializable("manga");
         mangaName = manga.getName().toUpperCase().toString();
         chapterName = intent.getStringExtra("numberChapter");
-        CountDownLatch done = new CountDownLatch(1);
         ft=getSupportFragmentManager().beginTransaction();
         bundle = new Bundle();
         bundle.putSerializable("manga",manga);
         bundle.putString("chapterID",chapterName);
         readHorizontal=ReadHorizontalFragment.newInstance(bundle);
+        readVertical= ReadVerticalFragment.newInstance(bundle);
         if(viewType.equals("Vertical"))
         {
-            readVertical= ReadVerticalFragment.newInstance(bundle);
             ft.replace(R.id.readerFrame,readVertical);
             ft.commit();
         }else if(viewType.equals("Horizontal")){
-            readHorizontal=ReadHorizontalFragment.newInstance(bundle);
             ft.replace(R.id.readerFrame,readHorizontal);
             ft.commit();
         }
@@ -181,6 +179,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                         nextBtn.setEnabled(true);
                     }
                 },1000);
+                toHistory();
                 toNextChapter();
             }
         });
@@ -307,7 +306,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     }
     private void toNextChapter(){
         dbRef = FirebaseDatabase.getInstance().getReference("Data/Chapters/"+mangaName);
-        dbRef.addValueEventListener(new ValueEventListener() {
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 double dif=Double.MAX_VALUE;
@@ -326,6 +325,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                     resetVariables();
                     chapterName=nextChapter;
                     getSupportActionBar().setTitle("Chapter " + chapterName);
+                    resetVariables();
                     ft=getSupportFragmentManager().beginTransaction();
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("manga",manga);
@@ -365,29 +365,27 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
             final DatabaseReference historyDb=FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            Query historyQuery=historyDb.orderByChild("updatedAt");
+            Query historyQuery=historyDb.orderByChild("updatedAt");//descending
             historyQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     String mangaId=manga.getId();
                     Date date = new Date();
-                    //This method returns the time in millis
                     long timeMilli = date.getTime();
-                    //add new
-                    historyDb.child(mangaId).child("Chapter").setValue(chapterName);
-                    historyDb.child(mangaId).child("Page").setValue(currentPage);//get current page count
-                    historyDb.child(mangaId).child("updatedAt").setValue(timeMilli);
+                    //check max history
                     int count=(int)snapshot.getChildrenCount();
-                    if(count>10){
-                        int counter=0;
-                        for(DataSnapshot ds:snapshot.child(mangaId).getChildren()){
-                            if(counter==10){
-                                //node thứ 11
+                    if(count==10) {
+                        int counter = 0;
+                        for (DataSnapshot ds : snapshot.child(mangaId).getChildren()) {
+                            if (counter == 9) {
                                 historyDb.child(ds.getKey()).removeValue();
                             }
                             counter++;
                         }
                     }
+                    historyDb.child(mangaId).child("Chapter").setValue(chapterName);
+                    historyDb.child(mangaId).child("Page").setValue(currentPage);//get current page count
+                    historyDb.child(mangaId).child("updatedAt").setValue(timeMilli);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -603,7 +601,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                                 urlDownload.add(saveImageLink);
                                 if(finalI==getURL.size()-1){
                                     Toast.makeText(ReadChapterActivity.this,"Tải hoàn tất",Toast.LENGTH_LONG).show();
-                                    writeToDatabaseMangaDownloaded(manga,user,chapterName,urlDownload);
+                                    //writeToDatabaseMangaDownloaded(manga,user,chapterName,urlDownload);
                                 }
                             }
                         });
