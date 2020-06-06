@@ -1,5 +1,6 @@
 package com.example.mangaxdroid.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,11 +28,30 @@ public class FavoriteFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> favoriteMangas;
     MangaAdapter adapter;
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_category, container, false);
+        context = view.getContext();
         listView = (ListView) view.findViewById(R.id.listManga);
         favoriteMangas = new ArrayList<>();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
+                Bundle bundle = new Bundle();
+                Manga manga = favoriteMangas.get(position);
+                bundle.putSerializable("manga", manga);
+                intent.putExtras(bundle);
+                listView.setAdapter(null);
+                startActivity(intent);
+            }
+        });
+        return view;
+    }
+
+    public void getFavoriteList() {
         if (!favoriteMangas.isEmpty())
             favoriteMangas.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -60,7 +80,7 @@ public class FavoriteFragment extends Fragment {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
                                 Log.d("size", String.valueOf(favoriteMangas.size()));
-                                adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+                                adapter = new MangaAdapter(context, R.layout.manga_avatar, favoriteMangas);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
@@ -79,22 +99,14 @@ public class FavoriteFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
-            Log.d("User","Chua Dang Nhap");
-            adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+            adapter = new MangaAdapter(context, R.layout.manga_avatar, favoriteMangas);
             listView.setAdapter(adapter);
         }
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
-                Bundle bundle = new Bundle();
-                Manga manga = favoriteMangas.get(position);
-                bundle.putSerializable("manga", manga);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        return view;
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFavoriteList();
     }
 }

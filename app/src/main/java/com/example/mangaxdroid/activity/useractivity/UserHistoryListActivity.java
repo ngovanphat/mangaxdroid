@@ -2,14 +2,10 @@ package com.example.mangaxdroid.activity.useractivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.Nullable;
@@ -43,7 +39,6 @@ public class UserHistoryListActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolBarFavorite);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getFavoriteList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,7 +117,7 @@ public class UserHistoryListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {//gắn đây vì onResume có chạy lúc khởi động activity
+    protected void onResume() {
         super.onResume();
         getHistoryList();
     }
