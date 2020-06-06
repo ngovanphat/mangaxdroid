@@ -71,7 +71,7 @@ public class UserFavoriteListActivity extends AppCompatActivity {
         if(user!=null){//check cho chắc thôi chứ mở được fragment này là phải log in rồi
             final ArrayList<String> mangaListIds=new ArrayList<String>();
             final DatabaseReference favdb= FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
-            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            favdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for(DataSnapshot ds : snapshot.getChildren()) {
@@ -85,7 +85,7 @@ public class UserFavoriteListActivity extends AppCompatActivity {
             });
             favdb.onDisconnect();
             final DatabaseReference mangadb= FirebaseDatabase.getInstance().getReference("Data/Mangas");
-            mangadb.addListenerForSingleValueEvent(new ValueEventListener() {
+            mangadb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for(DataSnapshot ds : snapshot.getChildren()) {//Từng thể loại

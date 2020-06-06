@@ -42,6 +42,7 @@
         <activity android:name=".activity.MangaInfoActivity" />
         <activity android:name=".activity.useractivity.UserHistoryListActivity" />
         <activity android:name=".activity.useractivity.UserFavoriteListActivity" />
+        <activity android:name=".activity.useractivity.UserOfflineListActivity" />
         <activity android:name=".activity.useractivity.UserFaqActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -38,11 +40,12 @@ public class HistoryFragment extends Fragment {
         chapter = new ArrayList<>();
         if (!historyMangas.isEmpty())
             historyMangas.clear();
+        chapter = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final ArrayList<String> mangaListIds = new ArrayList<String>();
-            final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
-            favdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            final DatabaseReference hisdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("History");
+            hisdb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -55,9 +58,9 @@ public class HistoryFragment extends Fragment {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-            favdb.onDisconnect();
+            hisdb.onDisconnect();
             final DatabaseReference mangadb = FirebaseDatabase.getInstance().getReference("Data/Mangas");
-            mangadb.addListenerForSingleValueEvent(new ValueEventListener() {
+            mangadb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
@@ -83,7 +86,7 @@ public class HistoryFragment extends Fragment {
         }
         else {
             Log.d("User","Chua Dang Nhap");
-            adapter = new HistoryAdapter(view.getContext(), R.layout.manga_avatar, historyMangas, chapter);
+            adapter = new HistoryAdapter(view.getContext(), R.layout.manga_avatar_history, historyMangas, chapter);
             listView.setAdapter(adapter);
         }
 

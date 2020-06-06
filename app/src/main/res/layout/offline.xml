@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.useractivity.UserFavoriteListActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/teal"
+        app:title="      TRUYỆN ĐÃ TẢI"
+        app:titleMarginStart="40dp"
+        android:foregroundTint="@color/white"
+        app:titleTextColor="@color/white"
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/listFavorites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

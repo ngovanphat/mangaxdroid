@@ -3,7 +3,9 @@ package com.example.mangaxdroid.fragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,10 +22,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
+import com.example.mangaxdroid.activity.ReadChapterActivity;
 import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,6 +89,7 @@ public class SearchFragment extends Fragment {
             }
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(arrayAdapter!=null)
                 arrayAdapter.getFilter().filter(newText);
                 return false;
             }

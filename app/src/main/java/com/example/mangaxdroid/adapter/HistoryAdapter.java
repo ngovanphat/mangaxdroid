@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.object.Manga;
@@ -58,6 +60,7 @@ public class HistoryAdapter extends BaseAdapter {
         TextView curChapter;
         TextView percent;
         TextView totalChapter;
+        ImageView trash;
     }
 
     @Override
@@ -72,6 +75,7 @@ public class HistoryAdapter extends BaseAdapter {
             holder.curChapter = (TextView) convertView.findViewById(R.id.textviewMangaCurrentChapter);
             holder.percent = (TextView) convertView.findViewById(R.id.textviewPercent);
             holder.totalChapter = (TextView) convertView.findViewById(R.id.textviewMangaTotalChapter);
+            holder.trash = (ImageView) convertView.findViewById(R.id.trash);
             convertView.setTag(holder);
         }
         else {
@@ -85,7 +89,7 @@ public class HistoryAdapter extends BaseAdapter {
                 .into(holder.imgManga);
         holder.imgManga.setClipToOutline(true);
         holder.nameManga.setText(manga.getName());
-        holder.curChapter.setText("Lần xem trước đến: \tChapter " + chapter.get(position));
+        holder.curChapter.setText("Lần xem trước: \tChapter " + chapter.get(position));
 
         listChapter.clear();
         final String path = "Data/Chapters/" + manga.getName().toUpperCase();
@@ -101,10 +105,17 @@ public class HistoryAdapter extends BaseAdapter {
                 int total = Integer.parseInt(listChapter.get(0));
                 int percent = (cur * 100) / total ;
                 holder.percent.setText("[" + percent + " %]");
-                holder.totalChapter.setText("Đã cập nhật đến: \tChapter " + listChapter.get(0));
+                holder.totalChapter.setText("Cập nhật đến chapter " + listChapter.get(0));
             }
             @Override
             public void onCancelled(DatabaseError error) {
+            }
+        });
+
+        holder.trash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Successfully removed! ", Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
