@@ -74,15 +74,7 @@ public class HomeFragment extends Fragment {
         loadImgStorm();
         loadImgNew();
         loadImgHot();
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("img", String.valueOf(imgResource.size()));
-                carouselView.setImageListener(imageListener);
-                carouselView.setPageCount(imgResource.size());
-            }
-        }, 5000);
+
 
 //        suggestedImage1 = (ImageView) view.findViewById(R.id.suggestedImage1);
 //        suggestedImage2 = (ImageView) view.findViewById(R.id.suggestedImage2);
@@ -189,6 +181,14 @@ public class HomeFragment extends Fragment {
                     //Log.d("img",child.getValue(String.class));
                     imgResource.add(child.getValue(String.class));
                 }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        carouselView.setImageListener(imageListener);
+                        carouselView.setPageCount(imgResource.size());
+                    }
+                }, 200);
             }
 
             @Override
