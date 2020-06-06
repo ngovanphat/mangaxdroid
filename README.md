@@ -2,7 +2,7 @@
 
 ## Thành viên:
 
-1. Ngô Văn Phát - 1753082 - 1753082@student.hcmus.edu.vn - 0949150989
+1. Ngô Văn Phát - 1753082 - 1753082@student.hcmus.edu.vn 
 2. Trương Thuận Nam - 1753073 - 1753073@student.hcmus.edu.vn 
 3. Lê Minh Quân - 1753137 - 1753137@student.hcmus.edu.vn
 
@@ -24,13 +24,13 @@
 
 - [x] Đọc truyện theo từng chương
 
-- [ ] Danh sách yêu thích: 
+- [x] Danh sách yêu thích: 
 
 	- Thêm truyện vào danh sách yêu thích 
 	
 	- Hiển thị danh sách yêu thích 
 	
-- [ ] Lịch sử đọc truyện: 
+- [x] Lịch sử đọc truyện: 
 
 	- Hiển thị danh sách lịch sử đọc truyện 
 	
@@ -46,9 +46,9 @@
 	
 	- Đi tới chương kế tiếp 
 	
-- [ ] Tải truyện offline
+- [x] Tải truyện offline
 
-- [ ] Report lỗi
+- [x] Report lỗi
 
 - [x] FAQ / Liên hệ 
 
@@ -62,9 +62,9 @@
 	
 	- Với Google
 	
-- [ ] Quên mật khẩu 
+- [x] Quên mật khẩu 
 
-- [ ] Đổi mật khẩu 
+- [x] Đổi mật khẩu 
 
 ## Công việc theo tuần:
 
@@ -104,6 +104,14 @@
 | 1753082    | Ngô Văn Phát     | Tính năng đăng nhập với facebook, tính năng upload truyện, tính năng reset lại mật khẩu, tính năng xác nhận email |   100%   |
 | 1753073    | Trương Thuận Nam | Tính năng lưu lịch sử đọc truyện|   100%   |
 | 1753137    | Lê Minh Quân     | Tính năng xem danh sách yêu thích|   100%   |
+
+### Tuần 11: Bình luận, tải truyện
+|   MSSV     | Họ tên           |  Công việc                                                 | Hoàn thành |
+|:----------:|:----------------:|:----------------------------------------------------------:|:----------:|
+| 1753082    | Ngô Văn Phát     | Tính năng bình luận, Tính năng tải truyện |   100%   |
+| 1753073    | Trương Thuận Nam | Xem danh sách truyện đã tải, tính năng báo cáo lỗi|   100%   |
+| 1753137    | Lê Minh Quân     |Thiết kế UI trang reset mật khẩu, cài đặt hồ sơ người dùng|   100%   |
+
 ## References: 
 *Carousel Slide*
 https://medium.com/@lobothijau/create-carousel-easily-in-android-app-with-carouselview-6cbf5ef500a9
