@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imgResource.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Log.d("img",child.getValue(String.class));
+                    //Log.d("img",child.getValue(String.class));
                     imgResource.add(child.getValue(String.class));
                 }
             }

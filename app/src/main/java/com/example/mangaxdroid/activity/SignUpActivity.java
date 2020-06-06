@@ -211,7 +211,7 @@ public class SignUpActivity extends Activity {
 
             }
             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-
+            finish();
         }
     }
 

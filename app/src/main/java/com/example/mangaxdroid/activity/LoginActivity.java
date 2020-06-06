@@ -210,6 +210,7 @@ public class LoginActivity extends Activity {
         }
         else {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
         }
     }
 }

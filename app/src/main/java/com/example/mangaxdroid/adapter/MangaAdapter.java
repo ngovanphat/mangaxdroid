@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -94,7 +95,11 @@ public class MangaAdapter extends BaseAdapter {
                     listChapter.add(data.getRef().getKey());
                 }
                 Collections.reverse(listChapter);
-                holder.categoryManga.setText("Cập nhật đến chapter " + listChapter.get(0));
+                if(!listChapter.isEmpty())
+                holder.categoryManga.setText("Chương mới: " + listChapter.get(0));
+                else{
+                    holder.categoryManga.setText("Truyện này sẽ được cập nhật");
+                }
             }
             @Override
             public void onCancelled(DatabaseError error) {
