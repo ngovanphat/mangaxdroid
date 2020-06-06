@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.activity.MainActivity;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.database.DataSnapshot;
@@ -138,11 +139,13 @@ public class HomeFragment extends Fragment {
         hot4 = (LinearLayout) view.findViewById(R.id.hot4);
         hot5 = (LinearLayout) view.findViewById(R.id.hot5);
         hot6 = (LinearLayout) view.findViewById(R.id.hot6);
+        final MainActivity mainActivity = (MainActivity) view.getContext();
 
         toNew = (TextView) view.findViewById(R.id.toNew);
         toNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(1));
                 transaction.commit();
@@ -153,6 +156,7 @@ public class HomeFragment extends Fragment {
         toHot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
                 transaction.commit();
@@ -163,6 +167,7 @@ public class HomeFragment extends Fragment {
         btnViewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                 FragmentTransaction transaction = myContext.getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
                 transaction.commit();

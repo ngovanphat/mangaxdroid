@@ -2,6 +2,7 @@ package com.example.mangaxdroid.activity;
 
 import androidx.annotation.NonNull;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class SignUpActivity extends Activity {
     private int RC_SIGN_IN = 123;
     private CallbackManager callbackManager;
     private LoginButton btnSignInWithFacebook;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class SignUpActivity extends Activity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 String email = edtEmail.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
                 String confirm = edtConfirmPassword.getText().toString().trim();
@@ -70,6 +73,7 @@ public class SignUpActivity extends Activity {
         btnSignInWithGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 SignInWithGoogle(mGoogleSignInClient);
             }
         });
@@ -77,6 +81,7 @@ public class SignUpActivity extends Activity {
         btnSignInWithFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                progressDialog.show();
                 Log.d("FacebookAuthentication", "onSuccess"+loginResult);
                 handleFacebookToken(loginResult.getAccessToken());
             }
@@ -193,6 +198,7 @@ public class SignUpActivity extends Activity {
     }
 
     private void updateUI(FirebaseUser user) {
+        progressDialog.dismiss();
         if (user == null) {
             Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
         }
@@ -232,5 +238,9 @@ public class SignUpActivity extends Activity {
         btnSignInWithFacebook= (LoginButton) findViewById(R.id.buttonFacebook);
         btnSignInWithGoogle = (SignInButton) findViewById(R.id.buttonGoogle);
         signIn = (TextView) findViewById(R.id.signIn);
+        progressDialog = new ProgressDialog(SignUpActivity.this);
+        progressDialog.setTitle("Processing...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
     }
 }

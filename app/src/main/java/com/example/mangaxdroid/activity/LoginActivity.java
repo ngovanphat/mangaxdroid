@@ -55,7 +55,10 @@ public class LoginActivity extends Activity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+                Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+                finish();
+                startActivity(intent);
+
             }
         });
         loginWithEmail.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +231,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
         }
         else {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            //startActivity(new Intent(LoginActivity.this, MainActivity.class));
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             finish();
         }

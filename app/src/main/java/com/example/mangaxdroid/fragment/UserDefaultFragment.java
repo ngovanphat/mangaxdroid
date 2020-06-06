@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.LoginActivity;
+import com.example.mangaxdroid.activity.MainActivity;
 import com.example.mangaxdroid.activity.useractivity.UserFaqActivity;
 import com.example.mangaxdroid.activity.useractivity.UserFavoriteListActivity;
 
@@ -42,7 +43,10 @@ public class UserDefaultFragment extends Fragment {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) view.getContext();
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_1);
                 startActivity(new Intent(view.getContext(), LoginActivity.class));
+
             }
         });
 
