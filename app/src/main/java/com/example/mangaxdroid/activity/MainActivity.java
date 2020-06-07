@@ -5,7 +5,9 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.fragment.BookshelfFragment;
@@ -19,8 +21,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity<DatabaseReference> extends FragmentActivity {
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
+
+    public void setBottomNavigationView(BottomNavigationView bottomNavigationView) {
+        this.bottomNavigationView = bottomNavigationView;
+    }
+
     BottomNavigationView bottomNavigationView;
     FirebaseUser user;
+    private boolean pressBackTwoTimes = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,4 +86,23 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
         return select;
     }
 
+    @Override
+    public void onBackPressed() {
+        if(pressBackTwoTimes){
+            finish();
+        }
+        pressBackTwoTimes = true;
+        bottomNavigationView.setSelectedItemId(R.id.page_1);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameMain, HomeFragment.newInstance());
+        transaction.commit();
+        Toast.makeText(MainActivity.this,"Nhấn lần nữa để thoát",Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                pressBackTwoTimes=false;
+            }
+        }, 1000);
+    }
 }

@@ -553,6 +553,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     }
     //Đường dẫn của hình ảnh tải về được lưu tại /storage/emulated/0/Data/Tên truyện viết hoa/Số chap truyện
     private void onDownloadClick(final Manga manga, final String chapterName){
+        bottomNav.getMenu().findItem(R.id.action_download).setEnabled(false);
         getPermission();
         final FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         if(user==null){
@@ -592,6 +593,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                                 File storage = new File(Environment.getExternalStorageDirectory() +path);
                                 storage.delete();
                                 Toast.makeText(ReadChapterActivity.this,"Tải về thất bại, vui lòng thử lại sau",Toast.LENGTH_LONG).show();
+                                bottomNav.getMenu().findItem(R.id.action_download).setEnabled(true);
                                 return;
                             }
 
@@ -601,13 +603,16 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                                 urlDownload.add(saveImageLink);
                                 if(finalI==getURL.size()-1){
                                     Toast.makeText(ReadChapterActivity.this,"Tải hoàn tất",Toast.LENGTH_LONG).show();
+                                    bottomNav.getMenu().findItem(R.id.action_download).setEnabled(true);
                                     //writeToDatabaseMangaDownloaded(manga,user,chapterName,urlDownload);
                                 }
                             }
                         });
                     }
+
                 }
             }, 500);
+
         }
     }
     private void writeToDatabaseMangaDownloaded(Manga manga,FirebaseUser user,String chapterID,ArrayList<String> urlDownload){

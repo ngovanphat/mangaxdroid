@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class UserOfflineListActivity extends AppCompatActivity {
@@ -39,7 +38,6 @@ public class UserOfflineListActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolBarFavorite);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getFavoriteList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,7 +116,7 @@ public class UserOfflineListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {//gắn đây vì onResume có chạy lúc khởi động activity
+    protected void onResume() {
         super.onResume();
         getHistoryList();
     }

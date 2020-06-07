@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,10 @@ import com.example.mangaxdroid.activity.useractivity.UserOfflineListActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 public class UserFragment extends Fragment {
     private FragmentActivity myContext;
@@ -42,15 +46,19 @@ public class UserFragment extends Fragment {
         super.onAttach(activity);
     }
     public void loadUser(FirebaseUser user){
-        if(!user.getDisplayName().equals("")){
+        String providerID="";
+
+        for (UserInfo profile : user.getProviderData()) {
+            providerID = profile.getProviderId();
+        }
+        //Log.d("loadUser",providerID);
+        if(providerID.equals("facebook.com")||providerID.equals("google.com"))
+        {
             username.setText(user.getDisplayName());
+            Picasso.get().load(user.getPhotoUrl()).into(userAvatar);
         }else{
             username.setText(user.getEmail());
         }
-        if(user.getPhotoUrl()!=null){
-            Picasso.get().load(user.getPhotoUrl()).into(userAvatar);
-        }
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

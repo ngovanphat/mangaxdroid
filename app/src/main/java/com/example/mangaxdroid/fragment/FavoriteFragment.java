@@ -1,5 +1,6 @@
 package com.example.mangaxdroid.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
@@ -27,16 +29,34 @@ public class FavoriteFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> favoriteMangas;
     MangaAdapter adapter;
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_category, container, false);
+        context = view.getContext();
         listView = (ListView) view.findViewById(R.id.listManga);
         favoriteMangas = new ArrayList<>();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
+                Bundle bundle = new Bundle();
+                Manga manga = favoriteMangas.get(position);
+                bundle.putSerializable("manga", manga);
+                intent.putExtras(bundle);
+                listView.setAdapter(null);
+                startActivity(intent);
+            }
+        });
+        return view;
+    }
+
+    public void getFavoriteList() {
         if (!favoriteMangas.isEmpty())
             favoriteMangas.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-
             final ArrayList<String> mangaListIds = new ArrayList<String>();
             final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
             favdb.addValueEventListener(new ValueEventListener() {
@@ -45,6 +65,14 @@ public class FavoriteFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         mangaListIds.add(ds.getKey());
                     }
+//                    if (mangaListIds.isEmpty()) {
+//                        AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
+//                        myBuilder.setIcon(R.drawable.mangaxdroid)
+//                                .setTitle("")
+//                                .setMessage("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDữ liệu trống.")
+//                                .setPositiveButton("OK", null)
+//                                .show();
+//                    }
                 }
 
                 @Override
@@ -59,8 +87,7 @@ public class FavoriteFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                Log.d("size", String.valueOf(favoriteMangas.size()));
-                                adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+                                adapter = new MangaAdapter(context, R.layout.manga_avatar, favoriteMangas);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
@@ -72,6 +99,7 @@ public class FavoriteFragment extends Fragment {
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -79,22 +107,21 @@ public class FavoriteFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
-            Log.d("User","Chua Dang Nhap");
-            adapter = new MangaAdapter(view.getContext(), R.layout.manga_avatar, favoriteMangas);
+            adapter = new MangaAdapter(context, R.layout.manga_avatar_history, favoriteMangas);
             listView.setAdapter(adapter);
-        }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), MangaInfoActivity.class);
-                Bundle bundle = new Bundle();
-                Manga manga = favoriteMangas.get(position);
-                bundle.putSerializable("manga", manga);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        return view;
+//            AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
+//            myBuilder.setIcon(R.drawable.mangaxdroid)
+//                    .setTitle("\t\t\t\t\t\t\t\tThông báo")
+//                    .setMessage("Bạn cần đăng nhập để xem danh sách yêu thích.")
+//                    .setPositiveButton("OK", null)
+//                    .show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFavoriteList();
     }
 }

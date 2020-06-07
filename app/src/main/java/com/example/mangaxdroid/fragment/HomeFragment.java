@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.activity.MainActivity;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.database.DataSnapshot;
@@ -74,15 +75,7 @@ public class HomeFragment extends Fragment {
         loadImgStorm();
         loadImgNew();
         loadImgHot();
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("img", String.valueOf(imgResource.size()));
-                carouselView.setImageListener(imageListener);
-                carouselView.setPageCount(imgResource.size());
-            }
-        }, 5000);
+
 
 //        suggestedImage1 = (ImageView) view.findViewById(R.id.suggestedImage1);
 //        suggestedImage2 = (ImageView) view.findViewById(R.id.suggestedImage2);
@@ -146,11 +139,13 @@ public class HomeFragment extends Fragment {
         hot4 = (LinearLayout) view.findViewById(R.id.hot4);
         hot5 = (LinearLayout) view.findViewById(R.id.hot5);
         hot6 = (LinearLayout) view.findViewById(R.id.hot6);
+        final MainActivity mainActivity = (MainActivity) view.getContext();
 
         toNew = (TextView) view.findViewById(R.id.toNew);
         toNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(1));
                 transaction.commit();
@@ -161,6 +156,7 @@ public class HomeFragment extends Fragment {
         toHot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
                 transaction.commit();
@@ -171,6 +167,7 @@ public class HomeFragment extends Fragment {
         btnViewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                 FragmentTransaction transaction = myContext.getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(0));
                 transaction.commit();
@@ -186,9 +183,17 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imgResource.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Log.d("img",child.getValue(String.class));
+                    //Log.d("img",child.getValue(String.class));
                     imgResource.add(child.getValue(String.class));
                 }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        carouselView.setImageListener(imageListener);
+                        carouselView.setPageCount(imgResource.size());
+                    }
+                }, 200);
             }
 
             @Override

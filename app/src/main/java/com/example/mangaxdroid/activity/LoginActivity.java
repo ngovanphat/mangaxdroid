@@ -1,10 +1,12 @@
 package com.example.mangaxdroid.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,6 +44,7 @@ public class LoginActivity extends Activity {
     private int RC_SIGN_IN = 123;
     private CallbackManager callbackManager;
     private LoginButton loginWithFacebook;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +55,20 @@ public class LoginActivity extends Activity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+                Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+                finish();
+                startActivity(intent);
+
             }
         });
         loginWithEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 String email = edtEmail.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
                 signInWithEmail(email,password);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -71,7 +79,10 @@ public class LoginActivity extends Activity {
         loginWithGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 SignInWithGoogle(mGoogleSignInClient);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -103,6 +114,9 @@ public class LoginActivity extends Activity {
     }
 
     private void handleFacebookToken(AccessToken accessToken) {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        progressDialog.show();
         Log.d("handleFacebookToken", accessToken.getToken());
         AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
         mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -112,10 +126,12 @@ public class LoginActivity extends Activity {
                     Log.d("success","Facebook login success");
                     FirebaseUser user = mAuth.getCurrentUser();
                     uploadUI(user);
+
                 }
                 else{
                     Log.d("failed","Facebook login failed"+task.getException().getMessage());
                     uploadUI(null);
+
                 }
             }
         });
@@ -202,14 +218,21 @@ public class LoginActivity extends Activity {
         loginWithGoogle = (SignInButton) findViewById(R.id.buttonGoogle);
         forgotPassword = (TextView) findViewById(R.id.forgotPW);
         signUp = (TextView) findViewById(R.id.signUp);
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setTitle("Processing...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
     }
 
     private void uploadUI(FirebaseUser user){
+        progressDialog.dismiss();
         if (user == null) {
             Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
         }
         else {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            finish();
         }
     }
 }

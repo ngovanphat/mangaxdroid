@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.mangaxdroid.R;
+import com.example.mangaxdroid.activity.MainActivity;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.activity.ReadChapterActivity;
 import com.example.mangaxdroid.object.Manga;
@@ -67,7 +68,7 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_search, container, false);
         SearchView searchView = view.findViewById(R.id.searchview);
         ListView listView = (ListView) view.findViewById(R.id.listSearch);
@@ -101,6 +102,8 @@ public class SearchFragment extends Fragment {
               final String Name = arrayAdapter.getItem(position).toString();
               if(category.contains(Name)){
                  int pageSelect =  category.indexOf(Name);
+                  MainActivity  mainActivity = (MainActivity) getContext();
+                  mainActivity.getBottomNavigationView().setSelectedItemId(R.id.page_2);
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();
                   transaction.replace(R.id.frameMain, CategoriesFragment.newInstance(pageSelect));
                   transaction.commit();
