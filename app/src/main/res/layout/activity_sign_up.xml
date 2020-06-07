@@ -23,65 +23,76 @@
             android:textColor="#00a7a7"
             android:textSize="55sp"
             android:textStyle="bold" />
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/buttonFacebook"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/buttonGoogle"
-            android:layout_width="210dp"
-            android:layout_gravity="center"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
+<!--        <com.facebook.login.widget.LoginButton-->
+<!--            android:id="@+id/buttonFacebook"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="15sp" />-->
+<!--        <com.google.android.gms.common.SignInButton-->
+<!--            android:id="@+id/buttonGoogle"-->
+<!--            android:layout_width="210dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:textSize="15sp"/>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_weight="2"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@color/white"/>-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_weight="3"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@color/teal"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:textAlignment="center"-->
+<!--                android:text="OR" />-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_weight="3"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@color/teal"/>-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_weight="2"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@color/white"/>-->
+<!--        </LinearLayout>-->
+
+        <EditText
+            android:id="@+id/loginName"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="2"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="3"
-                android:layout_marginTop="20dp"
-                android:background="@color/teal"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:text="OR" />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="3"
-                android:layout_marginTop="20dp"
-                android:background="@color/teal"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="2"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"/>
-        </LinearLayout>
+            android:layout_marginTop="60dp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/gray"
+            android:hint="Tên đăng nhập" />
 
         <EditText
             android:id="@+id/editEmail"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:inputType="textPersonName"
@@ -116,10 +127,10 @@
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:background="#00a7a7"
+            android:background="@drawable/custom_button"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:text="Đăng ký" />
     </LinearLayout>
 
