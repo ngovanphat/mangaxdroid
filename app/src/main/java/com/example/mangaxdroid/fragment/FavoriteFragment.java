@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
@@ -56,7 +57,6 @@ public class FavoriteFragment extends Fragment {
             favoriteMangas.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-
             final ArrayList<String> mangaListIds = new ArrayList<String>();
             final DatabaseReference favdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Favorite");
             favdb.addValueEventListener(new ValueEventListener() {
@@ -65,6 +65,14 @@ public class FavoriteFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         mangaListIds.add(ds.getKey());
                     }
+//                    if (mangaListIds.isEmpty()) {
+//                        AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
+//                        myBuilder.setIcon(R.drawable.mangaxdroid)
+//                                .setTitle("")
+//                                .setMessage("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDữ liệu trống.")
+//                                .setPositiveButton("OK", null)
+//                                .show();
+//                    }
                 }
 
                 @Override
@@ -79,7 +87,6 @@ public class FavoriteFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                Log.d("size", String.valueOf(favoriteMangas.size()));
                                 adapter = new MangaAdapter(context, R.layout.manga_avatar, favoriteMangas);
                                 listView.setAdapter(adapter);
                             }
@@ -92,6 +99,7 @@ public class FavoriteFragment extends Fragment {
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -99,8 +107,15 @@ public class FavoriteFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
-            adapter = new MangaAdapter(context, R.layout.manga_avatar, favoriteMangas);
+            adapter = new MangaAdapter(context, R.layout.manga_avatar_history, favoriteMangas);
             listView.setAdapter(adapter);
+
+//            AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
+//            myBuilder.setIcon(R.drawable.mangaxdroid)
+//                    .setTitle("\t\t\t\t\t\t\t\tThông báo")
+//                    .setMessage("Bạn cần đăng nhập để xem danh sách yêu thích.")
+//                    .setPositiveButton("OK", null)
+//                    .show();
         }
     }
 

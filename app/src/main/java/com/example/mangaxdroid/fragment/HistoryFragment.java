@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.mangaxdroid.activity.ReadChapterActivity;
 import com.example.mangaxdroid.adapter.HistoryAdapter;
 import com.example.mangaxdroid.object.Manga;
@@ -73,8 +76,16 @@ public class HistoryFragment extends Fragment {
                         mangaListIds.add(ds.getKey());
                         chapter.add((String) ds.child("Chapter").getValue());
                     }
-                }
 
+//                    if (mangaListIds.isEmpty()) {
+//                        AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
+//                        myBuilder.setIcon(R.drawable.mangaxdroid)
+//                                .setTitle("")
+//                                .setMessage("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDữ liệu trống.")
+//                                .setPositiveButton("OK", null)
+//                                .show();
+//                    }
+                }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -108,6 +119,13 @@ public class HistoryFragment extends Fragment {
         else {
             adapter = new HistoryAdapter(context, R.layout.manga_avatar_history, historyMangas, chapter);
             listView.setAdapter(adapter);
+
+//            AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
+//            myBuilder.setIcon(R.drawable.mangaxdroid)
+//                    .setTitle("\t\t\t\t\t\t\t\tThông báo")
+//                    .setMessage("Bạn cần đăng nhập để xem lịch sử đọc truyện.")
+//                    .setPositiveButton("OK", null)
+//                    .show();
         }
     }
 
