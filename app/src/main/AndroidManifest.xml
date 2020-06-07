@@ -44,6 +44,7 @@
         <activity android:name=".activity.useractivity.UserFavoriteListActivity" />
         <activity android:name=".activity.useractivity.UserOfflineListActivity" />
         <activity android:name=".activity.useractivity.UserReportListActivity" />
+        <activity android:name=".activity.useractivity.UserSettingActivity" />
         <activity android:name=".activity.useractivity.UserFaqActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

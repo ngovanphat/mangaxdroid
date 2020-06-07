@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#DCDCDC">
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/layout_rounded_corner_2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:tint="@color/teal"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/nametag" />
+
+            <TextView
+                android:id="@+id/changeLoginName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingTop="20dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/teal"
+                android:textSize="20sp"
+                android:text="Tên" />
+
+            <Button
+                android:id="@+id/nameChange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:background="@drawable/custom_button"
+                android:text="Sửa" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:tint="@color/teal"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/password" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingTop="20dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/teal"
+                android:textSize="20sp"
+                android:text="Mật khẩu" />
+
+            <Button
+                android:id="@+id/passwordChange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/custom_button"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:text="Sửa" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

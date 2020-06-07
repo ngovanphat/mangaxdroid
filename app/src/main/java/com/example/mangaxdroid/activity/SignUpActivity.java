@@ -32,6 +32,11 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignUpActivity extends Activity {
     private FirebaseAuth mAuth;
@@ -52,7 +57,9 @@ public class SignUpActivity extends Activity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                 finish();
+                startActivity(intent);
             }
         });
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +70,7 @@ public class SignUpActivity extends Activity {
                 String email = edtEmail.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
                 String confirm = edtConfirmPassword.getText().toString().trim();
-                SignUp(email,password,confirm);
+                SignUp(name, email,password,confirm);
             }
         });
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -116,7 +123,7 @@ public class SignUpActivity extends Activity {
 //        });
 //    }
 
-    private void SignUp(String email,String password,String confirm){
+    private void SignUp(final String name, String email, String password, String confirm){
         if (email.equals("")||password.equals("")||confirm.equals("")) {
             Toast.makeText(SignUpActivity.this,"Vui lòng nhập email và mật khẩu",Toast.LENGTH_LONG).show();
         }
@@ -133,6 +140,19 @@ public class SignUpActivity extends Activity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("SignUp", "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    final DatabaseReference userdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+                                    userdb.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            userdb.child("UserName").setValue(name);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    userdb.onDisconnect();
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.

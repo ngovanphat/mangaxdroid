@@ -12,22 +12,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.useractivity.UserFavoriteListActivity;
 import com.example.mangaxdroid.activity.useractivity.UserHistoryListActivity;
 import com.example.mangaxdroid.activity.useractivity.UserOfflineListActivity;
+import com.example.mangaxdroid.activity.useractivity.UserSettingActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 public class UserFragment extends Fragment {
     private FragmentActivity myContext;
-    private TextView readOffline, accountUpgrade, readHistory, listFavorite, accountSetting,username;
+    private TextView readOffline, readHistory, listFavorite, accountSetting,username;
     private FirebaseUser user;
     private Button btnLogout;
     private ImageView userAvatar;
@@ -56,16 +64,27 @@ public class UserFragment extends Fragment {
         {
             username.setText(user.getDisplayName());
             Picasso.get().load(user.getPhotoUrl()).into(userAvatar);
-        }else{
-            username.setText(user.getEmail());
+        }
+        else{
+            final DatabaseReference userdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+            userdb.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    username.setText((String)dataSnapshot.child("UserName").getValue());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            userdb.onDisconnect();
         }
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.user_info, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        //accountUpgrade = (TextView) view.findViewById(R.id.accountUpgrade);
-        accountSetting = (TextView) view.findViewById(R.id.accountSetting);
         username = (TextView) view.findViewById(R.id.userEmail);
         userAvatar = (ImageView) view.findViewById(R.id.userAvatar);
         btnLogout = (Button) view.findViewById(R.id.buttonLogOut);
@@ -105,6 +124,14 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(view.getContext(), UserHistoryListActivity.class);
+                startActivity(intent);
+            }
+        });
+        accountSetting = (TextView) view.findViewById(R.id.accountSetting);
+        accountSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), UserSettingActivity.class);
                 startActivity(intent);
             }
         });
