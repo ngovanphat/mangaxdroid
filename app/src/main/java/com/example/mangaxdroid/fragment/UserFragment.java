@@ -60,12 +60,12 @@ public class UserFragment extends Fragment {
             providerID = profile.getProviderId();
         }
         //Log.d("loadUser",providerID);
-        if(providerID.equals("facebook.com")||providerID.equals("google.com"))
+        if (providerID.equals("facebook.com")||providerID.equals("google.com"))
         {
             username.setText(user.getDisplayName());
             Picasso.get().load(user.getPhotoUrl()).into(userAvatar);
         }
-        else{
+        else {
             final DatabaseReference userdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
             userdb.addValueEventListener(new ValueEventListener() {
                 @Override

@@ -64,6 +64,7 @@ public class UserFavoriteListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void getFavoriteList(){
         if(!favoriteMangas.isEmpty())// clear để update nếu người dùng back trở lại
             favoriteMangas.clear();

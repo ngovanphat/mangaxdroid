@@ -3,7 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#DCDCDC">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/teal"
+        app:title="   CÀI ĐẶT TÀI KHOẢN"
+        app:titleMarginStart="40dp"
+        android:foregroundTint="@color/white"
+        app:titleTextColor="@color/white"
+        android:visibility="visible" />
     <LinearLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
