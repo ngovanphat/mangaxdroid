@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class ChangeUserName extends DialogFragment {
     Context context = null;
     EditText ogUserName;
@@ -46,10 +48,12 @@ public class ChangeUserName extends DialogFragment {
             public void onClick(View v) {
                 final String name = ogUserName.getText().toString().trim();
                 final DatabaseReference userdb = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-                userdb.addValueEventListener(new ValueEventListener() {
+                userdb.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        userdb.child("UserName").setValue((String) name);
+                        HashMap<String, Object> result = new HashMap<>();
+                        result.put("/UserName", (String) name);
+                        userdb.updateChildren(result);
                     }
 
                     @Override
@@ -57,7 +61,6 @@ public class ChangeUserName extends DialogFragment {
 
                     }
                 });
-                userdb.onDisconnect();
                 getActivity().getSupportFragmentManager().beginTransaction().remove(thisFragment).commit();
             }
         });

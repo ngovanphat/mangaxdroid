@@ -43,8 +43,7 @@
                 android:paddingTop="20dp"
                 android:paddingLeft="10dp"
                 android:textColor="@color/teal"
-                android:textSize="20sp"
-                android:text="Tên" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/nameChange"
