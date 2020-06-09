@@ -1,9 +1,7 @@
 package com.example.mangaxdroid.activity.useractivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,16 +10,11 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.mangaxdroid.R;
-import com.example.mangaxdroid.activity.ReadChapterActivity;
-import com.example.mangaxdroid.adapter.HistoryAdapter;
-import com.example.mangaxdroid.object.Chapter;
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.object.Report;
 import com.google.firebase.auth.FirebaseAuth;

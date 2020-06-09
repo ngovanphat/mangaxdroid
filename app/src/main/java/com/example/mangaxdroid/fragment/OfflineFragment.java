@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.activity.ReadChapterActivity;
-import com.example.mangaxdroid.adapter.HistoryAdapter;
+import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.object.Manga;
 import com.example.mangaxdroid.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class OfflineFragment extends Fragment {
     ListView listView;
     ArrayList<Manga> historyMangas;
-    HistoryAdapter adapter;
+    MangaAdapter adapter;
     ArrayList<String> chapter;
     Context context;
     @Override
@@ -91,7 +91,7 @@ public class OfflineFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                adapter = new HistoryAdapter(context, R.layout.manga_avatar_history, historyMangas, chapter);
+                                adapter = new MangaAdapter(context, R.layout.manga_avatar, historyMangas);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
@@ -110,7 +110,7 @@ public class OfflineFragment extends Fragment {
             mangadb.onDisconnect();
         }
         else {
-            adapter = new HistoryAdapter(context, R.layout.manga_avatar_history, historyMangas, chapter);
+            adapter = new MangaAdapter(context, R.layout.manga_avatar, historyMangas);
             listView.setAdapter(adapter);
 
 //            AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);

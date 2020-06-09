@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.ReadChapterActivity;
-import com.example.mangaxdroid.adapter.HistoryAdapter;
+import com.example.mangaxdroid.adapter.MangaAdapter;
 import com.example.mangaxdroid.object.Manga;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class UserOfflineListActivity extends AppCompatActivity {
     private ArrayList<Manga> offlineMangas = new ArrayList<>();
-    HistoryAdapter adapter;
+    MangaAdapter adapter;
     ListView listView;
     Toolbar toolbar;
     ArrayList<String> chapter;
@@ -90,7 +90,7 @@ public class UserOfflineListActivity extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         for (DataSnapshot cds : ds.getChildren()) {
                             if (mangaListIds.isEmpty()) {
-                                adapter = new HistoryAdapter(UserOfflineListActivity.this, R.layout.manga_avatar_history, offlineMangas, chapter);
+                                adapter = new MangaAdapter(UserOfflineListActivity.this, R.layout.manga_avatar, offlineMangas);
                                 listView.setAdapter(adapter);
                             }
                             if (mangaListIds.indexOf(cds.getKey()) != -1) {
