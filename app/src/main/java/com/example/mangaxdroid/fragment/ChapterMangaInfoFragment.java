@@ -55,6 +55,7 @@ public class ChapterMangaInfoFragment extends Fragment {
                 bundle.putSerializable("manga",manga);
                 intent.putExtras(bundle);
                 intent.putExtra("numberChapter",listChapter.get(position).getName());
+                intent.putExtra("callingActivity","MangaInfo");
                 startActivity(intent);
             }
         });

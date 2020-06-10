@@ -204,6 +204,7 @@ public class MangaInfoActivity extends AppCompatActivity {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("manga", manga);
                         bundle.putString("numberChapter", chapterID);
+                        intent.putExtra("callingActivity","MangaInfo");
                         intent.putExtras(bundle);
                         startActivity(intent);
                     } else {//xét cho coi chap cũ nhất ?

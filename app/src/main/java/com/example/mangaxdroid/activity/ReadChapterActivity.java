@@ -97,6 +97,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
     ArrayList<String> imgURLs=new ArrayList<String>();
     String chapterName;
     String mangaName;
+    String callingActivity="";
     int currentPage=0;
     ArrayList<Integer> pagesLoaded= new ArrayList<Integer>();
     boolean isRead=false;
@@ -116,14 +117,16 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         bottomNav=findViewById(R.id.navBar);
         layout = findViewById(R.id.baseLayout);
         toolbar = findViewById(R.id.toolBar);
-        //lấy tên & số chap
+        //mấy cái animation cho load trước
         LottieCompositionFactory.fromRawRes(this,R.raw.checkmark_animation);
         LottieCompositionFactory.fromRawRes(this,R.raw.error_animation);
+        //lấy tên & số chap
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         manga = (Manga) bundle.getSerializable("manga");
         mangaName = manga.getName().toUpperCase().toString();
         chapterName = intent.getStringExtra("numberChapter");
+        callingActivity=intent.getStringExtra("callingActivity");
         ft=getSupportFragmentManager().beginTransaction();
         bundle = new Bundle();
         bundle.putSerializable("manga",manga);
@@ -170,7 +173,6 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ReadChapterActivity.this, "Next Chapter", Toast.LENGTH_SHORT).show();
                 nextBtn.setEnabled(false);//Disable button from spamming
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -271,7 +273,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
             ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.readerFrame,readVertical);
             ft.commit();
-        }else if(readVertical.isResumed()&&setViewType=="Horizontal")
+        }else if(readVertical.isResumed()&&setViewType.equals("Horizontal"))
         {
             viewType="Horizontal";
             toHistory();
@@ -320,8 +322,8 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                         nextChapter = key;
                     }
                 }
-                Toast.makeText(ReadChapterActivity.this,"Chapter: "+nextChapter,Toast.LENGTH_SHORT).show();
                 if(!nextChapter.equals(chapterName)){//To next chapter
+                    Toast.makeText(ReadChapterActivity.this,"Chapter: "+nextChapter,Toast.LENGTH_SHORT).show();
                     resetVariables();
                     chapterName=nextChapter;
                     getSupportActionBar().setTitle("Chapter " + chapterName);
@@ -342,8 +344,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                     ft.commit();
                 }else {
                     Toast.makeText(ReadChapterActivity.this,"Reached Last Chapter",Toast.LENGTH_SHORT).show();
-                    String superClass = ReadChapterActivity.this.getClass().getSuperclass().getSimpleName();
-                    if(superClass.equals(MangaInfoActivity.class.getSimpleName())){
+                    if(callingActivity!=null&&callingActivity.equals("MangaInfo")){
                         onLastChapterClick();
                     }else{
                         Intent intent = new Intent(ReadChapterActivity.this, MangaInfoActivity.class);
