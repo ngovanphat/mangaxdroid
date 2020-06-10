@@ -3,14 +3,12 @@ package com.example.mangaxdroid.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.mangaxdroid.activity.MangaInfoActivity;
 import com.example.mangaxdroid.object.Manga;
@@ -65,14 +63,6 @@ public class FavoriteFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         mangaListIds.add(ds.getKey());
                     }
-//                    if (mangaListIds.isEmpty()) {
-//                        AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
-//                        myBuilder.setIcon(R.drawable.mangaxdroid)
-//                                .setTitle("")
-//                                .setMessage("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDữ liệu trống.")
-//                                .setPositiveButton("OK", null)
-//                                .show();
-//                    }
                 }
 
                 @Override
@@ -109,13 +99,6 @@ public class FavoriteFragment extends Fragment {
         else {
             adapter = new MangaAdapter(context, R.layout.manga_avatar_history, favoriteMangas);
             listView.setAdapter(adapter);
-
-//            AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
-//            myBuilder.setIcon(R.drawable.mangaxdroid)
-//                    .setTitle("\t\t\t\t\t\t\t\tThông báo")
-//                    .setMessage("Bạn cần đăng nhập để xem danh sách yêu thích.")
-//                    .setPositiveButton("OK", null)
-//                    .show();
         }
     }
 

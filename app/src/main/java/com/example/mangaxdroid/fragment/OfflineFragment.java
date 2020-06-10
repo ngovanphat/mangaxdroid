@@ -69,15 +69,6 @@ public class OfflineFragment extends Fragment {
                         mangaListIds.add(ds.getKey());
                         chapter.add((String) ds.child("Chapter").getValue());
                     }
-
-//                    if (mangaListIds.isEmpty()) {
-//                        AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
-//                        myBuilder.setIcon(R.drawable.mangaxdroid)
-//                                .setTitle("")
-//                                .setMessage("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDữ liệu trống.")
-//                                .setPositiveButton("OK", null)
-//                                .show();
-//                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -112,13 +103,6 @@ public class OfflineFragment extends Fragment {
         else {
             adapter = new MangaAdapter(context, R.layout.manga_avatar, historyMangas);
             listView.setAdapter(adapter);
-
-//            AlertDialog.Builder myBuilder = new AlertDialog.Builder(context);
-//            myBuilder.setIcon(R.drawable.mangaxdroid)
-//                    .setTitle("\t\t\t\t\t\t\t\tThông báo")
-//                    .setMessage("Bạn cần đăng nhập để xem lịch sử tải truyện.")
-//                    .setPositiveButton("OK", null)
-//                    .show();
         }
     }
 
