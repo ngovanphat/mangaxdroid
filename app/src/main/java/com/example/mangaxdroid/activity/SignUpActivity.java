@@ -43,10 +43,6 @@ public class SignUpActivity extends Activity {
     private EditText loginName,edtEmail,edtPassword,edtConfirmPassword;
     private Button btnSignUp;
     private TextView signIn;
-//    private SignInButton btnSignInWithGoogle;
-//    private int RC_SIGN_IN = 123;
-//    private CallbackManager callbackManager;
-//    private LoginButton btnSignInWithFacebook;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,55 +69,7 @@ public class SignUpActivity extends Activity {
                 SignUp(name, email,password,confirm);
             }
         });
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
-//        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-//        btnSignInWithGoogle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SignInWithGoogle(mGoogleSignInClient);
-//            }
-//        });
-//        callbackManager = CallbackManager.Factory.create();
-//        btnSignInWithFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                Log.d("FacebookAuthentication", "onSuccess"+loginResult);
-//                handleFacebookToken(loginResult.getAccessToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//
-//            }
-//        });
     }
-
-//    private void handleFacebookToken(AccessToken accessToken) {
-//        Log.d("handleFacebookToken", accessToken.getToken());
-//        AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
-//        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    Log.d("success","Facebook login success");
-//                    FirebaseUser user = mAuth.getCurrentUser();
-//                    updateUI(user);
-//                }
-//                else {
-//                    Log.d("failed","Facebook login failed"+task.getException().getMessage());
-//                    updateUI(null);
-//                }
-//            }
-//        });
-//    }
 
     private void SignUp(final String name, String email, String password, String confirm){
         if (email.equals("")||password.equals("")||confirm.equals("")) {
@@ -154,7 +102,8 @@ public class SignUpActivity extends Activity {
                                     });
                                     userdb.onDisconnect();
                                     updateUI(user);
-                                } else {
+                                }
+                                else {
                                     // If sign in fails, display a message to the user.
                                     Log.d("SignUp", "createUserWithEmail:failure " + task.getException().getMessage());
                                     Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -166,59 +115,10 @@ public class SignUpActivity extends Activity {
         }
     }
 
-//    private void SignInWithGoogle(GoogleSignInClient mGoogleSignInClient){
-//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//        startActivityForResult(signInIntent, RC_SIGN_IN);
-//    }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        callbackManager.onActivityResult(requestCode, resultCode, data);
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-//        if (requestCode == RC_SIGN_IN) {
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//          try{
-//              // Google Sign In was successful, authenticate with Firebase
-//              GoogleSignInAccount account = task.getResult(ApiException.class);
-//              Log.d("success", "firebaseAuthWithGoogle:" + account.getId());
-//              firebaseAuthWithGoogle(account.getIdToken());
-//          } catch (ApiException e) {
-//              // Google Sign In failed, update UI appropriately
-//              Log.d("failed", "Google sign in failed", e);
-//              // ...
-//          }
-//        }
-//    }
-
-//    private void firebaseAuthWithGoogle(String idToken) {
-//        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-//        mAuth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d("success", "signInWithCredential:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.d("failed",  task.getException().getMessage());
-//                            Toast.makeText(SignUpActivity.this, "Authentication Failed.",Toast.LENGTH_LONG).show();
-//                            updateUI(null);
-//                        }
-//
-//                        // ...
-//                    }
-//                });
-//    }
-
     private void updateUI(FirebaseUser user) {
         progressDialog.dismiss();
         if (user == null) {
-            Toast.makeText(this,"Đăng nhập thất bại",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Đăng ký thất bại",Toast.LENGTH_LONG).show();
         }
         else {
             user.sendEmailVerification()
@@ -231,7 +131,7 @@ public class SignUpActivity extends Activity {
                         }
                     });
             if(!user.isEmailVerified()){
-                Toast.makeText(this,"Vui lòng xác nhận email!!",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Vui lòng xác nhận email !",Toast.LENGTH_LONG).show();
 
             }
             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
@@ -254,8 +154,6 @@ public class SignUpActivity extends Activity {
         edtPassword = (EditText) findViewById(R.id.editPasword);
         edtConfirmPassword = (EditText) findViewById(R.id.editConfirm);
         btnSignUp = (Button) findViewById(R.id.buttonSignIn);
-//        btnSignInWithFacebook= (LoginButton) findViewById(R.id.buttonFacebook);
-//        btnSignInWithGoogle = (SignInButton) findViewById(R.id.buttonGoogle);
         signIn = (TextView) findViewById(R.id.signIn);
         progressDialog = new ProgressDialog(SignUpActivity.this);
         progressDialog.setTitle("Processing...");

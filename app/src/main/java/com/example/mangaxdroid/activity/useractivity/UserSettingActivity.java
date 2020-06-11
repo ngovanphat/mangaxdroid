@@ -60,10 +60,19 @@ public class UserSettingActivity extends AppCompatActivity {
                             .setMessage("Bạn không thể thay đổi tên người dùng khi đăng nhập bằng tài khoản Facebook hoặc Google !")
                             .setPositiveButton("OK", null)
                             .show();
+//                    changeUserName = ChangeUserName.newInstance();
+//                    changeUserName.show(getSupportFragmentManager(), "dialog");
                 }
                 else {
                     changeUserName = ChangeUserName.newInstance();
                     changeUserName.show(getSupportFragmentManager(), "dialog");
+
+//                    AlertDialog.Builder myBuilder = new AlertDialog.Builder(UserSettingActivity.this);
+//                    myBuilder.setIcon(R.drawable.mangaxdroid)
+//                            .setTitle("Thông báo")
+//                            .setMessage("Bạn không thể thay đổi tên người dùng khi đăng nhập bằng tài khoản Facebook hoặc Google !")
+//                            .setPositiveButton("OK", null)
+//                            .show();
                 }
             }
         });
@@ -72,8 +81,23 @@ public class UserSettingActivity extends AppCompatActivity {
         passwordChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changePW = ChangePassword.newInstance();
-                changePW.show(getSupportFragmentManager(), "dialog");
+                String providerID = "";
+                for (UserInfo profile : user.getProviderData()) {
+                    providerID = profile.getProviderId();
+                }
+                if (providerID.equals("facebook.com") || providerID.equals("google.com"))
+                {
+                    AlertDialog.Builder myBuilder = new AlertDialog.Builder(UserSettingActivity.this);
+                    myBuilder.setIcon(R.drawable.mangaxdroid)
+                            .setTitle("Thông báo")
+                            .setMessage("Bạn không thể thay đổi tên mật khẩu khi đăng nhập bằng tài khoản Facebook hoặc Google !")
+                            .setPositiveButton("OK", null)
+                            .show();
+                }
+                else {
+                    changePW = ChangePassword.newInstance();
+                    changePW.show(getSupportFragmentManager(), "dialog");
+                }
             }
         });
     }
