@@ -93,9 +93,11 @@ public class MainActivity<DatabaseReference> extends FragmentActivity {
         }
         pressBackTwoTimes = true;
         bottomNavigationView.setSelectedItemId(R.id.page_1);
+        if(bottomNavigationView.getSelectedItemId() != R.id.page_1){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frameMain, HomeFragment.newInstance());
         transaction.commit();
+        }
         Toast.makeText(MainActivity.this,"Nhấn lần nữa để thoát",Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
 
