@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.example.mangaxdroid.R;
 import com.example.mangaxdroid.activity.useractivity.UserFavoriteListActivity;
 import com.example.mangaxdroid.activity.useractivity.UserHistoryListActivity;
 import com.example.mangaxdroid.activity.useractivity.UserOfflineListActivity;
+import com.example.mangaxdroid.activity.useractivity.UserReportListActivity;
 import com.example.mangaxdroid.activity.useractivity.UserSettingActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,7 @@ import java.util.Objects;
 public class UserFragment extends Fragment {
     private FragmentActivity myContext;
     private TextView readOffline, readHistory, listFavorite, accountSetting,username;
+    private LinearLayout listReport;
     private FirebaseUser user;
     private Button btnLogout;
     private ImageView userAvatar;
@@ -90,6 +93,7 @@ public class UserFragment extends Fragment {
         btnLogout = (Button) view.findViewById(R.id.buttonLogOut);
         if(user!=null)
         loadUser(user);
+        checkRole();
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +131,14 @@ public class UserFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        listReport=(LinearLayout) view.findViewById(R.id.listReports);
+        listReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), UserReportListActivity.class);
+                startActivity(intent);
+            }
+        });
         accountSetting = (TextView) view.findViewById(R.id.accountSetting);
         accountSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,5 +148,23 @@ public class UserFragment extends Fragment {
             }
         });
         return view;
+    }
+    public void checkRole(){
+        final FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            final DatabaseReference dbRef= FirebaseDatabase.getInstance().getReference("Roles");
+            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChild(user.getUid()) && dataSnapshot.child(user.getUid()).getValue().equals("Admin")){
+                        listReport.setVisibility(View.VISIBLE);
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+            dbRef.onDisconnect();
+        }
     }
 }

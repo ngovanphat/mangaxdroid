@@ -28,8 +28,11 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:text=" "
+            android:gravity="center_vertical"
             android:textColor="@color/gray"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -56,8 +59,11 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:text=" "
+            android:gravity="center_vertical"
             android:textColor="@color/gray"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -83,8 +89,11 @@
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:textColor="@color/gray"
+            android:gravity="center_vertical"
             android:textSize="15sp"
-            android:text=" " />
+            android:text=" "
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -111,9 +120,12 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
+            android:gravity="center_vertical"
             android:text=""
             android:textColor="@color/gray"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
     </LinearLayout>
 
     <TextView
@@ -122,6 +134,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
         android:paddingTop="3dp"
+        android:paddingBottom="5dp"
         android:text="Chi tiết: "
         android:textColor="@color/black"
         android:textSize="15sp" />

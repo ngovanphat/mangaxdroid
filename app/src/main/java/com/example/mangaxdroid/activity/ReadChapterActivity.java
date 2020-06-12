@@ -66,6 +66,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.SyncTree;
 import com.squareup.picasso.Picasso;
@@ -448,11 +449,11 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                 //This method returns the time in millis
                 long timeMilli = date.getTime();
                 //add new
-                reportDb.child(key).child("Manga").setValue(mangaId);
+                reportDb.child(key).child("Manga").setValue(manga.getName());
                 reportDb.child(key).child("Chapter").setValue(chapterName);
                 reportDb.child(key).child("Topic").setValue(topic);
                 reportDb.child(key).child("Details").setValue(details);
-                reportDb.child(key).child("createdAt").setValue(timeMilli,new DatabaseReference.CompletionListener() {
+                reportDb.child(key).child("createdAt").setValue(ServerValue.TIMESTAMP,new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         if (databaseError == null) {
@@ -527,7 +528,7 @@ public class ReadChapterActivity extends AppCompatActivity implements ReadVertic
                 handler.removeCallbacks(runnable);
             }
         });
-        handler.postDelayed(runnable, 4000);
+        handler.postDelayed(runnable, 3000);
     }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);

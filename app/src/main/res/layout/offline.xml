@@ -7,19 +7,8 @@
     tools:context=".activity.useractivity.UserFavoriteListActivity"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBarFavorite"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/teal"
-        app:title="      TRUYỆN ĐÃ TẢI"
-        app:titleMarginStart="40dp"
-        android:foregroundTint="@color/white"
-        app:titleTextColor="@color/white"
-        android:visibility="visible" />
-
     <ListView
-        android:id="@+id/listFavorites"
+        android:id="@+id/listOffline"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -10,14 +10,15 @@ public class Report {
     private Manga mangaInfo;
     private String Manga;
     private String Details;
-    private Date createdAt;
+    private long createdAt;
     public Report(){};
-    public Report(String topic,String chapterId,String mangaId,String details,long createdAt){
+    public Report(String id,String topic,String chapterId,String mangaId,String details,long createdAt){
+        this.id=id;
         this.Topic=topic;
         this.Chapter=chapterId;
         this.Manga=mangaId;
         this.Details=details;
-        this.createdAt=new Date(createdAt);
+        this.createdAt=createdAt;
         this.phoneModel="";
     }
 
@@ -63,11 +64,11 @@ public class Report {
         Details = details;
     }
 
-    public Date getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 

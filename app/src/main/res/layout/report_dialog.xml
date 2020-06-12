@@ -67,6 +67,7 @@
         android:gravity="top|left"
         android:scrollbars="vertical"
         android:lines="5"
-        android:text="" />
+        android:text=""
+        android:maxLength="300"/>
 
 </RelativeLayout>

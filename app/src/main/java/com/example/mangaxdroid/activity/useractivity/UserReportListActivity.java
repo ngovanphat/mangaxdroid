@@ -2,12 +2,15 @@ package com.example.mangaxdroid.activity.useractivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -25,9 +28,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Repo;
 
+import org.ocpsoft.prettytime.PrettyTime;
+import org.ocpsoft.prettytime.i18n.Resources_vi;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserReportListActivity extends AppCompatActivity {
@@ -35,22 +44,76 @@ public class UserReportListActivity extends AppCompatActivity {
     ListView listView;
     Toolbar toolbar;
     ReportAdapter adapter;
+    String oldestReportID="";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history);
+        setContentView(R.layout.activity_report_list);
 
-        listView = (ListView) findViewById(R.id.listFavorites);
-        toolbar = (Toolbar) findViewById(R.id.toolBarFavorite);
+        listView = (ListView) findViewById(R.id.listReports);
+        toolbar = (Toolbar) findViewById(R.id.toolBarReports);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //show details
+                TextView details=(TextView)view.findViewById(R.id.detailsReport);
+                if(details.getVisibility()==View.GONE){
+                    details.setVisibility(View.VISIBLE);
+                }else if (details.getVisibility()==View.VISIBLE){
+                    details.setVisibility(View.GONE);
+                }
             }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            private int currentVisibleItemCount;
+            private int currentScrollState;
+            private int currentFirstVisibleItem;
+            private int totalItem;
+            @Override
+            public void onScrollStateChanged (AbsListView view,int scrollState){
+                this.currentScrollState = scrollState;
+                this.isScrollCompleted();
+            }
+            @Override
+            public void onScroll (AbsListView view,int firstVisibleItem,
+                                  int visibleItemCount, int totalItemCount){
+                this.currentFirstVisibleItem = firstVisibleItem;
+                this.currentVisibleItemCount = visibleItemCount;
+                this.totalItem = totalItemCount;
+            }
+            private void isScrollCompleted () {
+                if (totalItem - currentFirstVisibleItem == currentVisibleItemCount
+                        && this.currentScrollState == SCROLL_STATE_IDLE) {
+                    final DatabaseReference reportsDb = FirebaseDatabase.getInstance().getReference("Reports");
+                    reportsDb.orderByKey().endAt(oldestReportID).limitToLast(5).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<Report> temp= new ArrayList<>();
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                if(!ds.getKey().equals(oldestReportID)){
+                                    Report item = ds.getValue(Report.class);
+                                    item.setId(ds.getKey());
+                                    temp.add(item);
+                                }
+                            }
+                            if(!temp.isEmpty()){
+                                oldestReportID = temp.get(0).getId();
+                                Collections.reverse(temp);
+                                reports.addAll(temp);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            }
+
         });
     }
 
@@ -61,38 +124,26 @@ public class UserReportListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void getReportList(){
-        reports = new ArrayList<>();
+    public void getInitialReportList(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            final AtomicBoolean flag=new AtomicBoolean(false);
-            final DatabaseReference rolesDb = FirebaseDatabase.getInstance().getReference("Roles");
-            rolesDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if (!snapshot.hasChild(user.getUid())) {
-                        if (snapshot.child(user.getUid()).getValue().equals("Admin")) {
-                            flag.set(true);
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-            final ArrayList<String> mangaListIds = new ArrayList<String>();
             final DatabaseReference reportsDb = FirebaseDatabase.getInstance().getReference("Reports");
-            final Query reportsQuery=reportsDb.orderByChild("createdAt");
-            reportsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            reportsDb.orderByKey().limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    if(flag.get())
-                        return;
-                    reports.clear();
+                    reports = new ArrayList<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        reports.add(ds.getValue(Report.class));
-                        adapter.notifyDataSetChanged();
+                        Report item = ds.getValue(Report.class);
+                        item.setId(ds.getKey());
+                        reports.add(item);
                     }
+                    if(!reports.isEmpty()){
+                        oldestReportID = reports.get(0).getId();
+                        Collections.reverse(reports);
+                    }
+                    adapter=new ReportAdapter(UserReportListActivity.this,R.layout.report_custom_row,reports);
+                    listView.setAdapter(adapter);
+                    reportsDb.onDisconnect();
                 }
 
                 @Override
@@ -111,6 +162,7 @@ public class UserReportListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getInitialReportList();
     }
     public class ReportAdapter extends BaseAdapter {
         private Context context;
@@ -146,8 +198,9 @@ public class UserReportListActivity extends AppCompatActivity {
         private class ViewHolder {
             TextView topic;
             TextView details;
+            TextView detailsLabel;
             TextView createdAt;
-            TextView phoneModel;
+            //TextView phoneModel;
             TextView mangaName;
             TextView chapter;
         }
@@ -160,34 +213,29 @@ public class UserReportListActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(layout, null);
                 holder.topic= (TextView) convertView.findViewById(R.id.topicReport);
+                holder.detailsLabel=(TextView)convertView.findViewById(R.id.detailsReportlbl);
                 holder.details = (TextView) convertView.findViewById(R.id.detailsReport);
                 holder.createdAt = (TextView) convertView.findViewById(R.id.createdAt);
                 holder.mangaName=(TextView) convertView.findViewById(R.id.mangaName);
                 holder.chapter=(TextView) convertView.findViewById(R.id.chapterId);
+                holder.detailsLabel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        holder.details.setVisibility(View.VISIBLE);
+                    }
+                });
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             Report report=reportList.get(position);
             holder.topic.setText(report.getTopic());
-            //        holder.categoryManga.setText(manga.getCategory());
+            holder.mangaName.setText(report.getManga());
+            holder.chapter.setText(report.getChapter());
             holder.details.setText(report.getDetails());
-            holder.createdAt.setText(report.getCreatedAt().toString());
-            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Data/Mangas/ActionCategory");
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot children : dataSnapshot.getChildren()) {
-                        Manga manga = children.getValue(Manga.class);
-                        manga.setId(children.getKey());
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                }
-            });
+            PrettyTime prettyTime = new PrettyTime();
+            String date = prettyTime.format(new Date(Math.abs(report.getCreatedAt())));
+            holder.createdAt.setText(String.valueOf(date));
             return convertView;
         }
     }
