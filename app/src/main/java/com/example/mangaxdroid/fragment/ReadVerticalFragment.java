@@ -215,7 +215,13 @@ public class ReadVerticalFragment extends Fragment {
                         }
                     }
                     if(pageCount!=0)//để không ẩn menu khi vừa chuyển dạng xem (scrolltoPos trigger đổi trang)
-                        listView.smoothScrollToPositionFromTop(pageCount,0);
+                        listView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //listView.smoothScrollToPositionFromTop(pageCount, 0);
+                                listView.setSelection(pageCount);
+                            }
+                        });
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

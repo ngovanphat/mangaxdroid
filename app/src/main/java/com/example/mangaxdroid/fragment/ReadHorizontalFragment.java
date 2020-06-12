@@ -142,7 +142,12 @@ public class ReadHorizontalFragment extends Fragment {
                         }
                     }
                     if(pageCount!=0)//để không ẩn menu khi vừa chuyển dạng xem (setCurrentItem trigger đổi trang)
-                        viewPager.setCurrentItem(pageCount);
+                        viewPager.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewPager.setCurrentItem(pageCount);
+                            }
+                        });
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
