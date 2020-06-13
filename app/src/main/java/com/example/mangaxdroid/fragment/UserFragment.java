@@ -108,13 +108,13 @@ public class UserFragment extends Fragment {
             }
         });
         readOffline = (TextView) view.findViewById(R.id.readOffline);
-        readOffline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), UserOfflineListActivity.class);
-                startActivity(intent);
-            }
-        });
+//        readOffline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(view.getContext(), UserOfflineListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         listFavorite = (TextView) view.findViewById(R.id.listFavorite);
         listFavorite.setOnClickListener(new View.OnClickListener() {
             @Override

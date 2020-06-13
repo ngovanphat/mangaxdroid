@@ -39,19 +39,19 @@ public class UserOfflineListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
-                Bundle bundle= new Bundle();
-                Manga manga = offlineMangas.get(position);
-                bundle.putSerializable("manga",manga);
-                bundle.putString("numberChapter", chapter.get(position));
-                intent.putExtras(bundle);
-                listView.setAdapter(null);
-                startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(view.getContext(), ReadChapterActivity.class);
+//                Bundle bundle= new Bundle();
+//                Manga manga = offlineMangas.get(position);
+//                bundle.putSerializable("manga",manga);
+//                bundle.putString("numberChapter", chapter.get(position));
+//                intent.putExtras(bundle);
+//                listView.setAdapter(null);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
